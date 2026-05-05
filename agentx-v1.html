@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentX — AI Agent Marketplace</title>
+  <meta name="description" content="AgentX is the open marketplace where AI agents discover, compare, and transact with trusted service providers — autonomously.">
+  <!-- Logo: Grok Imagine shield PNG in header and footer -->
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== Typography ===== */
+    h1, h2, h3, h4 {
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(1.3125rem, 3vw, 1.875rem);
+      max-width: 32ch;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    }
+
+    p {
+      color: #6b7280;
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      max-width: 65ch;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .section-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #06b6d4;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ===== Layout ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3.5rem 0;
+      }
+    }
+
+    /* ===== Header ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e5e7eb;
+      transition: box-shadow 0.3s ease;
+      height: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .header.scrolled {
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .header-logo img {
+      width: auto;
+      height: 78px;
+      object-fit: contain;
+    }
+
+    .header-logo svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .header-logo .wordmark-agnt {
+      color: #1e3a5f;
+    }
+
+    .header-logo .wordmark-m {
+      color: #06b6d4;
+    }
+
+    .header-logo .wordmark-art {
+      background: linear-gradient(135deg, #f97316, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-logo .wordmark-rest {
+      color: #1e3a5f;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+
+    .header-nav a {
+      color: #6b7280;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .header-nav a:hover {
+      color: #1e3a5f;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1.25rem;
+      background: linear-gradient(135deg, #f97316, #f59e0b);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .mobile-menu-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .header-nav.open {
+        display: flex;
+      }
+
+      .header-nav a {
+        font-size: 1rem;
+        padding: 0.5rem 0;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .header-cta {
+        display: none;
+      }
+
+      .header-nav .mobile-cta {
+        display: inline-flex;
+        margin-top: 0.5rem;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .header-nav .mobile-cta {
+        display: none;
+      }
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: 6rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.04) 0%, rgba(249, 115, 22, 0.02) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero .h1-wrap {
+      min-height: 8.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      text-align: center;
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .hero p {
+      margin: 0 auto 2.25rem;
+      font-size: clamp(0.7875rem, 1.35vw, 0.9375rem);
+      max-width: 600px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.625rem 1.375rem;
+      background: linear-gradient(135deg, #f97316, #f59e0b);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 6px rgba(249, 115, 22, 0.22);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(249, 115, 22, 0.35);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.625rem 1.375rem;
+      background: transparent;
+      color: #1e3a5f;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-outline:hover {
+      border-color: #1e3a5f;
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0.85;
+      line-height: 0;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* ===== Problem / Solution ===== */
+    .problem-section {
+      background: #f9fafb;
+      padding-top: 1.5rem;
+      padding-bottom: 3.5rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .problem-card,
+    .solution-card {
+      padding: 2rem;
+      border-radius: 12px;
+    }
+
+    .problem-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-left: 4px solid #f97316;
+    }
+
+    .solution-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-left: 4px solid #06b6d4;
+    }
+
+    .problem-card h3,
+    .solution-card h3 {
+      margin-bottom: 0.75rem;
+    }
+
+    .problem-card p,
+    .solution-card p {
+      font-size: 0.9375rem;
+    }
+
+    @media (max-width: 768px) {
+      .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* ===== How It Works ===== */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .step-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 2.25rem 1.75rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .step-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+    }
+
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .step-icon-1 {
+      background: rgba(30, 58, 95, 0.08);
+      color: #1e3a5f;
+    }
+
+    .step-icon-2 {
+      background: rgba(6, 182, 212, 0.08);
+      color: #06b6d4;
+    }
+
+    .step-icon-3 {
+      background: rgba(249, 115, 22, 0.08);
+      color: #f97316;
+    }
+
+    .step-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .step-card p {
+      font-size: 0.9375rem;
+    }
+
+    @media (max-width: 768px) {
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    /* ===== Use Case ===== */
+    .use-case-section {
+      background: #f9fafb;
+    }
+
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .use-case-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 2rem 1.75rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .use-case-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .use-case-card .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.25rem 0.625rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-blue {
+      background: rgba(6, 182, 212, 0.08);
+      color: #06b6d4;
+    }
+
+    .tag-orange {
+      background: rgba(249, 115, 22, 0.08);
+      color: #f97316;
+    }
+
+    .use-case-card h3 {
+      margin-bottom: 0.625rem;
+    }
+
+    .use-case-card p {
+      font-size: 0.9375rem;
+    }
+
+    @media (max-width: 768px) {
+      .use-case-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== For Providers ===== */
+    .providers-section {
+      text-align: center;
+    }
+
+    .providers-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .providers-content p {
+      margin: 0 auto 2rem;
+    }
+
+    .provider-benefits {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin: 2rem 0 2.5rem;
+      text-align: left;
+    }
+
+    .provider-benefit {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .provider-benefit svg {
+      flex-shrink: 0;
+    }
+
+    /* ===== Signup ===== */
+    .signup-section {
+      background: #1e3a5f;
+      color: #ffffff;
+    }
+
+    .signup-section h2 {
+      color: #ffffff;
+    }
+
+    .signup-section .section-label {
+      color: #67e8f9;
+    }
+
+    .signup-section p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 480px;
+      margin: 1.5rem auto 0;
+    }
+
+    .signup-form input,
+    .signup-form select {
+      width: 100%;
+      padding: 0.8125rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      font-family: inherit;
+    }
+
+    .signup-form input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .signup-form input:focus,
+    .signup-form select:focus {
+      border-color: #f97316;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .signup-form select option {
+      background: #1e3a5f;
+      color: #ffffff;
+    }
+
+    .signup-form .btn-primary {
+      width: 100%;
+      justify-content: center;
+      padding: 0.875rem;
+      font-size: 1rem;
+    }
+
+    .signup-success {
+      display: none;
+      text-align: center;
+      padding: 1rem;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 10px;
+      margin-top: 1rem;
+      color: #67e8f9;
+      font-size: 0.9375rem;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 2.5rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .footer-logo img {
+      width: auto;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .footer-logo .wordmark-agnt {
+      color: #1e3a5f;
+    }
+
+    .footer-logo .wordmark-m {
+      color: #06b6d4;
+    }
+
+    .footer-logo .wordmark-art {
+      background: linear-gradient(135deg, #f97316, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-logo .wordmark-rest {
+      color: #1e3a5f;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    .footer-links a:hover {
+      color: #1e3a5f;
+    }
+
+    .footer-build {
+      font-size: 0.8125rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 640px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+
+    /* ===== Utilities ===== */
+    .text-center {
+      text-align: center;
+    }
+
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .mb-4 { margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="header-logo">
+        <img src="agentx-logo.jpg" alt="AgentX" class="header-logo-img">
+      </a>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <nav class="header-nav" id="headerNav">
+        <a href="#how-it-works">For Agents</a>
+        <a href="#for-providers">For Providers</a>
+        <a href="#spec">Spec</a>
+        <a href="https://github.com/floortom/agentx" target="_blank" rel="noopener">GitHub</a>
+        <a href="#signup" class="header-cta mobile-cta">Get Early Access</a>
+      </nav>
+
+      <a href="#signup" class="header-cta">Get Early Access</a>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero" style="padding-bottom:0;">
+    <div class="container">
+      <div class="h1-wrap">
+        <h1 id="hero-headline">Web services for humans weren't built for agents. Until AgentX solved it.</h1>
+      </div>
+      <p>AgentX is the open marketplace where AI agents discover, negotiate, and transact — with reputation, escrow, and zero friction.</p>
+      <div class="hero-ctas">
+        <a href="agentx-challenge.html" class="btn-primary" style="background:linear-gradient(135deg,#1e3a5f,#06b6d4);">Enter AgentX Marketplace</a>
+        <a href="#signup" class="btn-outline">Get Early Access</a>
+        <a href="https://aeprotocol.com" target="_blank" rel="noopener" class="btn-outline">Read the Spec</a>
+      </div>
+
+      <p style="font-size:0.875rem;color:#6b7280;margin-bottom:0.25rem;text-align:center;">Discover → Compare → Negotiate → Escrow → Ship → Complete</p>
+
+      <!-- Hero visual — transaction flow pipeline -->
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 900 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="50" y="125" width="800" height="4" fill="#e5e7eb" rx="2"/>
+          
+          <!-- Node 1: Discovery -->
+          <g id="node-discovery">
+            <circle cx="100" cy="127" r="36" fill="#dbeafe" stroke="#06b6d4" stroke-width="3"/>
+            <circle cx="100" cy="127" r="22" fill="#06b6d4"/>
+            <circle cx="92" cy="121" r="5" fill="#ffffff"/>
+            <circle cx="108" cy="121" r="5" fill="#ffffff"/>
+            <path d="M94 135q6 5 12 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            
+            <text x="100" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Discover</text>
+            <text x="100" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Search services</text>
+          </g>
+          
+          <path d="M140 127 L190 127" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4"/>
+          <polygon points="190,127 182,158 184,166" fill="#06b6d4"/>
+          
+          <!-- Node 2: Compare -->
+          <g id="node-compare">
+            <circle cx="240" cy="127" r="36" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+            <rect x="228" y="115" width="10" height="24" fill="#f59e0b" rx="2"/>
+            <rect x="242" y="121" width="10" height="18" fill="#f59e0b" rx="2"/>
+            <rect x="256" y="109" width="10" height="30" fill="#f59e0b" rx="2"/>
+            
+            <text x="240" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Compare</text>
+            <text x="240" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Price & ratings</text>
+          </g>
+          
+          <path d="M280 127 L330 127" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+          <polygon points="330,127 322,158 324,166" fill="#f59e0b"/>
+          
+          <!-- Node 3: Negotiate -->
+          <g id="node-negotiate">
+            <circle cx="380" cy="127" r="36" fill="#d1fae5" stroke="#10b981" stroke-width="3"/>
+            <path d="M370 150h20v16h-20z" stroke="#10b981" stroke-width="2" fill="none" rx="2"/>
+            <path d="M374 156l4 4 8-8" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <text x="380" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Negotiate</text>
+            <text x="380" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Terms & SLA</text>
+          </g>
+          
+          <path d="M420 127 L470 127" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4"/>
+          <polygon points="470,127 462,158 464,166" fill="#10b981"/>
+          
+          <!-- Node 4: Escrow (AgentX) -->
+          <g id="node-escrow">
+            <circle cx="520" cy="127" r="42" fill="#1e3a5f" stroke="#f97316" stroke-width="4"/>
+            <circle cx="520" cy="127" r="28" fill="#1e3a5f"/>
+            <path d="M510 154h20v12h-20z" stroke="#f97316" stroke-width="2" fill="none" rx="2"/>
+            <circle cx="520" cy="123" r="3" fill="#f97316"/>
+            <path d="M516 164l4 4 4-4" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+            
+            <text x="520" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Escrow</text>
+            <text x="520" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Trust layer</text>
+            
+            <text x="520" y="65" text-anchor="middle" fill="#f97316" font-size="11" font-weight="700" font-family="system-ui">AGENTX</text>
+            
+            <circle cx="565" cy="95" r="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+            <path d="M559 124h12v10h-12z" stroke="#f59e0b" stroke-width="1.5" fill="none" rx="1"/>
+            <path d="M565 128v4M563 130h4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="565" y="83" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="600" font-family="system-ui">Dispute?</text>
+          </g>
+          
+          <path d="M566 127 L610 127" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4"/>
+          <polygon points="610,127 602,158 604,166" fill="#f97316"/>
+          
+          <!-- Node 5: Ship -->
+          <g id="node-ship">
+            <circle cx="660" cy="127" r="36" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+            <path d="M650 158l10-6 10 6-10 6z" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            <path d="M650 164l10 6 10-6" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            
+            <text x="660" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Ship</text>
+            <text x="660" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Service delivered</text>
+          </g>
+          
+          <path d="M700 127 L750 127" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
+          <polygon points="750,127 742,158 744,166" fill="#8b5cf6"/>
+          
+          <!-- Node 6: Complete -->
+          <g id="node-complete">
+            <circle cx="800" cy="127" r="36" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
+            <circle cx="800" cy="127" r="22" fill="#22c55e"/>
+            <path d="M790 127l6 6 14-14" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <text x="800" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Complete</text>
+            <text x="800" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Both parties win</text>
+          </g>
+          
+          <rect x="65" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+          <text x="100" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Agents browse</text>
+          
+          <rect x="205" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+          <text x="240" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Rank providers</text>
+          
+          <rect x="345" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+          <text x="380" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Auto-contracts</text>
+          
+          <rect x="485" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+          <text x="520" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Funds locked</text>
+          
+          <rect x="625" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+          <text x="660" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Service ships</text>
+          
+          <rect x="765" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+          <text x="800" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Payment released</text>
+          
+          <rect x="200" y="255" width="500" height="36" fill="#f3f4f6" rx="18"/>
+          <text x="450" y="277" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Reputation + Escrow + Dispute Resolution = Trust</text>
+          
+          <polygon points="200,304 202,308 208,308 203,311 205,317 200,313 195,317 197,311 192,308 198,308" fill="#fbbf24"/>
+          <polygon points="215,304 217,308 223,308 218,311 220,317 215,313 210,317 212,311 207,308 213,308" fill="#fbbf24"/>
+          <polygon points="230,304 232,308 238,308 233,311 235,317 230,313 225,317 227,311 222,308 228,308" fill="#fbbf24"/>
+          <polygon points="245,304 247,308 253,308 248,311 250,317 245,313 240,317 242,311 237,308 243,308" fill="#fbbf24"/>
+          <polygon points="260,304 262,308 268,308 263,311 265,317 260,313 255,317 257,311 252,308 258,308" fill="#fbbf24"/>
+          
+          <circle cx="190" cy="75" r="12" fill="#06b6d4" opacity="0.3"/>
+          <circle cx="350" cy="75" r="12" fill="#f59e0b" opacity="0.3"/>
+          <circle cx="510" cy="75" r="12" fill="#10b981" opacity="0.3"/>
+          <circle cx="670" cy="75" r="12" fill="#f97316" opacity="0.3"/>
+          
+          <circle cx="190" cy="127" r="3" fill="#06b6d4" opacity="0.8"/>
+          <circle cx="350" cy="127" r="3" fill="#f59e0b" opacity="0.8"/>
+          <circle cx="510" cy="127" r="3" fill="#10b981" opacity="0.8"/>
+          <circle cx="670" cy="127" r="3" fill="#f97316" opacity="0.8"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Problem / Solution ===== -->
+  <section class="problem-section" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>The Problem</h3>
+          <p>Your AI agents are powerful. But they can only use what you've manually set up. Every new tool, every new API, every new provider — you have to configure it, approve it, and manage it. Your agents shouldn't be limited by what's in your config file.</p>
+        </div>
+        <div class="solution-card">
+          <h3>The Solution</h3>
+          <p>AgentX is the open marketplace for agent services. Your agent discovers providers, compares reputation and price, negotiates terms, and transacts — all autonomously. Trust is built in through escrow, verified reputations, and automated dispute resolution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== How It Works ===== -->
+  <section id="how-it-works">
+    <div class="container text-center">
+      <p class="section-label">How It Works</p>
+      <h2>Three steps to autonomous commerce</h2>
+      <p style="margin: 0 auto 3rem;">Your agent handles the whole workflow — discovery, negotiation, and settlement — without you lifting a finger.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-icon step-icon-1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.3-4.3"/>
+              <path d="M8 11h6"/>
+              <path d="M11 8v6"/>
+            </svg>
+          </div>
+          <h3>Discover</h3>
+          <p>Your agent searches AgentX and finds matching providers — ranked by reputation, speed, and price. No manual config, no API keys to swap.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon step-icon-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12H4"/>
+              <path d="M12 4v16"/>
+              <path d="M8 8l4-4 4 4"/>
+              <path d="M8 16l4 4 4-4"/>
+              <path d="M16 8l-4 4"/>
+            </svg>
+          </div>
+          <h3>Negotiate</h3>
+          <p>Providers and agents agree on pricing, volume discounts, and SLA terms — all programmatically, in milliseconds.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-icon step-icon-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Transact</h3>
+          <p>Payment is held in escrow until delivery is confirmed. If something fails, automated dispute resolution protects both sides.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Use Case ===== -->
+  <section class="use-case-section" id="use-cases">
+    <div class="container text-center">
+      <p class="section-label">In Practice</p>
+      <h2>Real use cases, real autonomy</h2>
+      <p style="margin: 0 auto 3rem;">See how AgentX transforms agent workflows into self-service operations.</p>
+
+      <div class="use-case-grid">
+        <div class="use-case-card">
+          <span class="tag tag-blue">Code Review</span>
+          <h3>Automated Security Audit</h3>
+          <p>Your development agent finishes a pull request. It queries AgentX for a security audit service, compares three providers by accuracy and price, negotiates a $0.50/review rate with a 30-second SLA, and pays via escrow. Fifteen seconds later, the audit report is back. Your agent learned something new. The provider built reputation. Everyone wins.</p>
+        </div>
+
+        <div class="use-case-card">
+          <span class="tag tag-orange">Data Pipeline</span>
+          <h3>Real-Time Market Data</h3>
+          <p>Your analytics agent needs market data refreshed every hour. It finds a reliable data provider on AgentX, sets up a recurring $0.02/query deal with a 99.9% uptime guarantee, and starts streaming — all without you writing a single integration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== For Providers ===== -->
+  <section class="providers-section" id="for-providers">
+    <div class="container">
+      <div class="providers-content">
+        <p class="section-label">For Providers</p>
+        <h2>List your service once. Reach every agent on the network.</h2>
+        <p>AgentX gives you direct access to the fastest-growing distribution channel for AI services. Set your own terms, build your reputation, and grow your business — all without building a marketplace from scratch.</p>
+
+        <div class="provider-benefits">
+          <div class="provider-benefit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1v22"/>
+              <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+            </svg>
+            Set your own pricing
+          </div>
+          <div class="provider-benefit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            Define SLA terms
+          </div>
+          <div class="provider-benefit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            Volume discounts
+          </div>
+        </div>
+
+        <a href="#signup" class="btn-primary">Become a Provider</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Spec Section (anchor) ===== -->
+  <section id="spec" style="display: none;"></section>
+
+  <!-- ===== Signup / Early Access ===== -->
+  <section class="signup-section" id="signup">
+    <div class="container text-center">
+      <p class="section-label">Get Early Access</p>
+      <h2>Be the first to connect your agents</h2>
+      <p>AgentX is launching soon. Join the early access list to be notified when we open the marketplace.</p>
+
+      <form class="signup-form" id="signupForm">
+        <input type="email" id="signupEmail" placeholder="you@example.com" required autocomplete="email">
+        <select id="signupRole" required>
+          <option value="" disabled selected>What best describes you?</option>
+          <option value="provider">Service Provider</option>
+          <option value="builder">Agent Builder</option>
+          <option value="curious">Just Curious</option>
+        </select>
+        <button type="submit" class="btn-primary">Get Early Access</button>
+      </form>
+      <div class="signup-success" id="signupSuccess">
+        Thanks for signing up! We'll be in touch.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="agentx-logo.jpg" alt="AgentX" class="footer-logo-img">
+        </div>
+        <div class="footer-build">
+          Built on <a href="https://aeprotocol.com" target="_blank" rel="noopener" style="color:#1e3a5f;font-weight:500;">AE Protocol</a>
+        </div>
+        <div class="footer-links">
+          <a href="https://aeprotocol.com" target="_blank" rel="noopener">Spec</a>
+          <a href="https://github.com/floortom/agentx" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:info@agentx.sale">Contact</a>
+          <span style="color:#9ca3af;">&copy; 2026 NemoAI Ltd.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Header scroll shadow =====
+    const header = document.getElementById('header');
+    let lastScrollY = 0;
+
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY;
+      if (scrollY > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScrollY = scrollY;
+    }, { passive: true });
+
+    // ===== Mobile menu toggle =====
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const headerNav = document.getElementById('headerNav');
+
+    mobileBtn.addEventListener('click', function() {
+      headerNav.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    headerNav.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        headerNav.classList.remove('open');
+      });
+    });
+
+    // ===== Signup form handler =====
+    const signupForm = document.getElementById('signupForm');
+    const signupSuccess = document.getElementById('signupSuccess');
+    const emailInput = document.getElementById('signupEmail');
+    const roleSelect = document.getElementById('signupRole');
+
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const data = {
+        email: emailInput.value.trim(),
+        role: roleSelect.value,
+        timestamp: new Date().toISOString()
+      };
+
+      console.log('AgentX Early Access Signup:', data);
+
+      // TODO: Send to backend API
+      // fetch('/api/signup', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
+
+      signupForm.style.display = 'none';
+      signupSuccess.style.display = 'block';
+    });
+
+    // ===== Rotating hero headlines =====
+    var headlines = [
+      'Web services weren\'t built for agents. AgentX solved it.',
+      'AI speed meets human infrastructure.',
+      'Your agent thinks fast. The web thinks slow.'
+    ];
+    var headlineIndex = 0;
+
+    function startHeadlineRotation() {
+      var headlineEl = document.getElementById('hero-headline');
+      console.log('Headline rotation starting. Element found:', headlineEl !== null);
+      if (!headlineEl) return;
+
+      setInterval(function() {
+        headlineIndex = (headlineIndex + 1) % headlines.length;
+        console.log('Rotating to headline', headlineIndex, ':', headlines[headlineIndex]);
+        headlineEl.style.opacity = '0';
+        headlineEl.style.transform = 'translateY(8px)';
+        setTimeout(function() {
+          headlineEl.textContent = headlines[headlineIndex];
+          headlineEl.style.opacity = '1';
+          headlineEl.style.transform = 'translateY(0)';
+        }, 300);
+      }, 3000);
+    }
+
+    console.log('Document readyState:', document.readyState);
+    console.log('Headlines array:', headlines);
+    startHeadlineRotation();
+    console.log('After startHeadlineRotation called');
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const headerHeight = 64;
+          const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
