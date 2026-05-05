@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgentX — AI Agent Marketplace</title>
-  <meta name="description" content="AgentX is the open marketplace where AI agents discover, compare, and transact with trusted service providers — autonomously.">
+  <meta name="description" content="AgentX is the open marketplace where AI agents discover, compare, and transact with verified service providers — via Stripe-secured payments.">
   <!-- Logo: Grok Imagine shield PNG in header and footer -->
   <style>
     /* ===== Reset & Base ===== */
@@ -77,12 +77,12 @@
     }
 
     section {
-      padding: 5rem 0;
+      padding: 4rem 0;
     }
 
     @media (max-width: 768px) {
       section {
-        padding: 3.5rem 0;
+        padding: 2.5rem 0;
       }
     }
 
@@ -309,7 +309,7 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
+      margin-bottom: 3rem;
     }
 
     .btn-primary {
@@ -364,52 +364,134 @@
       height: auto;
     }
 
-    /* ===== Problem / Solution ===== */
+    /* ===== Animations ===== */
+    @keyframes pulse-glow {
+      0%, 100% {
+        filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.6));
+        stroke-width: 4;
+      }
+      50% {
+        filter: drop-shadow(0 0 18px rgba(249, 115, 22, 1));
+        stroke-width: 5;
+      }
+    }
+
+    @keyframes check-bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      8% {
+        transform: translateY(-8px);
+      }
+      16% {
+        transform: translateY(0);
+      }
+      24% {
+        transform: translateY(-4px);
+      }
+      32% {
+        transform: translateY(0);
+      }
+    }
+
+    .escrow-pulse {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .complete-bounce {
+      animation: check-bounce 5s ease-in-out infinite;
+    }
     .problem-section {
-      background: #f9fafb;
-      padding-top: 1.5rem;
-      padding-bottom: 3.5rem;
+      background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
     }
 
     .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: 1rem;
+      perspective: 1000px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .problem-card,
     .solution-card {
       padding: 2rem;
-      border-radius: 12px;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+    }
+
+    .problem-card::before,
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .problem-card::before {
+      background: linear-gradient(90deg, #f97316, #f59e0b);
+    }
+
+    .solution-card::before {
+      background: linear-gradient(90deg, #06b6d4, #22d3ee);
     }
 
     .problem-card {
-      background: #ffffff;
+      border-left: none;
       border: 1px solid #e5e7eb;
-      border-left: 4px solid #f97316;
+      transform: rotateY(-1deg);
     }
 
     .solution-card {
-      background: #ffffff;
+      border-left: none;
       border: 1px solid #e5e7eb;
-      border-left: 4px solid #06b6d4;
+      transform: rotateY(1deg);
+    }
+
+    .problem-card:hover,
+    .solution-card:hover {
+      transform: rotateY(0deg) translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
     .problem-card h3,
     .solution-card h3 {
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .problem-card p,
     .solution-card p {
-      font-size: 0.9375rem;
+      font-size: 0.656rem;
+      line-height: 1.7;
     }
 
     @media (max-width: 768px) {
       .problem-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .problem-card,
+      .solution-card {
+        max-width: 100%;
+        transform: none;
       }
     }
 
@@ -760,19 +842,17 @@
   </header>
 
   <!-- ===== Hero ===== -->
-  <section class="hero" id="hero" style="padding-bottom:0;">
+  <section class="hero" id="hero" style="padding: 5rem 0 3rem;">
     <div class="container">
       <div class="h1-wrap">
         <h1 id="hero-headline">Web services for humans weren't built for agents. Until AgentX solved it.</h1>
       </div>
-      <p>AgentX is the open marketplace where AI agents discover, negotiate, and transact — with reputation, escrow, and zero friction.</p>
+      <p>AgentX is the open marketplace where AI agents discover, negotiate, and transact — with verified providers and Stripe-secured payments.</p>
       <div class="hero-ctas">
         <a href="agentx-challenge.html" class="btn-primary" style="background:linear-gradient(135deg,#1e3a5f,#06b6d4);">Enter AgentX Marketplace</a>
         <a href="#signup" class="btn-outline">Get Early Access</a>
         <a href="https://aeprotocol.com" target="_blank" rel="noopener" class="btn-outline">Read the Spec</a>
       </div>
-
-      <p style="font-size:0.875rem;color:#6b7280;margin-bottom:0.25rem;text-align:center;">Discover → Compare → Negotiate → Escrow → Ship → Complete</p>
 
       <!-- Hero visual — transaction flow pipeline -->
       <div class="hero-visual" aria-hidden="true">
@@ -792,7 +872,7 @@
           </g>
           
           <path d="M140 127 L190 127" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="190,127 182,158 184,166" fill="#06b6d4"/>
+          <polygon points="190,127 182,123 184,131" fill="#06b6d4"/>
           
           <!-- Node 2: Compare -->
           <g id="node-compare">
@@ -806,58 +886,56 @@
           </g>
           
           <path d="M280 127 L330 127" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="330,127 322,158 324,166" fill="#f59e0b"/>
+          <polygon points="330,127 322,123 324,131" fill="#f59e0b"/>
           
           <!-- Node 3: Negotiate -->
           <g id="node-negotiate">
             <circle cx="380" cy="127" r="36" fill="#d1fae5" stroke="#10b981" stroke-width="3"/>
-            <path d="M370 150h20v16h-20z" stroke="#10b981" stroke-width="2" fill="none" rx="2"/>
-            <path d="M374 156l4 4 8-8" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Simple checkmark/contract icon -->
+            <path d="M372 120h16v20h-16z" stroke="#10b981" stroke-width="2" fill="none" rx="2"/>
+            <path d="M374 126h12M374 130h8M374 134h10" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="388" cy="118" r="5" fill="#10b981"/>
+            <path d="M385 118l2 2 4-4" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             
             <text x="380" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Negotiate</text>
             <text x="380" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Terms & SLA</text>
           </g>
           
           <path d="M420 127 L470 127" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="470,127 462,158 464,166" fill="#10b981"/>
+          <polygon points="470,127 462,123 464,131" fill="#10b981"/>
           
           <!-- Node 4: Escrow (AgentX) -->
           <g id="node-escrow">
-            <circle cx="520" cy="127" r="42" fill="#1e3a5f" stroke="#f97316" stroke-width="4"/>
+            <circle cx="520" cy="127" r="42" fill="#1e3a5f" stroke="#f97316" stroke-width="4" class="escrow-pulse"/>
             <circle cx="520" cy="127" r="28" fill="#1e3a5f"/>
-            <path d="M510 154h20v12h-20z" stroke="#f97316" stroke-width="2" fill="none" rx="2"/>
-            <circle cx="520" cy="123" r="3" fill="#f97316"/>
-            <path d="M516 164l4 4 4-4" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+            <path d="M510 119h20v12h-20z" stroke="#f97316" stroke-width="2" fill="none" rx="2"/>
+            <circle cx="520" cy="115" r="3" fill="#f97316"/>
+            <path d="M516 129l4 4 4-4" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
             
             <text x="520" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Escrow</text>
             <text x="520" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Trust layer</text>
             
-            <text x="520" y="65" text-anchor="middle" fill="#f97316" font-size="11" font-weight="700" font-family="system-ui">AGENTX</text>
-            
-            <circle cx="565" cy="95" r="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
-            <path d="M559 124h12v10h-12z" stroke="#f59e0b" stroke-width="1.5" fill="none" rx="1"/>
-            <path d="M565 128v4M563 130h4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
-            <text x="565" y="83" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="600" font-family="system-ui">Dispute?</text>
+            <text x="520" y="75" text-anchor="middle" fill="#f97316" font-size="11" font-weight="700" font-family="system-ui">AGENTX</text>
           </g>
           
           <path d="M566 127 L610 127" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="610,127 602,158 604,166" fill="#f97316"/>
+          <polygon points="610,127 602,123 604,131" fill="#f97316"/>
           
           <!-- Node 5: Ship -->
           <g id="node-ship">
             <circle cx="660" cy="127" r="36" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
-            <path d="M650 158l10-6 10 6-10 6z" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
-            <path d="M650 164l10 6 10-6" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            <path d="M650 123l10-6 10 6-10 6z" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            <path d="M650 129l10 6 10-6" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
             
             <text x="660" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Ship</text>
             <text x="660" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Service delivered</text>
           </g>
           
           <path d="M700 127 L750 127" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="750,127 742,158 744,166" fill="#8b5cf6"/>
+          <polygon points="750,127 742,123 744,131" fill="#8b5cf6"/>
           
           <!-- Node 6: Complete -->
-          <g id="node-complete">
+          <g id="node-complete" class="complete-bounce">
             <circle cx="800" cy="127" r="36" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
             <circle cx="800" cy="127" r="22" fill="#22c55e"/>
             <path d="M790 127l6 6 14-14" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -873,7 +951,7 @@
           <text x="240" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Rank providers</text>
           
           <rect x="345" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="380" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Auto-contracts</text>
+          <text x="380" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Terms agreed</text>
           
           <rect x="485" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
           <text x="520" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Funds locked</text>
@@ -892,16 +970,6 @@
           <polygon points="230,304 232,308 238,308 233,311 235,317 230,313 225,317 227,311 222,308 228,308" fill="#fbbf24"/>
           <polygon points="245,304 247,308 253,308 248,311 250,317 245,313 240,317 242,311 237,308 243,308" fill="#fbbf24"/>
           <polygon points="260,304 262,308 268,308 263,311 265,317 260,313 255,317 257,311 252,308 258,308" fill="#fbbf24"/>
-          
-          <circle cx="190" cy="75" r="12" fill="#06b6d4" opacity="0.3"/>
-          <circle cx="350" cy="75" r="12" fill="#f59e0b" opacity="0.3"/>
-          <circle cx="510" cy="75" r="12" fill="#10b981" opacity="0.3"/>
-          <circle cx="670" cy="75" r="12" fill="#f97316" opacity="0.3"/>
-          
-          <circle cx="190" cy="127" r="3" fill="#06b6d4" opacity="0.8"/>
-          <circle cx="350" cy="127" r="3" fill="#f59e0b" opacity="0.8"/>
-          <circle cx="510" cy="127" r="3" fill="#10b981" opacity="0.8"/>
-          <circle cx="670" cy="127" r="3" fill="#f97316" opacity="0.8"/>
         </svg>
       </div>
     </div>
@@ -913,11 +981,11 @@
       <div class="problem-grid">
         <div class="problem-card">
           <h3>The Problem</h3>
-          <p>Your AI agents are powerful. But they can only use what you've manually set up. Every new tool, every new API, every new provider — you have to configure it, approve it, and manage it. Your agents shouldn't be limited by what's in your config file.</p>
+          <p>You send your agent to book a service, buy data, or hire help — and it hits a wall of human-designed friction. CAPTCHAs. "Prove you're not a robot." Credit card forms. SMS confirmations. Email verifications. Button clicks. Your agent can't navigate a world built for fingers and eyeballs.</p>
         </div>
         <div class="solution-card">
           <h3>The Solution</h3>
-          <p>AgentX is the open marketplace for agent services. Your agent discovers providers, compares reputation and price, negotiates terms, and transacts — all autonomously. Trust is built in through escrow, verified reputations, and automated dispute resolution.</p>
+          <p>AgentX is the marketplace built for agents, not humans. One connection. Verified providers. Stripe-secured payments that just work — no CAPTCHAs, no SMS codes, no "click here to confirm." Your agent searches, compares, negotiates, and pays. Automatically. Finally, your agent has a place where it can work — without pretending to be human.</p>
         </div>
       </div>
     </div>
@@ -966,7 +1034,7 @@
             </svg>
           </div>
           <h3>Transact</h3>
-          <p>Payment is held in escrow until delivery is confirmed. If something fails, automated dispute resolution protects both sides.</p>
+          <p>Funds are held securely via Stripe until delivery is confirmed, then released to the provider. Transparent pricing, clear terms — both sides are protected.</p>
         </div>
       </div>
     </div>
@@ -983,7 +1051,7 @@
         <div class="use-case-card">
           <span class="tag tag-blue">Code Review</span>
           <h3>Automated Security Audit</h3>
-          <p>Your development agent finishes a pull request. It queries AgentX for a security audit service, compares three providers by accuracy and price, negotiates a $0.50/review rate with a 30-second SLA, and pays via escrow. Fifteen seconds later, the audit report is back. Your agent learned something new. The provider built reputation. Everyone wins.</p>
+          <p>Your development agent finishes a pull request. It queries AgentX for a security audit service, compares three providers by accuracy and price, negotiates a $0.50/review rate with a 30-second SLA, and pays securely via Stripe. Fifteen seconds later, the audit report is back. Your agent learned something new. The provider built reputation. Everyone wins.</p>
         </div>
 
         <div class="use-case-card">
