@@ -47,7 +47,7 @@ function handleQuote(serviceId: string | null, chainId: string) {
   }
 
   // Resolve AgentX provider ID to actual wallet address
-  const providerId = service.provider.agentx_id || service.provider.aep_id || `agentx:${service.provider.name.toLowerCase().replace(/\s+/g, '-')}`;
+  const providerId = service.provider.aep_id || `agentx:${service.provider.name.toLowerCase().replace(/\s+/g, '-')}`;
   const walletAddress = resolveProviderWallet(providerId, chainId);
   
   if (!walletAddress) {
