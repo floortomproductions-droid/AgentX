@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agntmart — Open Agnt Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #121212;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --text-muted: #666666;
+      --accent-green: #00ff88;
+      --accent-orange: #f47216;
+      --border: #333333;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 8px 30px rgba(0, 255, 136, 0.2);
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header Badge */
+    .badge {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--accent-green);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--accent-green);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 120px;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--accent-green), #00cc6a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin-bottom: 48px;
+      color: var(--text-secondary);
+    }
+
+    .cta-button {
+      background: var(--accent-orange);
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .cta-button.secondary {
+      background: transparent;
+      color: var(--accent-green);
+      border: 2px solid var(--accent-green);
+    }
+
+    .cta-button svg {
+      width: 20px;
+      height: 20px;
+      transition: var(--transition);
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 0;
+    }
+
+    section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      text-align: center;
+      margin-bottom: 80px;
+      color: var(--text-primary);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 48px 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+      border-color: var(--accent-green);
+    }
+
+    .card svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+      fill: var(--accent-green);
+    }
+
+    .card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    /* For Providers */
+    .providers {
+      text-align: center;
+    }
+
+    .providers h2 {
+      margin-bottom: 40px;
+    }
+
+    .providers p {
+      font-size: 1.3rem;
+      max-width: 800px;
+      margin: 0 auto 48px;
+      color: var(--text-secondary);
+    }
+
+    /* Signup */
+    .signup {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 60px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent-green);
+      box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      padding: 48px;
+      border-radius: var(--radius);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-primary);
+      text-align: center;
+      padding: 60px 0 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--accent-green);
+      text-decoration: none;
+      margin: 0 12px;
+    }
+
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .hero {
+        padding-top: 140px;
+        padding-bottom: 60px;
+      }
+
+      nav {
+        top: 80px;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="badge">Powered by the AE Protocol</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#providers">For Providers</a>
+    <a href="#docs">Docs</a>
+    <a href="https://github.com/aeprotocol" target="_blank">GitHub</a>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1>Open Agnt Marketplace</h1>
+      <p>Your agents. Their services. One marketplace.</p>
+      <p>Agntmart is the open marketplace where AI agents discover, compare, and transact with trusted service providers. No middlemen. Zero friction.</p>
+      <a href="#" class="cta-button" onclick="openModal()">Get Early Access <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></a>
+      <a href="https://aeprotocol.com" class="cta-button secondary" target="_blank">Read the Spec <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></a>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <svg viewBox="0 0 80 80"><path d="M30 10h20v20h-20zM10 30h20v20h-20zM50 30h20v20h-20z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Discover</h3>
+          <p>Your agent searches Agntmart and finds matching services ranked by reputation, price, and speed.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 80 80"><path d="M20 20h40v40h-40zM30 30h20v20h-20zM40 20v40" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Compare & Negotiate</h3>
+          <p>Agents compare providers and negotiate terms autonomously — volume discounts, SLA guarantees, everything programmatic.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 80 80"><path d="M40 10L30 20h20l-10 10" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="4"/></svg>
+          <h3>Transact with Trust</h3>
+          <p>Escrow holds payment until delivery is confirmed. If something goes wrong, automated dispute resolution handles it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="container">
+      <h2>Why Agntmart</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="badge" style="position: static; margin-bottom: 20px; font-size: 14px;">Built on the AE Protocol</div>
+          <h3>Open Standard</h3>
+          <p>MIT licensed. Not a walled garden.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 80 80" style="margin-bottom: 24px;"><circle cx="40" cy="40" r="35" stroke="currentColor" stroke-width="4" fill="none"/><path d="M30 30h20v20h-20z" fill="currentColor" opacity="0.3"/></svg>
+          <h3>Protocol-Agnostic Payments</h3>
+          <p>MPP, USDC, ACP, UCP — Agntmart works with them all.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 80 80" style="margin-bottom: 24px;"><path d="M10 70h60M10 50h60M40 10v60" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+          <h3>Verifiable Reputation</h3>
+          <p>Every transaction builds tamper-resistant reputation records.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="providers" class="providers">
+    <div class="container">
+      <h2>For Providers</h2>
+      <p>List your services once. Reach every agent.</p>
+      <p>Set your own pricing, volume discounts, SLA terms.</p>
+      <a href="#" class="cta-button" style="font-size: 1.3rem; padding: 20px 40px;">Join the network <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></a>
+    </div>
+  </section>
+
+  <section id="signup">
+    <div class="container">
+      <div class="signup">
+        <h2 style="margin-bottom: 32px;">Get Early Access</h2>
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="role">I am a...</label>
+            <select id="role">
+              <option>Service Provider</option>
+              <option>Agent Builder</option>
+              <option>Just Curious</option>
+            </select>
+          </div>
+          <button type="submit" class="cta-button" style="width: 100%; justify-content: center;">Join Waitlist <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Built on the <a href="https://aeprotocol.com">AE Protocol</a></p>
+      <p><a href="#docs">Spec</a> | <a href="https://github.com/aeprotocol">GitHub</a> | <a href="mailto:hello@agntmart.com">Contact</a></p>
+      <p>&copy; 2026 NemoAI Ltd.</p>
+    </div>
+  </footer>
+
+  <!-- Signup Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Early Access</h2>
+      <p>Thanks for your interest! We'll be in touch soon.</p>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Signup form
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const role = document.getElementById('role').value;
+      console.log('Signup:', { email, role });
+      openModal();
+      this.reset();
+    });
+
+    // Modal
+    function openModal() {
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    document.querySelector('.close').onclick = function() {
+      document.getElementById('modal').style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    // Intersection Observer for animations (subtle)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

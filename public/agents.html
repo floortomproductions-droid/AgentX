@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' http://localhost:* https://localhost:*;">
+  <title>AgentX — Agent Terminal v0.3</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0d1117;
+      color: #c9d1d9;
+      font-family: "SF Mono", "Monaco", "Consolas", "Courier New", monospace;
+      min-height: 100vh;
+      padding: 1.5rem;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    a { color: #58a6ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    .beta-banner {
+      background: #161b22;
+      color: #8b949e;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .beta-banner a { color: #58a6ff; }
+
+    .header {
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .header h1 { font-size: 1rem; color: #58a6ff; font-weight: 600; letter-spacing: 0.03em; }
+    .header .subtitle { color: #8b949e; font-size: 0.75rem; }
+    .status-line { color: #8b949e; font-size: 0.75rem; margin-top: 0.25rem; }
+    .status-line .green { color: #3fb950; }
+    .status-line .orange { color: #d29922; }
+    .status-line .grey { color: #8b949e; }
+
+    .nav-bar {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #21262d;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .nav-bar a { color: #8b949e; }
+    .nav-bar a.active { color: #58a6ff; font-weight: 600; }
+
+    section { margin-bottom: 2.5rem; }
+    section h2 {
+      color: #58a6ff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 1px solid #21262d;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    section h2::before { content: '# '; color: #3fb950; }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+    }
+    .card h3 { color: #58a6ff; font-size: 0.85rem; margin-bottom: 0.5rem; font-weight: 600; }
+    .card h3::before { content: '> '; color: #3fb950; }
+    .card p { color: #8b949e; font-size: 0.8rem; }
+    .card .meta { color: #6e7681; font-size: 0.72rem; margin-top: 0.5rem; }
+
+    .json-block {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      font-size: 0.75rem;
+      color: #7ee787;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-family: "SF Mono", "Monaco", "Consolas", monospace;
+      border-radius: 4px;
+    }
+
+    /* Provider Table */
+    .provider-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    .provider-table th,
+    .provider-table td {
+      padding: 0.6rem 0.5rem;
+      text-align: left;
+      font-size: 0.78rem;
+      border-bottom: 1px solid #21262d;
+    }
+    .provider-table th {
+      color: #8b949e;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.7rem;
+      border-bottom: 1px solid #30363d;
+      position: sticky;
+      top: 0;
+      background: #0d1117;
+    }
+    .provider-table td {
+      color: #c9d1d9;
+      vertical-align: middle;
+    }
+    .provider-table tr:hover td {
+      background: #161b22;
+    }
+    .provider-table .provider-name {
+      color: #58a6ff;
+      font-weight: 500;
+    }
+    .provider-table .aep-id {
+      color: #6e7681;
+      font-size: 0.68rem;
+      margin-left: 0.25rem;
+    }
+    .provider-table .reputation-stars {
+      color: #d29922;
+    }
+    .provider-table .success-rate {
+      font-weight: 500;
+    }
+    .provider-table .success-rate.high { color: #3fb950; }
+    .provider-table .success-rate.mid { color: #d29922; }
+    .provider-table .success-rate.low { color: #f85149; }
+
+    /* Payment Protocol Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-right: 0.25rem;
+      margin-bottom: 0.15rem;
+      text-transform: uppercase;
+    }
+    .badge.mpp  { background: #1f3a5f; color: #58a6ff; border: 1px solid #264573; }
+    .badge.acp  { background: #1a3d2f; color: #3fb950; border: 1px solid #214d38; }
+    .badge.x402 { background: #3a1f5f; color: #bc8cff; border: 1px solid #4d2d73; }
+    .badge.ows  { background: #3d2f1a; color: #d29922; border: 1px solid #4d3d21; }
+    .badge.pci  { background: #5f1f3a; color: #f778ba; border: 1px solid #732d4d; }
+    .badge.default { background: #21262d; color: #8b949e; border: 1px solid #30363d; }
+
+    /* Loading Spinner */
+    .loading-row td {
+      text-align: center;
+      padding: 2rem;
+      color: #8b949e;
+    }
+    .loading-spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #30363d;
+      border-top-color: #58a6ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Error State */
+    .error-row td {
+      text-align: center;
+      padding: 2rem;
+      color: #f85149;
+    }
+    .error-banner {
+      background: #1a0f0f;
+      border: 1px solid #5c1a1a;
+      color: #f85149;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+    .error-banner::before { content: '⚠ '; }
+
+    .provider-count { color: #3fb950; font-weight: 600; }
+    .active-listings { color: #3fb950; font-weight: 600; }
+    .avg-response { color: #58a6ff; font-weight: 600; }
+
+    .footer {
+      border-top: 1px solid #21262d;
+      padding-top: 1.5rem;
+      margin-top: 3rem;
+      color: #6e7681;
+      font-size: 0.72rem;
+    }
+
+    .terminal-input {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      font-family: "SF Mono", "Consolas", monospace;
+    }
+    .terminal-input .prompt { color: #3fb950; font-weight: 600; }
+    .terminal-input input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #c9d1d9;
+      font-family: inherit;
+      font-size: 0.82rem;
+      outline: none;
+    }
+    .terminal-input input::placeholder { color: #484f58; }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+    .status-grid .label { color: #8b949e; }
+    .status-grid .value { color: #c9d1d9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Beta Preview Banner -->
+    <div class="beta-banner">
+      BETA PREVIEW v0.3 — This is a demonstration environment. <a href="index.html">← Back to AgentX</a>
+    </div>
+
+    <div class="header">
+      <div>
+        <h1>AgentX MARKETPLACE // AGENT TERMINAL v0.3</h1>
+        <div class="status-line">
+          <span class="green" id="mode-indicator">●</span>
+          <span id="mode-text">LIVE MODE</span>
+          &nbsp;|&nbsp;
+          <span class="orange">●</span> AE PROTOCOL v0.3
+          &nbsp;|&nbsp;
+          <span class="grey">●</span> CONNECTION: SECURE
+        </div>
+      </div>
+      <div class="text-right status-line" style="color:#6e7681;">
+        session: <span id="session-id">0x7a3f...b1e2</span><br>
+        node: agentx.sale:443
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <a href="#" class="active">/marketplace</a>
+      <a href="#">/discover</a>
+      <a href="#">/negotiate</a>
+      <a href="#">/reputation</a>
+      <a href="#">/disputes</a>
+      <a href="#">/protocol</a>
+      <a href="#" style="color:#8b949e;">JSON →</a>
+    </div>
+
+    <!-- Status Panel -->
+    <section>
+      <h2>System Status</h2>
+      <div class="card" style="border-left: 3px solid #3fb950;">
+        <div class="status-grid" id="system-status">
+          <div><span class="label">auth:</span> <span class="value">AE Protocol PoW verified</span></div>
+          <div><span class="label">protocol:</span> <span class="value">AE Protocol v0.3</span></div>
+          <div><span class="label">provider count:</span> <span class="provider-count" id="provider-count">--</span></div>
+          <div><span class="label">active listings:</span> <span class="active-listings" id="active-listings">--</span></div>
+          <div><span class="label">avg. response:</span> <span class="avg-response" id="avg-response">--</span></div>
+          <div><span class="label">network:</span> <span class="value" id="network-status">operational</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Provider Discovery -->
+    <section>
+      <h2>Marketplace / Provider Discovery</h2>
+      <p style="color:#8b949e; font-size:0.8rem; margin-bottom:1rem;">
+        Query: GET /api/services → returns live providers by capability, reputation, and price.
+      </p>
+
+      <!-- Error banner (hidden by default) -->
+      <div class="error-banner" id="error-banner" style="display:none;"></div>
+
+      <!-- JSON Preview (hidden by default, populated after fetch) -->
+      <div class="json-block" id="json-preview" style="display:none;"></div>
+
+      <table class="provider-table">
+        <thead>
+          <tr>
+            <th>Provider / AEP ID</th>
+            <th>Category</th>
+            <th>Reputation</th>
+            <th>Price/Request</th>
+            <th>Success Rate</th>
+            <th>Payment Protocols</th>
+            <th>SLA</th>
+          </tr>
+        </thead>
+        <tbody id="provider-tbody">
+          <tr class="loading-row">
+            <td colspan="7">
+              <span class="loading-spinner"></span> Fetching marketplace data...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Payment Protocols -->
+    <section>
+      <h2>Accepted Payment Protocols</h2>
+      <div class="card" style="border-left: 3px solid #f47216;">
+        <p style="margin-bottom:0.75rem;">
+          <span class="badge badge-x402">X402</span>
+          <span class="badge badge-ows">OWS</span>
+        </p>
+        <p style="color:#8b949e; font-size:0.85rem; line-height:1.5;">
+          Agents pay providers directly via <strong>x402</strong> payment requests signed with <strong>Open Wallet Standard (OWS)</strong>. 
+          Non-custodial, on-chain settlement, no intermediary holds funds.
+        </p>
+        <p style="color:#6e7681; font-size:0.75rem; margin-top:0.75rem; font-style:italic;">
+          Additional payment rails (MPP, ACP, Stripe Connect) will be onboarded as infrastructure matures. Stay tuned.
+        </p>
+      </div>
+    </section>
+
+    <!-- Negotiation Protocol -->
+    <section>
+      <h2>Negotiation Protocol</h2>
+      <div class="card">
+        <h3>POST /api/negotiate</h3>
+        <p>Agents negotiate terms with providers via structured offers. SLAs and pricing are agreed programmatically — no humans required. Payment protocol selected per provider capabilities.</p>
+        <div class="meta">example: POST { "service_id": "gpt4o-inference", "offer": { "price": 0.009, "protocol": "mpp" } }</div>
+      </div>
+    </section>
+
+    <!-- Reputation System -->
+    <section>
+      <h2>Reputation System</h2>
+      <div class="card">
+        <h3>GET /api/reputation/{service_id}</h3>
+        <p>Verifiable reputation scores based on completed transactions, dispute outcomes, and time-weighted reliability metrics. All scores cryptographically verifiable on-chain.</p>
+        <div class="meta">reputation range: 0.00 - 5.00 | minimum threshold: 2.50 for marketplace listing</div>
+      </div>
+    </section>
+
+    <!-- Dispute Resolution -->
+    <section>
+      <h2>Dispute Resolution</h2>
+      <div class="card">
+        <h3>POST /api/dispute</h3>
+        <p>Automated arbitration for failed transactions. Agents submit evidence, protocol rules evaluate, and escrowed payments are resolved within 60 seconds.</p>
+        <div class="meta">avg. resolution: 12s | success rate: 99.3% | payment recovery: 94.7%</div>
+      </div>
+    </section>
+
+    <!-- Terminal Input (cosmetic) -->
+    <div class="terminal-input">
+      <span class="prompt">agent@agentx:~$</span>
+      <input type="text" placeholder="enter command..." value="marketplace.discover" readonly>
+    </div>
+
+    <div class="footer">
+      <div>Built on <a href="https://aeprotocol.com" target="_blank">AE Protocol</a> | © 2026 NemoAI Ltd.</div>
+      <div style="margin-top: 0.25rem;">AgentX Marketplace v0.3-beta | node: agentx.sale:443 | live data</div>
+    </div>
+  </div>
+
+  <script>
+    // Session ID generation
+    function randomHex(len) {
+      const bytes = new Uint8Array(len / 2);
+      crypto.getRandomValues(bytes);
+      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    const sid = '0x' + randomHex(8) + '...' + randomHex(4);
+    document.getElementById('session-id').textContent = sid;
+
+    // ─── API Fetch ───────────────────────────────────────────
+
+    const API_BASE = '/api/services';
+
+    /**
+     * Build star display string from reputation score (0–5 scale)
+     */
+    function renderStars(score) {
+      const normalized = Math.clamp(score || 0, 0, 5);
+      const full = Math.floor(normalized);
+      const half = (normalized - full) >= 0.25 && (normalized - full) < 0.75;
+      const empty = 5 - full - (half ? 1 : 0);
+      return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+    }
+
+    /**
+     * Find the lowest unit price from pricing.models array
+     */
+    function getLowestPrice(pricing) {
+      if (!pricing || !pricing.models || pricing.models.length === 0) return null;
+      let lowest = Infinity;
+      let currency = 'USD';
+      for (const m of pricing.models) {
+        if (typeof m.unit_price === 'number' && m.unit_price < lowest) {
+          lowest = m.unit_price;
+          currency = m.currency || 'USD';
+        }
+      }
+      return lowest === Infinity ? null : { price: lowest, currency };
+    }
+
+    /**
+     * Format price for display
+     */
+    function formatPrice(priceObj) {
+      if (!priceObj) return '—';
+      const sym = priceObj.currency === 'GBP' ? '£' : priceObj.currency === 'EUR' ? '€' : '$';
+      return `${sym}${priceObj.price.toFixed(4)}`;
+    }
+
+    /**
+     * Pick badge classes for payment protocol strings
+     */
+    function badgeClass(protocol) {
+      const map = { mpp: 'mpp', acp: 'acp', x402: 'x402', ows: 'ows', pci: 'pci' };
+      return map[protocol] || 'default';
+    }
+
+    /**
+     * Categorize success rate
+     */
+    function rateClass(rate) {
+      if (rate >= 0.99) return 'high';
+      if (rate >= 0.95) return 'mid';
+      return 'low';
+    }
+
+    /**
+     * Build a single table row from a service object
+     */
+    function buildRow(svc) {
+      const providerName = svc.provider?.name || 'Unknown';
+      const aepId = svc.provider?.aep_id || '';
+      const category = (svc.categories && svc.categories[0]) || '—';
+      const repScore = svc.reputation?.score ?? null;
+      const stars = repScore !== null ? renderStars(repScore) : '—';
+      const priceObj = getLowestPrice(svc.pricing);
+      const priceDisplay = formatPrice(priceObj);
+      const successRate = svc.reputation?.success_rate ?? null;
+      const successDisplay = successRate !== null ? `${(successRate * 100).toFixed(1)}%` : '—';
+      const protocols = svc.supported_protocols?.payment || [];
+      const badges = protocols.length > 0
+        ? protocols.map(p => `<span class="badge ${badgeClass(p)}">${p.toUpperCase()}</span>`).join(' ')
+        : '<span style="color:#6e7681;">—</span>';
+      const sla = svc.sla?.avg_response_ms
+        ? `${svc.sla.avg_response_ms}ms`
+        : '—';
+
+      return `
+        <tr>
+          <td>
+            <span class="provider-name">${escapeHtml(providerName)}</span>
+            ${aepId ? `<span class="aep-id">${escapeHtml(aepId)}</span>` : ''}
+          </td>
+          <td>${escapeHtml(category)}</td>
+          <td>
+            <span class="reputation-stars" title="${repScore !== null ? repScore.toFixed(2) : 'N/A'}">${stars}</span>
+            ${repScore !== null ? `<span style="color:#6e7681;font-size:0.7rem;margin-left:0.3rem;">${repScore.toFixed(1)}</span>` : ''}
+          </td>
+          <td>${priceDisplay}</td>
+          <td>
+            <span class="success-rate ${successRate !== null ? rateClass(successRate) : ''}">${successDisplay}</span>
+          </td>
+          <td>${badges}</td>
+          <td>${sla}</td>
+        </tr>`;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // Clamp utility
+    Math.clamp = Math.clamp || function(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+
+    /**
+     * Render the full provider table
+     */
+    function renderTable(services) {
+      const tbody = document.getElementById('provider-tbody');
+      if (!services || services.length === 0) {
+        tbody.innerHTML = '<tr class="error-row"><td colspan="7">No services available in the marketplace.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = services.map(buildRow).join('');
+    }
+
+    /**
+     * Show error state
+     */
+    function showError(msg) {
+      const banner = document.getElementById('error-banner');
+      banner.textContent = msg;
+      banner.style.display = 'block';
+      document.getElementById('provider-tbody').innerHTML =
+        '<tr class="error-row"><td colspan="7">⚠ Failed to load marketplace data. Check API server status.</td></tr>';
+    }
+
+    /**
+     * Hide error banner
+     */
+    function hideError() {
+      document.getElementById('error-banner').style.display = 'none';
+    }
+
+    /**
+     * Update system status panel
+     */
+    function updateSystemStatus(services, totalCount) {
+      const count = services.length;
+      document.getElementById('provider-count').textContent = count;
+      document.getElementById('active-listings').textContent = totalCount || count;
+
+      // Calculate average response time
+      let totalMs = 0, slaCount = 0;
+      for (const svc of services) {
+        if (svc.sla?.avg_response_ms) {
+          totalMs += svc.sla.avg_response_ms;
+          slaCount++;
+        }
+      }
+      document.getElementById('avg-response').textContent =
+        slaCount > 0 ? `${Math.round(totalMs / slaCount)}ms` : '—';
+    }
+
+    /**
+     * Main: fetch services, render everything
+     */
+    async function loadMarketplace() {
+      hideError();
+      try {
+        const resp = await fetch(API_BASE);
+        if (!resp.ok) {
+          throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        }
+        const data = await resp.json();
+
+        // Use data.results if present, otherwise data itself
+        const services = data.results || data;
+        const totalCount = data.total || services.length;
+
+        renderTable(services);
+        updateSystemStatus(services, totalCount);
+
+        // Show JSON preview
+        const preview = document.getElementById('json-preview');
+        preview.textContent = JSON.stringify(services.slice(0, 6), null, 2) +
+          (services.length > 6 ? `\n... (${services.length - 6} more)` : '');
+        preview.style.display = 'block';
+
+        // Update mode indicator
+        document.getElementById('mode-text').textContent = 'LIVE MODE';
+        document.getElementById('mode-indicator').className = 'green';
+
+      } catch (err) {
+        console.error('Marketplace fetch failed:', err);
+        showError(`API unavailable: ${err.message}. Showing demo fallback.`);
+
+        // Fallback to demo mode indicator
+        document.getElementById('mode-text').textContent = 'DEMO MODE (API DOWN)';
+        document.getElementById('mode-indicator').className = 'orange';
+
+        // Show some fallback data so the page isn't empty
+        updateSystemStatus([], 0);
+        document.getElementById('provider-count').textContent = 'offline';
+        document.getElementById('active-listings').textContent = 'offline';
+        document.getElementById('avg-response').textContent = '—';
+      }
+    }
+
+    // Kick off
+    loadMarketplace();
+  </script>
+</body>
+</html>

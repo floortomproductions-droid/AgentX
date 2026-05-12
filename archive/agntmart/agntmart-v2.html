@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentX — AI Agent Marketplace</title>
-  <meta name="description" content="AgentX is the open marketplace where AI agents discover, compare, and transact with verified service providers — via Stripe-secured payments.">
+  <title>AgntMart — AI Agent Marketplace</title>
+  <meta name="description" content="AgntMart is the open marketplace where AI agents discover, compare, and transact with trusted service providers — autonomously.">
   <!-- Logo: Grok Imagine shield PNG in header and footer -->
   <style>
     /* ===== Reset & Base ===== */
@@ -18,7 +18,6 @@
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background: #fdfdfd;
     }
 
     body {
@@ -26,6 +25,7 @@
       background: #ffffff;
       color: #1a1a1a;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     /* ===== Typography ===== */
@@ -36,7 +36,7 @@
     }
 
     h1 {
-      font-size: clamp(1.3125rem, 3vw, 1.875rem);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
       max-width: 32ch;
     }
 
@@ -71,19 +71,18 @@
 
     /* ===== Layout ===== */
     .container {
-      width: 100%;
-      max-width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
     }
 
     section {
-      padding: 4rem 0;
+      padding: 5rem 0;
     }
 
     @media (max-width: 768px) {
       section {
-        padding: 2.5rem 0;
+        padding: 3.5rem 0;
       }
     }
 
@@ -94,7 +93,9 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: #fdfdfd;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid #e5e7eb;
       transition: box-shadow 0.3s ease;
       height: 80px;
@@ -111,10 +112,9 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 1.5rem;
-      background: #fdfdfd;
-      flex: 1;
     }
 
     .header-logo {
@@ -279,28 +279,27 @@
     }
 
     .hero .h1-wrap {
-      min-height: 8.4rem;
+      height: 10.24rem;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       margin-bottom: 1.25rem;
       text-align: center;
-      width: 100%;
-      max-width: 100%;
-      padding: 0 2rem;
+      max-width: 19.6rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(2.275rem, 5.2vw, 3.25rem);
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .hero p {
       margin: 0 auto 2.25rem;
-      font-size: clamp(1rem, 1.5vw, 1.125rem);
-      max-width: 100%;
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      max-width: 600px;
     }
 
     .hero-ctas {
@@ -309,22 +308,22 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
     }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      padding: 0.625rem 1.375rem;
+      padding: 0.8125rem 2rem;
       background: linear-gradient(135deg, #f97316, #f59e0b);
       color: #ffffff;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 1rem;
       border: none;
       cursor: pointer;
       transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 2px 6px rgba(249, 115, 22, 0.22);
+      box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
     }
 
     .btn-primary:hover {
@@ -336,13 +335,13 @@
     .btn-outline {
       display: inline-flex;
       align-items: center;
-      padding: 0.625rem 1.375rem;
+      padding: 0.8125rem 2rem;
       background: transparent;
       color: #1e3a5f;
       border: 1.5px solid #d1d5db;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 1rem;
       cursor: pointer;
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
@@ -353,11 +352,9 @@
     }
 
     .hero-visual {
-      width: 100%;
-      max-width: 100%;
+      max-width: 400px;
       margin: 0 auto;
       opacity: 0.85;
-      line-height: 0;
     }
 
     .hero-visual svg {
@@ -365,141 +362,50 @@
       height: auto;
     }
 
-    @media (max-width: 768px) {
-      .hero-visual {
-        display: none;
-      }
-    }
-
-    /* ===== Animations ===== */
-    @keyframes pulse-glow {
-      0%, 100% {
-        filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.6));
-        stroke-width: 4;
-      }
-      50% {
-        filter: drop-shadow(0 0 18px rgba(249, 115, 22, 1));
-        stroke-width: 5;
-      }
-    }
-
-    @keyframes check-bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      8% {
-        transform: translateY(-8px);
-      }
-      16% {
-        transform: translateY(0);
-      }
-      24% {
-        transform: translateY(-4px);
-      }
-      32% {
-        transform: translateY(0);
-      }
-    }
-
-    .escrow-pulse {
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    .complete-bounce {
-      animation: check-bounce 5s ease-in-out infinite;
-    }
+    /* ===== Problem / Solution ===== */
     .problem-section {
-      background: #ffffff;
+      background: #f9fafb;
     }
 
     .problem-grid {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: stretch;
-      gap: 1rem;
-      perspective: 1000px;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
     }
 
     .problem-card,
     .solution-card {
       padding: 2rem;
-      border-radius: 16px;
-      background: #ffffff;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      flex: 1;
-      min-width: 280px;
-      max-width: 420px;
-    }
-
-    .problem-card::before,
-    .solution-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      border-radius: 16px 16px 0 0;
-    }
-
-    .problem-card::before {
-      background: linear-gradient(90deg, #f97316, #f59e0b);
-    }
-
-    .solution-card::before {
-      background: linear-gradient(90deg, #06b6d4, #22d3ee);
+      border-radius: 12px;
     }
 
     .problem-card {
-      border-left: none;
+      background: #ffffff;
       border: 1px solid #e5e7eb;
-      transform: rotateY(-1deg);
+      border-left: 4px solid #f97316;
     }
 
     .solution-card {
-      border-left: none;
+      background: #ffffff;
       border: 1px solid #e5e7eb;
-      transform: rotateY(1deg);
-    }
-
-    .problem-card:hover,
-    .solution-card:hover {
-      transform: rotateY(0deg) translateY(-4px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border-left: 4px solid #06b6d4;
     }
 
     .problem-card h3,
     .solution-card h3 {
-      margin-bottom: 1rem;
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      margin-bottom: 0.75rem;
     }
 
     .problem-card p,
     .solution-card p {
-      font-size: 0.656rem;
-      line-height: 1.7;
+      font-size: 0.9375rem;
     }
 
     @media (max-width: 768px) {
       .problem-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .problem-card,
-      .solution-card {
-        max-width: 100%;
-        transform: none;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
     }
 
@@ -512,17 +418,16 @@
     }
 
     .step-card {
-      background: #ffffff;
+      background: #f9fafb;
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 2.25rem 1.75rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .step-card:hover {
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
     }
 
     .step-icon {
@@ -567,7 +472,7 @@
 
     /* ===== Use Case ===== */
     .use-case-section {
-      background: #ffffff;
+      background: #f9fafb;
     }
 
     .use-case-grid {
@@ -581,13 +486,11 @@
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 2rem 1.75rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: box-shadow 0.2s ease;
     }
 
     .use-case-card:hover {
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
     }
 
     .use-case-card .tag {
@@ -684,7 +587,6 @@
       flex-direction: column;
       gap: 1rem;
       max-width: 480px;
-      width: 100%;
       margin: 1.5rem auto 0;
     }
 
@@ -738,7 +640,6 @@
 
     /* ===== Footer ===== */
     .footer {
-      background: #fdfdfd;
       border-top: 1px solid #e5e7eb;
       padding: 2.5rem 0;
     }
@@ -831,7 +732,7 @@
   <header class="header" id="header">
     <div class="header-inner">
       <a href="#" class="header-logo">
-        <img src="agentx-logo-v2.png" alt="AgentX" class="header-logo-img">
+        <img src="agntmart-logo.png" alt="AgntMart" class="header-logo-img">
       </a>
 
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
@@ -845,8 +746,8 @@
       <nav class="header-nav" id="headerNav">
         <a href="#how-it-works">For Agents</a>
         <a href="#for-providers">For Providers</a>
-        <a href="https://aeprotocol-deploy-pucw0mgrq-floortomproductions-droids-projects.vercel.app">Spec</a>
-        <a href="https://github.com/floortom/agentx" target="_blank" rel="noopener" style="color:#9ca3af;pointer-events:none;">GitHub (coming soon)</a>
+        <a href="#spec">Spec</a>
+        <a href="https://github.com/floortom/agntmart" target="_blank" rel="noopener">GitHub</a>
         <a href="#signup" class="header-cta mobile-cta">Get Early Access</a>
       </nav>
 
@@ -855,170 +756,66 @@
   </header>
 
   <!-- ===== Hero ===== -->
-  <section class="hero" id="hero" style="padding: 5rem 0 3rem;">
+  <section class="hero" id="hero">
     <div class="container">
       <div class="h1-wrap">
-        <h1 id="hero-headline">Web services for humans weren't built for agents. Until AgentX solved it.</h1>
+        <h1 id="hero-headline">Web services for humans weren't built for agents. Until AgntMart solved it.</h1>
       </div>
-      <p>AgentX is the open marketplace where AI agents discover, negotiate, and transact — with verified providers and Stripe-secured payments.</p>
+      <p>AgntMart is the open marketplace where AI agents discover, negotiate, and transact — with reputation, escrow, and zero friction.</p>
       <div class="hero-ctas">
-        <a href="challenge.html" class="btn-primary" style="background:linear-gradient(135deg,#1e3a5f,#06b6d4);">Enter AgentX Marketplace</a>
-        <a href="#signup" class="btn-outline">Get Early Access</a>
-        <a href="https://aeprotocol-deploy-pucw0mgrq-floortomproductions-droids-projects.vercel.app" target="_blank" rel="noopener" class="btn-outline">Read the Spec</a>
+        <a href="#signup" class="btn-primary">Get Early Access</a>
+        <a href="https://aeprotocol.com" target="_blank" rel="noopener" class="btn-outline">Read the Spec</a>
       </div>
 
-      <!-- Hero visual — transaction flow pipeline -->
+      <!-- Hero visual — agents connecting to a marketplace node -->
       <div class="hero-visual" aria-hidden="true">
-        <svg viewBox="0 0 900 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="50" y="125" width="800" height="4" fill="#e5e7eb" rx="2"/>
-          
-          <!-- Node 1: Discovery -->
-          <g id="node-discovery">
-            <circle cx="100" cy="127" r="36" fill="#dbeafe" stroke="#06b6d4" stroke-width="3"/>
-            <circle cx="100" cy="127" r="22" fill="#06b6d4"/>
-            <circle cx="92" cy="121" r="5" fill="#ffffff"/>
-            <circle cx="108" cy="121" r="5" fill="#ffffff"/>
-            <path d="M94 135q6 5 12 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-            
-            <text x="100" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Discover</text>
-            <text x="100" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Search services</text>
-          </g>
-          
-          <path d="M140 127 L190 127" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="190,127 182,123 184,131" fill="#06b6d4"/>
-          
-          <!-- Node 2: Compare -->
-          <g id="node-compare">
-            <circle cx="240" cy="127" r="36" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
-            <rect x="228" y="115" width="10" height="24" fill="#f59e0b" rx="2"/>
-            <rect x="242" y="121" width="10" height="18" fill="#f59e0b" rx="2"/>
-            <rect x="256" y="109" width="10" height="30" fill="#f59e0b" rx="2"/>
-            
-            <text x="240" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Compare</text>
-            <text x="240" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Price & ratings</text>
-          </g>
-          
-          <path d="M280 127 L330 127" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="330,127 322,123 324,131" fill="#f59e0b"/>
-          
-          <!-- Node 3: Negotiate -->
-          <g id="node-negotiate">
-            <circle cx="380" cy="127" r="36" fill="#d1fae5" stroke="#10b981" stroke-width="3"/>
-            <!-- Simple checkmark/contract icon -->
-            <path d="M372 120h16v20h-16z" stroke="#10b981" stroke-width="2" fill="none" rx="2"/>
-            <path d="M374 126h12M374 130h8M374 134h10" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="388" cy="118" r="5" fill="#10b981"/>
-            <path d="M385 118l2 2 4-4" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            
-            <text x="380" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Negotiate</text>
-            <text x="380" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Terms & SLA</text>
-          </g>
-          
-          <path d="M420 127 L470 127" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="470,127 462,123 464,131" fill="#10b981"/>
-          
-          <!-- Node 4: Escrow (AgentX) -->
-          <g id="node-escrow">
-            <circle cx="520" cy="127" r="42" fill="#1e3a5f" stroke="#f97316" stroke-width="4" class="escrow-pulse"/>
-            <circle cx="520" cy="127" r="28" fill="#1e3a5f"/>
-            <path d="M510 119h20v12h-20z" stroke="#f97316" stroke-width="2" fill="none" rx="2"/>
-            <circle cx="520" cy="115" r="3" fill="#f97316"/>
-            <path d="M516 129l4 4 4-4" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
-            
-            <text x="520" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Escrow</text>
-            <text x="520" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Trust layer</text>
-            
-            <text x="520" y="75" text-anchor="middle" fill="#f97316" font-size="11" font-weight="700" font-family="system-ui">AGENTX</text>
-          </g>
-          
-          <path d="M566 127 L610 127" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="610,127 602,123 604,131" fill="#f97316"/>
-          
-          <!-- Node 5: Ship -->
-          <g id="node-ship">
-            <circle cx="660" cy="127" r="36" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
-            <path d="M650 123l10-6 10 6-10 6z" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
-            <path d="M650 129l10 6 10-6" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
-            
-            <text x="660" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Ship</text>
-            <text x="660" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Service delivered</text>
-          </g>
-          
-          <path d="M700 127 L750 127" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
-          <polygon points="750,127 742,123 744,131" fill="#8b5cf6"/>
-          
-          <!-- Node 6: Complete -->
-          <g id="node-complete" class="complete-bounce">
-            <circle cx="800" cy="127" r="36" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
-            <circle cx="800" cy="127" r="22" fill="#22c55e"/>
-            <path d="M790 127l6 6 14-14" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            
-            <text x="800" y="185" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Complete</text>
-            <text x="800" y="203" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Both parties win</text>
-          </g>
-          
-          <rect x="65" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="100" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Agents browse</text>
-          
-          <rect x="205" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="240" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Rank providers</text>
-          
-          <rect x="345" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="380" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Terms agreed</text>
-          
-          <rect x="485" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="520" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Funds locked</text>
-          
-          <rect x="625" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="660" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Service ships</text>
-          
-          <rect x="765" y="25" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
-          <text x="800" y="37" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Payment released</text>
-          
-          <rect x="200" y="255" width="500" height="36" fill="#f3f4f6" rx="18"/>
-          <text x="450" y="277" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Reputation + Escrow + Dispute Resolution = Trust</text>
-          
-          <polygon points="200,304 202,308 208,308 203,311 205,317 200,313 195,317 197,311 192,308 198,308" fill="#fbbf24"/>
-          <polygon points="215,304 217,308 223,308 218,311 220,317 215,313 210,317 212,311 207,308 213,308" fill="#fbbf24"/>
-          <polygon points="230,304 232,308 238,308 233,311 235,317 230,313 225,317 227,311 222,308 228,308" fill="#fbbf24"/>
-          <polygon points="245,304 247,308 253,308 248,311 250,317 245,313 240,317 242,311 237,308 243,308" fill="#fbbf24"/>
-          <polygon points="260,304 262,308 268,308 263,311 265,317 260,313 255,317 257,311 252,308 258,308" fill="#fbbf24"/>
+        <svg viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Central hub / marketplace node -->
+          <circle cx="200" cy="110" r="48" fill="#1e3a5f" opacity="0.08"/>
+          <circle cx="200" cy="110" r="36" fill="#1e3a5f" opacity="0.15"/>
+          <circle cx="200" cy="110" r="16" fill="#1e3a5f"/>
+          <!-- Hub inner icon: circuit + price tag -->
+          <path d="M194 108h4l1-3 1 3h4l-3 2.5 1 3-3-1.5-3 1.5 1-3-3-2.5z" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M207 112l-2 2-4-4" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Connection lines from agents to hub -->
+          <path d="M60 60C100 60 140 85 175 100" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+          <path d="M60 160C100 160 140 135 175 120" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+          <path d="M340 60C300 60 260 85 225 100" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+          <path d="M340 160C300 160 260 135 225 120" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+
+          <!-- Agent dots -->
+          <circle cx="55" cy="55" r="8" fill="#06b6d4"/>
+          <circle cx="55" cy="55" r="3" fill="#ffffff"/>
+          <circle cx="55" cy="165" r="8" fill="#f97316"/>
+          <circle cx="55" cy="165" r="3" fill="#ffffff"/>
+          <circle cx="345" cy="55" r="8" fill="#10b981"/>
+          <circle cx="345" cy="55" r="3" fill="#ffffff"/>
+          <circle cx="345" cy="165" r="8" fill="#8b5cf6"/>
+          <circle cx="345" cy="165" r="3" fill="#ffffff"/>
+
+          <!-- Labels -->
+          <text x="55" y="40" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Agent</text>
+          <text x="55" y="190" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Agent</text>
+          <text x="345" y="40" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Agent</text>
+          <text x="345" y="190" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Agent</text>
+          <text x="200" y="145" text-anchor="middle" fill="#1e3a5f" font-size="11" font-weight="600" font-family="system-ui">AgntMart</text>
         </svg>
       </div>
     </div>
   </section>
 
-  <!-- ===== Problem / Solution (For Providers) ===== -->
-  <section class="problem-section" id="provider-problem" style="background: #ffffff;">
-    <div class="container">
-      <p class="section-label" style="color: #f59e0b;">For Providers</p>
-      <h2 style="text-align: center; margin-bottom: 2rem;">Your next customer is an agent. Meet them where they are.</h2>
-      <div class="problem-grid">
-        <div class="problem-card">
-          <h3>The Problem</h3>
-          <p>Every new API customer means a bespoke integration. OAuth flows. Rate limit configs. Support tickets about "how do I authenticate?" Your team spends 40% of engineering time on onboarding — not building features. Meanwhile, AI agents can't use your service at all because there's no standard way for them to discover, compare, and pay.</p>
-        </div>
-        <div class="solution-card">
-          <h3>The Solution</h3>
-          <p>AgentX is your distribution layer for the agent economy. List your service once with a machine-readable spec. Agents discover you automatically, negotiate terms programmatically, and pay via Stripe — no onboarding calls, no API keys to manage, no "integration projects." You set your pricing and SLAs. We bring the customers. Finally, a marketplace that sells your service while you sleep.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Problem / Solution (For Agents) ===== -->
+  <!-- ===== Problem / Solution ===== -->
   <section class="problem-section" id="problem">
     <div class="container">
-      <p class="section-label">For Agents</p>
-      <h2 style="text-align: center; margin-bottom: 2rem;">Your agent deserves better infrastructure</h2>
       <div class="problem-grid">
         <div class="problem-card">
           <h3>The Problem</h3>
-          <p>You send your agent to book a service, buy data, or hire help — and it hits a wall of human-designed friction. CAPTCHAs. "Prove you're not a robot." Credit card forms. SMS confirmations. Email verifications. Button clicks. Your agent can't navigate a world built for fingers and eyeballs.</p>
+          <p>Your AI agents are powerful. But they can only use what you've manually set up. Every new tool, every new API, every new provider — you have to configure it, approve it, and manage it. Your agents shouldn't be limited by what's in your config file.</p>
         </div>
         <div class="solution-card">
           <h3>The Solution</h3>
-          <p>AgentX is the marketplace built for agents, not humans. One connection. Verified providers. Stripe-secured payments that just work — no CAPTCHAs, no SMS codes, no "click here to confirm." Your agent searches, compares, negotiates, and pays. Automatically. Finally, your agent has a place where it can work — without pretending to be human.</p>
+          <p>AgntMart is the open marketplace for agent services. Your agent discovers providers, compares reputation and price, negotiates terms, and transacts — all autonomously. Trust is built in through escrow, verified reputations, and automated dispute resolution.</p>
         </div>
       </div>
     </div>
@@ -1026,10 +823,10 @@
 
   <!-- ===== How It Works ===== -->
   <section id="how-it-works">
-    <div class="container">
+    <div class="container text-center">
       <p class="section-label">How It Works</p>
-      <h2 style="text-align: center; margin-bottom: 1rem;">Three steps to autonomous commerce</h2>
-      <p style="text-align: center; margin: 0 auto 3rem; width: 100%; max-width: 100%;">Your agent handles the whole workflow — discovery, negotiation, and settlement — without you lifting a finger.</p>
+      <h2>Three steps to autonomous commerce</h2>
+      <p style="margin: 0 auto 3rem;">Your agent handles the whole workflow — discovery, negotiation, and settlement — without you lifting a finger.</p>
 
       <div class="steps-grid">
         <div class="step-card">
@@ -1042,7 +839,7 @@
             </svg>
           </div>
           <h3>Discover</h3>
-          <p>Your agent searches AgentX and finds matching providers — ranked by reputation, speed, and price. No manual config, no API keys to swap.</p>
+          <p>Your agent searches AgntMart and finds matching providers — ranked by reputation, speed, and price. No manual config, no API keys to swap.</p>
         </div>
 
         <div class="step-card">
@@ -1067,7 +864,7 @@
             </svg>
           </div>
           <h3>Transact</h3>
-          <p>Funds are held securely via Stripe until delivery is confirmed, then released to the provider. Transparent pricing, clear terms — both sides are protected.</p>
+          <p>Payment is held in escrow until delivery is confirmed. If something fails, automated dispute resolution protects both sides.</p>
         </div>
       </div>
     </div>
@@ -1075,22 +872,22 @@
 
   <!-- ===== Use Case ===== -->
   <section class="use-case-section" id="use-cases">
-    <div class="container">
+    <div class="container text-center">
       <p class="section-label">In Practice</p>
-      <h2 style="text-align: center; margin-bottom: 1rem;">Real use cases, real autonomy</h2>
-      <p style="text-align: center; margin: 0 auto 3rem; width: 100%; max-width: 100%;">See how AgentX transforms agent workflows into self-service operations.</p>
+      <h2>Real use cases, real autonomy</h2>
+      <p style="margin: 0 auto 3rem;">See how AgntMart transforms agent workflows into self-service operations.</p>
 
       <div class="use-case-grid">
         <div class="use-case-card">
           <span class="tag tag-blue">Code Review</span>
           <h3>Automated Security Audit</h3>
-          <p>Your development agent finishes a pull request. It queries AgentX for a security audit service, compares three providers by accuracy and price, negotiates a $0.50/review rate with a 30-second SLA, and pays securely via Stripe. Fifteen seconds later, the audit report is back. Your agent learned something new. The provider built reputation. Everyone wins.</p>
+          <p>Your development agent finishes a pull request. It queries AgntMart for a security audit service, compares three providers by accuracy and price, negotiates a $0.50/review rate with a 30-second SLA, and pays via escrow. Fifteen seconds later, the audit report is back. Your agent learned something new. The provider built reputation. Everyone wins.</p>
         </div>
 
         <div class="use-case-card">
           <span class="tag tag-orange">Data Pipeline</span>
           <h3>Real-Time Market Data</h3>
-          <p>Your analytics agent needs market data refreshed every hour. It finds a reliable data provider on AgentX, sets up a recurring $0.02/query deal with a 99.9% uptime guarantee, and starts streaming — all without you writing a single integration.</p>
+          <p>Your analytics agent needs market data refreshed every hour. It finds a reliable data provider on AgntMart, sets up a recurring $0.02/query deal with a 99.9% uptime guarantee, and starts streaming — all without you writing a single integration.</p>
         </div>
       </div>
     </div>
@@ -1100,9 +897,9 @@
   <section class="providers-section" id="for-providers">
     <div class="container">
       <div class="providers-content">
-        <p class="section-label" style="color: #f59e0b;">Join the Network</p>
-        <h2>Become a verified provider on AgentX</h2>
-        <p>The agent economy is growing fast. Be the infrastructure they build on. List your service, set your terms, and start receiving autonomous orders from AI agents — no sales team required.</p>
+        <p class="section-label">For Providers</p>
+        <h2>List your service once. Reach every agent on the network.</h2>
+        <p>AgntMart gives you direct access to the fastest-growing distribution channel for AI services. Set your own terms, build your reputation, and grow your business — all without building a marketplace from scratch.</p>
 
         <div class="provider-benefits">
           <div class="provider-benefit">
@@ -1130,7 +927,7 @@
           </div>
         </div>
 
-        <a href="#signup" class="btn-primary" style="background: linear-gradient(135deg, #f59e0b, #f97316);">List Your Service</a>
+        <a href="#signup" class="btn-primary">Become a Provider</a>
       </div>
     </div>
   </section>
@@ -1143,7 +940,7 @@
     <div class="container text-center">
       <p class="section-label">Get Early Access</p>
       <h2>Be the first to connect your agents</h2>
-      <p>AgentX is launching soon. Join the early access list to be notified when we open the marketplace.</p>
+      <p>AgntMart is launching soon. Join the early access list to be notified when we open the marketplace.</p>
 
       <form class="signup-form" id="signupForm">
         <input type="email" id="signupEmail" placeholder="you@example.com" required autocomplete="email">
@@ -1166,15 +963,15 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-logo">
-          <img src="agentx-logo-v2.png" alt="AgentX" class="footer-logo-img">
+          <img src="agntmart-logo.png" alt="AgntMart" class="footer-logo-img">
         </div>
         <div class="footer-build">
-          Built on <a href="https://aeprotocol-deploy-pucw0mgrq-floortomproductions-droids-projects.vercel.app" target="_blank" rel="noopener" style="color:#1e3a5f;font-weight:500;">AE Protocol</a>
+          Built on <a href="https://aeprotocol.com" target="_blank" rel="noopener" style="color:#1e3a5f;font-weight:500;">AE Protocol</a>
         </div>
         <div class="footer-links">
-          <a href="https://aeprotocol-deploy-pucw0mgrq-floortomproductions-droids-projects.vercel.app" target="_blank" rel="noopener">Spec</a>
-          <a href="https://github.com/floortom/agentx" target="_blank" rel="noopener" style="color:#9ca3af;pointer-events:none;">GitHub (coming soon)</a>
-          <a href="mailto:info@agentx.sale" style="color:#9ca3af;">Contact</a>
+          <a href="https://aeprotocol.com" target="_blank" rel="noopener">Spec</a>
+          <a href="https://github.com/floortom/agntmart" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:hello@agntmart.com">Contact</a>
           <span style="color:#9ca3af;">&copy; 2026 NemoAI Ltd.</span>
         </div>
       </div>
@@ -1226,18 +1023,10 @@
         timestamp: new Date().toISOString()
       };
 
-      // Send to Google Sheet (fire-and-forget, no-cors to bypass redirect issues)
-      const params = new URLSearchParams({
-        email: emailInput.value.trim(),
-        role: roleSelect.value,
-        timestamp: new Date().toISOString()
-      });
+      console.log('AgntMart Early Access Signup:', data);
 
-      fetch('https://script.google.com/macros/s/AKfycbx1Vj2H7VXgoWdIgWVd4ZU7wfYkIc_lk8ENL6KtWZ0iLN8rZQwNNCFMYkVJLEjIxOY/exec?' + params.toString(), {
-        mode: 'no-cors'
-      }).catch(() => {}); // ignore errors silently
-
-      console.log('AgentX signup sent:', emailInput.value.trim());
+      // TODO: Send to backend API
+      // fetch('/api/signup', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
 
       signupForm.style.display = 'none';
       signupSuccess.style.display = 'block';
@@ -1245,34 +1034,25 @@
 
     // ===== Rotating hero headlines =====
     var headlines = [
-      'Web services weren\'t built for agents. AgentX solved it.',
+      'Web services for humans weren't built for agents. Until AgntMart solved it.',
       'AI speed meets human infrastructure.',
-      'Your agent thinks fast.<br>The web thinks slow.'
+      'Your agent thinks in milliseconds. The web thinks in API keys.'
     ];
     var headlineIndex = 0;
+    var headlineEl = document.getElementById('hero-headline');
 
-    function startHeadlineRotation() {
-      var headlineEl = document.getElementById('hero-headline');
-      console.log('Headline rotation starting. Element found:', headlineEl !== null);
-      if (!headlineEl) return;
-
+    if (headlineEl) {
       setInterval(function() {
         headlineIndex = (headlineIndex + 1) % headlines.length;
-        console.log('Rotating to headline', headlineIndex, ':', headlines[headlineIndex]);
         headlineEl.style.opacity = '0';
         headlineEl.style.transform = 'translateY(8px)';
         setTimeout(function() {
-          headlineEl.innerHTML = headlines[headlineIndex];
+          headlineEl.textContent = headlines[headlineIndex];
           headlineEl.style.opacity = '1';
           headlineEl.style.transform = 'translateY(0)';
         }, 300);
-      }, 3500);
+      }, 5000);
     }
-
-    console.log('Document readyState:', document.readyState);
-    console.log('Headlines array:', headlines);
-    startHeadlineRotation();
-    console.log('After startHeadlineRotation called');
 
     // ===== Smooth scroll for anchor links =====
     document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {

@@ -1,65 +1,177 @@
-import Image from "next/image";
+import { ServiceListing } from "@/types/aep";
+import { ServiceCardClient } from "@/components/ServiceCardClient";
+import { FilterBar } from "@/components/FilterBar";
 
-export default function Home() {
+interface SearchParams {
+  category?: string;
+  protocol?: string;
+  region?: string;
+}
+
+async function getServices(searchParams: SearchParams): Promise<{ services: ServiceListing[]; total: number }> {
+  const params = new URLSearchParams();
+  if (searchParams.category && searchParams.category !== "all") {
+    params.set("category", searchParams.category);
+  }
+  if (searchParams.protocol && searchParams.protocol !== "all") {
+    params.set("protocol", searchParams.protocol);
+  }
+  if (searchParams.region && searchParams.region !== "all") {
+    params.set("region", searchParams.region);
+  }
+  params.set("limit", "50");
+
+  const res = await fetch(`http://localhost:3000/api/services?${params.toString()}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch services: ${res.status}`);
+  }
+
+  const data = await res.json();
+  return { services: data.results, total: data.total };
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const { services, total } = await getServices(searchParams);
+
+  const categories = [
+    { value: "all", label: "all" },
+    { value: "inference", label: "inference" },
+    { value: "image-generation", label: "image-gen" },
+    { value: "search", label: "search" },
+    { value: "data-enrichment", label: "enrichment" },
+  ];
+
+  const protocols = [
+    { value: "all", label: "all" },
+    { value: "mpp", label: "mpp" },
+    { value: "acp", label: "acp" },
+    { value: "x402", label: "x402" },
+    { value: "ucp", label: "ucp" },
+    { value: "ap2", label: "ap2" },
+  ];
+
+  const regions = [
+    { value: "all", label: "all" },
+    { value: "global", label: "global" },
+    { value: "us-east", label: "us-east" },
+    { value: "eu-west", label: "eu-west" },
+    { value: "ap-southeast", label: "ap-southeast" },
+  ];
+
+  const currentCategory = searchParams.category || "all";
+  const currentProtocol = searchParams.protocol || "all";
+  const currentRegion = searchParams.region || "all";
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="min-h-screen" style={{ background: "#0a0a0a" }}>
+      {/* Header */}
+      <header className="border-b" style={{ borderColor: "#1e1e1e" }}>
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          <div className="flex items-center gap-3 mb-2">
+            <span style={{ color: "#00ff88" }}>◆</span>
+            <h1
+              className="text-2xl font-semibold tracking-wider uppercase"
+              style={{ color: "#00ff88", fontFamily: "'JetBrains Mono', monospace" }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              AE Protocol Registry
+            </h1>
+            <span
+              className="text-[10px] px-2 py-0.5 uppercase tracking-widest ml-2"
+              style={{
+                background: "#1a1a1a",
+                color: "#6b7280",
+                border: "1px solid #2a2a2a",
+                fontFamily: "'JetBrains Mono', monospace",
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
+              v0.3
+            </span>
+          </div>
+          <p className="text-sm" style={{ color: "#6b7280", fontFamily: "'JetBrains Mono', monospace" }}>
+            AE Protocol Registry — Service Discovery
+          </p>
+          <p className="text-xs mt-1" style={{ color: "#555" }}>
+            Where AI agents discover, compare, and transact
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </header>
+
+      {/* API status bar */}
+      <div
+        className="border-b text-xs px-4 py-2"
+        style={{ borderColor: "#1e1e1e", background: "#0d0d0d", color: "#555", fontFamily: "'JetBrains Mono', monospace" }}
+      >
+        <span className="flex items-center gap-2 max-w-6xl mx-auto">
+          <span className="health-dot"></span>
+          <span className="text-[#555]">registry.aep.standard</span>
+          <span className="text-[#333] mx-2">|</span>
+          <span style={{ color: "#00ff88" }}>GET</span>
+          <span className="text-[#555]">/api/services</span>
+          <span className="text-[#333] mx-2">|</span>
+          <span className="text-[#555]">{total} services indexed</span>
+        </span>
+      </div>
+
+      {/* Filter bar */}
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <FilterBar
+          categories={categories}
+          protocols={protocols}
+          regions={regions}
+          selectedCategory={currentCategory}
+          selectedProtocol={currentProtocol}
+          selectedRegion={currentRegion}
+          total={total}
+          onCategoryChange={(v) => console.log('category', v)}
+          onProtocolChange={(v) => console.log('protocol', v)}
+          onRegionChange={(v) => console.log('region', v)}
+        />
+
+        {/* Content */}
+        {services.length === 0 ? (
+          <div
+            className="text-center py-20 text-sm"
+            style={{ color: "#555", fontFamily: "'JetBrains Mono', monospace" }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {"["} no matching services found {"}"}
+            <span className="text-xs text-[#444]">try adjusting your filters</span>
+          </div>
+        ) : (
+          <div className="space-y-3 mt-4">
+            <div
+              className="text-xs mb-2 px-1"
+              style={{ color: "#555", fontFamily: "'JetBrains Mono', monospace" }}
+            >
+              {"//"} {total} service{total !== 1 ? "s" : ""} found
+            </div>
+            {services.map((service) => (
+              <ServiceCardClient key={service.service_id} service={service} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <footer
+        className="border-t mt-12 py-6 px-4 text-xs"
+        style={{ borderColor: "#1e1e1e", color: "#444", fontFamily: "'JetBrains Mono', monospace" }}
+      >
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <span>AE Protocol v0.3 — Draft Proposal</span>
+          <span className="text-[#333]">
+            <a href="/api/health" className="hover:text-[#555] transition-colors" style={{ color: "#444" }}>health check</a>
+            {" | "}
+            <a href="/api/services" className="hover:text-[#555] transition-colors" style={{ color: "#444" }}>api</a>
+          </span>
         </div>
-      </main>
+      </footer>
     </div>
   );
 }

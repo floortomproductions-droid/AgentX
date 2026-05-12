@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentX API Test</title>
+  <style>
+    body { font-family: monospace; background: #0a0a0a; color: #00ff88; padding: 2rem; }
+    pre { background: #111; padding: 1rem; overflow: auto; }
+    .error { color: #ff4444; }
+    .success { color: #00ff88; }
+  </style>
+</head>
+<body>
+  <h1>AgentX API Test</h1>
+  <div id="status">Loading...</div>
+  <pre id="output"></pre>
+
+  <script>
+    async function testAPI() {
+      const status = document.getElementById('status');
+      const output = document.getElementById('output');
+      
+      try {
+        status.textContent = 'Fetching /api/services...';
+        const resp = await fetch('/api/services');
+        
+        if (!resp.ok) {
+          throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        }
+        
+        const data = await resp.json();
+        status.innerHTML = '<span class="success">✓ SUCCESS</span>';
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        status.innerHTML = '<span class="error">✗ ERROR</span>';
+        output.textContent = err.message;
+      }
+    }
+    
+    testAPI();
+  </script>
+</body>
+</html>

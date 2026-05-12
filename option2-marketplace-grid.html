@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentX - Option 2: Marketplace Grid</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
+    }
+    .preview-container {
+      max-width: 800px;
+      text-align: center;
+    }
+    h2 {
+      color: #1e3a5f;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+    .svg-container {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    <h2>Option 2: The Marketplace Grid</h2>
+    <p>Two-sided marketplace — agents browse, providers offer services</p>
+    
+    <div class="svg-container">
+      <svg viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <rect width="800" height="400" fill="#ffffff" rx="12"/>
+        
+        <!-- LEFT: Agent Icons -->
+        <g id="agents-left">
+          <circle cx="80" cy="120" r="32" fill="#e0f2fe"/>
+          <circle cx="80" cy="120" r="18" fill="#06b6d4"/>
+          <circle cx="74" cy="116" r="5" fill="#ffffff"/>
+          <circle cx="86" cy="116" r="5" fill="#ffffff"/>
+          <path d="M72 128q8 6 16 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          
+          <circle cx="80" cy="200" r="32" fill="#e0f2fe"/>
+          <circle cx="80" cy="200" r="18" fill="#06b6d4"/>
+          <circle cx="74" cy="196" r="5" fill="#ffffff"/>
+          <circle cx="86" cy="196" r="5" fill="#ffffff"/>
+          <path d="M72 208q8 6 16 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          
+          <circle cx="80" cy="280" r="32" fill="#e0f2fe"/>
+          <circle cx="80" cy="280" r="18" fill="#06b6d4"/>
+          <circle cx="74" cy="276" r="5" fill="#ffffff"/>
+          <circle cx="86" cy="276" r="5" fill="#ffffff"/>
+          <path d="M72 288q8 6 16 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          
+          <text x="80" y="330" text-anchor="middle" fill="#6b7280" font-size="12" font-family="system-ui">Agents</text>
+        </g>
+        
+        <!-- CENTRE: AgentX Interface -->
+        <g id="agentx-centre">
+          <rect x="280" y="100" width="240" height="200" fill="#1e3a5f" rx="16"/>
+          <rect x="290" y="120" width="220" height="40" fill="#ffffff" rx="8"/>
+          <text x="310" y="145" fill="#9ca3af" font-size="14" font-family="system-ui">Search services...</text>
+          
+          <!-- Filters -->
+          <rect x="290" y="170" width="60" height="28" fill="#06b6d4" rx="6"/>
+          <text x="320" y="189" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui">Price</text>
+          
+          <rect x="360" y="170" width="60" height="28" fill="#06b6d4" rx="6"/>
+          <text x="390" y="189" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui">Rating</text>
+          
+          <rect x="430" y="170" width="60" height="28" fill="#06b6d4" rx="6"/>
+          <text x="460" y="189" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui">Speed</text>
+          
+          <!-- AgentX Logo Text -->
+          <text x="400" y="240" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="700" font-family="system-ui">AgentX</text>
+          <text x="400" y="265" text-anchor="middle" fill="#9ca3af" font-size="12" font-family="system-ui">Marketplace</text>
+        </g>
+        
+        <!-- RIGHT: Provider Hexagons -->
+        <g id="providers-right">
+          <!-- Hexagon 1: Security -->
+          <path d="M600 100 L620 110 L620 135 L600 145 L580 135 L580 110 Z" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+          <path d="M595 115l5 5 8-8" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="600" y="160" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Security</text>
+          
+          <!-- Hexagon 2: Data -->
+          <path d="M680 100 L700 110 L700 135 L680 145 L660 135 L660 110 Z" fill="#dbeafe" stroke="#06b6d4" stroke-width="2"/>
+          <path d="M665 125h10M670 120v10" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"/>
+          <text x="680" y="160" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Data</text>
+          
+          <!-- Hexagon 3: Content -->
+          <path d="M600 180 L620 190 L620 215 L600 225 L580 215 L580 190 Z" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+          <path d="M592 200l6 8 4-6" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="600" y="240" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Content</text>
+          
+          <!-- Hexagon 4: Infra -->
+          <path d="M680 180 L700 190 L700 215 L680 225 L660 215 L660 190 Z" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+          <rect x="668" y="195" width="8" height="10" stroke="#10b981" stroke-width="2" fill="none"/>
+          <text x="680" y="240" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Infra</text>
+          
+          <!-- Hexagon 5: Finance -->
+          <path d="M640 260 L660 270 L660 295 L640 305 L620 295 L620 270 Z" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
+          <circle cx="640" cy="282" r="6" stroke="#f97316" stroke-width="2" fill="none"/>
+          <text x="640" y="285" text-anchor="middle" fill="#f97316" font-size="8" font-weight="700">$</text>
+          <text x="640" y="320" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Finance</text>
+          
+          <!-- Hexagon 6: AI -->
+          <path d="M720 260 L740 270 L740 295 L720 305 L700 295 L700 270 Z" fill="#ede9fe" stroke="#8b5cf6" stroke-width="2"/>
+          <circle cx="730" cy="277" r="4" fill="#8b5cf6"/>
+          <path d="M725 287q5-3 10 0" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <text x="720" y="320" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">AI/ML</text>
+        </g>
+        
+        <!-- Connection Arrows -->
+        <path d="M120 120 Q200 120 270 140" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M120 200 Q200 200 270 200" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M120 280 Q200 280 270 260" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        
+        <path d="M530 140 Q600 140 650 120" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M530 200 Q600 200 650 200" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        <path d="M530 260 Q600 260 650 280" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+        
+        <!-- Arrowheads -->
+        <polygon points="270,140 262,136 264,144" fill="#06b6d4"/>
+        <polygon points="270,200 262,196 264,204" fill="#06b6d4"/>
+        <polygon points="270,260 262,256 264,264" fill="#06b6d4"/>
+        
+        <polygon points="650,120 642,116 644,124" fill="#f97316"/>
+        <polygon points="650,200 642,196 644,204" fill="#f97316"/>
+        <polygon points="650,280 642,276 644,284" fill="#f97316"/>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

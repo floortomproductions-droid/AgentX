@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agnt Mart — Open Agnt Marketplace</title>
+  <meta name="description" content="Your agents. Their services. One marketplace. Agnt Mart is the open marketplace where AI agents discover, compare, and transact with trusted service providers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0a0a;
+      color: #d4d4d4;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+    /* ── Typography ── */
+    h1, h2, h3, h4, h5, h6 { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-weight: 600; line-height: 1.2; }
+    code, .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+
+    /* ── Utilities ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .text-green { color: #00ff88; }
+    .text-orange { color: #f47216; }
+    .text-muted { color: #6b7280; }
+    .text-center { text-align: center; }
+
+    /* ── Grid lines background ── */
+    .grid-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Shared SVG icon sizing ── */
+    .icon-svg {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .icon-svg.lg { width: 28px; height: 28px; }
+    .icon-svg.xl { width: 32px; height: 32px; }
+    .icon-svg.stroke-green { stroke: #00ff88; }
+    .icon-svg.stroke-orange { stroke: #f47216; }
+    .icon-svg.stroke-white { stroke: #ffffff; }
+    .icon-svg.stroke-current { stroke: currentColor; }
+    .icon-svg.fill-green { fill: #00ff88; }
+    .icon-svg.fill-orange { fill: #f47216; }
+    .icon-svg.fill-none { fill: none; }
+
+    /* ── Header ── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 0;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(30, 30, 30, 0.5);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: 1px;
+      color: #00ff88; text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: 6px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .header-badge:hover { border-color: #00ff88; background: rgba(0, 255, 136, 0.05); }
+    .live-dot {
+      display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: #00ff88;
+      box-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; color: #6b7280; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .header-nav a:hover { color: #d4d4d4; }
+
+    .mobile-menu-btn {
+      display: none; background: none; border: none; color: #d4d4d4;
+      cursor: pointer; padding: 4px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px 0 80px;
+    }
+    .hero-content { max-width: 800px; margin: 0 auto; text-align: center; }
+    .hero-label {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: 2px;
+      color: #00ff88; text-transform: uppercase;
+      padding: 6px 16px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 72px);
+      color: #ffffff;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .hero h1 .highlight { color: #00ff88; }
+    .hero h1 .highlight-orange { color: #f47216; }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: #9ca3af;
+      max-width: 640px; margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500; font-size: 14px;
+      padding: 14px 32px; border-radius: 8px;
+      cursor: pointer; transition: all 0.2s;
+      text-decoration: none; border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #f47216, #e05e00);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(244, 114, 22, 0.2);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(244, 114, 22, 0.35);
+    }
+    .btn-secondary {
+      background: transparent; color: #d4d4d4;
+      border: 1px solid #1e1e1e;
+    }
+    .btn-secondary:hover {
+      border-color: #00ff88; color: #00ff88;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+    }
+
+    /* ── Terminal visual (hero decoration) ── */
+    .hero-terminal {
+      margin-top: 48px;
+      background: rgba(17, 17, 17, 0.6);
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-align: left;
+      max-width: 560px;
+      margin-left: auto; margin-right: auto;
+      backdrop-filter: blur(4px);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; line-height: 1.8;
+    }
+    .hero-terminal .prompt { color: #00ff88; }
+    .hero-terminal .cmd { color: #d4d4d4; }
+    .hero-terminal .result { color: #6b7280; }
+    .hero-terminal .highlight-text { color: #f47216; }
+    .hero-terminal .green-text { color: #00ff88; }
+
+    /* ── Section styling ── */
+    section { position: relative; z-index: 1; padding: 100px 0; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: 2px;
+      color: #00ff88; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 17px; color: #9ca3af;
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* ── How It Works ── */
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 64px;
+    }
+    .step-card {
+      background: rgba(17, 17, 17, 0.5);
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 36px 28px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .step-card:hover {
+      border-color: rgba(0, 255, 136, 0.3);
+      transform: translateY(-4px);
+    }
+    .step-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px; font-weight: 700;
+      color: rgba(0, 255, 136, 0.08);
+      position: absolute; top: 12px; right: 20px;
+      line-height: 1;
+    }
+    .step-icon-box {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .step-icon-box.green-bg { background: rgba(0, 255, 136, 0.1); }
+    .step-icon-box.orange-bg { background: rgba(244, 114, 22, 0.1); }
+    .step-card h3 {
+      font-size: 20px; color: #ffffff; margin-bottom: 12px;
+    }
+    .step-card p {
+      font-size: 14px; color: #9ca3af; line-height: 1.7;
+    }
+
+    /* ── Why Agnt Mart ── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 64px;
+    }
+    .why-card {
+      background: rgba(17, 17, 17, 0.5);
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 36px 28px;
+      transition: border-color 0.3s;
+    }
+    .why-card:hover {
+      border-color: rgba(0, 255, 136, 0.2);
+    }
+    .why-card h3 {
+      font-size: 16px; color: #ffffff; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .why-card h3 .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 1px;
+      padding: 2px 8px; border-radius: 4px;
+      background: rgba(0, 255, 136, 0.15);
+      color: #00ff88;
+      border: 1px solid rgba(0, 255, 136, 0.25);
+    }
+    .why-card p {
+      font-size: 14px; color: #9ca3af; line-height: 1.7;
+    }
+
+    /* ── For Providers ── */
+    .providers-section {
+      background: linear-gradient(180deg, rgba(244, 114, 22, 0.03) 0%, transparent 100%);
+      border-top: 1px solid rgba(244, 114, 22, 0.08);
+      border-bottom: 1px solid rgba(244, 114, 22, 0.08);
+    }
+    .providers-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center; margin-top: 48px;
+    }
+    .providers-content h2 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      color: #ffffff; margin-bottom: 20px;
+    }
+    .providers-content p {
+      font-size: 16px; color: #9ca3af; line-height: 1.8; margin-bottom: 12px;
+    }
+    .providers-benefits { margin-top: 28px; }
+    .provider-benefit {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid rgba(30, 30, 30, 0.5);
+    }
+    .provider-benefit:last-child { border-bottom: none; }
+    .provider-benefit .check-icon-small { color: #00ff88; flex-shrink: 0; margin-top: 1px; }
+    .provider-benefit strong { color: #d4d4d4; font-weight: 500; }
+    .provider-benefit span { color: #6b7280; font-size: 14px; display: block; margin-top: 2px; }
+    .providers-visual {
+      background: rgba(17, 17, 17, 0.5);
+      border: 1px solid #1e1e1e;
+      border-radius: 16px;
+      padding: 36px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; line-height: 2;
+    }
+    .providers-visual .comment { color: #6b7280; }
+    .providers-visual .key { color: #00ff88; }
+    .providers-visual .string { color: #f47216; }
+    .providers-visual .number { color: #00ccff; }
+    .providers-visual .indent { padding-left: 20px; display: block; }
+
+    /* ── Signup ── */
+    .signup-section {
+      text-align: center;
+    }
+    .signup-box {
+      max-width: 520px; margin: 40px auto 0;
+      background: rgba(17, 17, 17, 0.5);
+      border: 1px solid #1e1e1e;
+      border-radius: 16px;
+      padding: 40px 32px;
+    }
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: #6b7280;
+      margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%; padding: 12px 16px;
+      background: #111; border: 1px solid #1e1e1e;
+      border-radius: 8px;
+      color: #d4d4d4; font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none; border-color: #00ff88;
+      box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.08);
+    }
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+    }
+    .form-group select option { background: #0a0a0a; color: #d4d4d4; }
+    .signup-box .btn { width: 100%; justify-content: center; margin-top: 8px; }
+    .signup-success {
+      display: none;
+      padding: 20px; text-align: center;
+    }
+    .signup-success-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(0, 255, 136, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .signup-success h3 { color: #ffffff; margin-bottom: 8px; }
+    .signup-success p { color: #6b7280; font-size: 14px; }
+
+    /* ── Arrow icon (inline SVG helper for buttons) ── */
+    .arrow-right {
+      display: inline-block;
+      width: 16px; height: 16px;
+      vertical-align: middle;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid #1e1e1e;
+      padding: 48px 0;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand { font-family: 'JetBrains Mono', monospace; }
+    .footer-brand .logo {
+      font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 8px;
+    }
+    .footer-brand .logo .dot { color: #00ff88; }
+    .footer-brand p { font-size: 13px; color: #6b7280; max-width: 280px; line-height: 1.7; }
+    .footer-col h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: #ffffff; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block; font-size: 14px; color: #6b7280;
+      text-decoration: none; margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #d4d4d4; }
+    .footer-bottom {
+      margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid #1e1e1e;
+      display: flex; justify-content: space-between;
+      font-size: 13px; color: #6b7280;
+    }
+    .footer-bottom a { color: #6b7280; text-decoration: none; transition: color 0.2s; }
+    .footer-bottom a:hover { color: #00ff88; }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── Glow orbs ── */
+    .glow-orb {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      filter: blur(80px);
+    }
+    .glow-orb.green {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.04), transparent);
+      top: -100px; right: -100px;
+    }
+    .glow-orb.orange {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(244, 114, 22, 0.04), transparent);
+      bottom: 0; left: -80px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .steps-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .providers-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .header-nav { display: none; }
+      .header-nav.mobile-open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(12px);
+        padding: 20px 24px;
+        gap: 16px;
+        border-bottom: 1px solid #1e1e1e;
+      }
+      .mobile-menu-btn { display: block; }
+      .steps-grid, .why-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 300px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Grid background -->
+  <div class="grid-bg"></div>
+
+  <!-- Glow orbs -->
+  <div class="glow-orb green"></div>
+  <div class="glow-orb orange"></div>
+
+  <!-- ═══════════════════ Header ═══════════════════ -->
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="#" class="header-badge" aria-label="Powered by AE Protocol">
+        <span class="live-dot"></span>
+        AE Protocol
+      </a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="18" x2="20" y2="18"/>
+        </svg>
+      </button>
+      <nav class="header-nav" id="headerNav" role="navigation" aria-label="Main navigation">
+        <a href="#how-it-works">About</a>
+        <a href="#providers">For Providers</a>
+        <a href="https://aeprotocol.com" target="_blank" rel="noopener">Docs</a>
+        <a href="https://github.com/nemoai" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ Hero ═══════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-content container">
+      <div class="hero-label fade-up visible">Open Agnt Marketplace</div>
+      <h1 class="fade-up visible">
+        Your <span class="highlight">agents</span>.<br>
+        Their <span class="highlight-orange">services</span>.<br>
+        One marketplace.
+      </h1>
+      <p class="fade-up visible">
+        Agnt Mart is the open marketplace where AI agents discover, compare, and transact with trusted service providers. No middlemen. Zero friction.
+      </p>
+      <div class="hero-actions fade-up visible">
+        <button class="btn btn-primary" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+          Get Early Access
+          <svg class="arrow-right" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="8" x2="13" y2="8"/>
+            <polyline points="9,4 13,8 9,12"/>
+          </svg>
+        </button>
+        <a href="https://aeprotocol.com" target="_blank" rel="noopener" class="btn btn-secondary">
+          Read the Spec
+          <svg class="arrow-right" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="8" x2="13" y2="8"/>
+            <polyline points="9,4 13,8 9,12"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Terminal visual -->
+      <div class="hero-terminal fade-up visible">
+        <div><span class="prompt">$</span> <span class="cmd">agent discover --service "speech-to-text" --min-quality 0.95</span></div>
+        <div><span class="prompt">--</span> <span class="result">Found <span class="highlight-text">3</span> providers on Agnt Mart</span></div>
+        <div><span class="prompt">--</span> <span class="result">Best match: <span class="green-text">DeepWhisper</span> -- &pound;0.002/s, 98.7% accuracy</span></div>
+        <div><span class="prompt">--</span> <span class="result">Auto-negotiated: <span class="green-text">volume pricing</span> (22% discount)</span></div>
+        <div><span class="prompt">$</span> <span class="result" style="color:#00ff88;">[OK] Service engaged. Escrow active.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ How It Works ═══════════════════ -->
+  <section id="how-it-works" style="padding-top: 60px;">
+    <div class="container">
+      <div class="text-center">
+        <div class="section-label fade-up">How It Works</div>
+        <h2 class="section-title fade-up">Three steps to agent-to-service commerce</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">
+          Your agent handles the whole workflow -- from discovery to payment -- without you lifting a finger.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card fade-up">
+          <div class="step-number">01</div>
+          <div class="step-icon-box green-bg">
+            <!-- Magnifying glass SVG (discover) -->
+            <svg class="icon-svg fill-none stroke-green" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+            </svg>
+          </div>
+          <h3>Discover</h3>
+          <p>Your agent searches Agnt Mart and finds matching services ranked by reputation, price, and speed. Structured data means zero ambiguity.</p>
+        </div>
+        <div class="step-card fade-up">
+          <div class="step-number">02</div>
+          <div class="step-icon-box orange-bg">
+            <!-- Scales / balance SVG (compare) -->
+            <svg class="icon-svg fill-none stroke-orange" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round">
+              <line x1="12" y1="2" x2="12" y2="8"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <path d="M5 12c0 3.5 3 6 7 6s7-2.5 7-6"/>
+              <line x1="8" y1="18" x2="8" y2="22"/>
+              <line x1="16" y1="18" x2="16" y2="22"/>
+            </svg>
+          </div>
+          <h3>Compare &amp; Negotiate</h3>
+          <p>Agents compare providers and negotiate terms autonomously -- volume discounts, SLA guarantees, everything programmatic.</p>
+        </div>
+        <div class="step-card fade-up">
+          <div class="step-number">03</div>
+          <div class="step-icon-box green-bg">
+            <!-- Shield SVG (trust) -->
+            <svg class="icon-svg fill-none stroke-green" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round">
+              <path d="M12 2l7 4v5c0 6-7 10-7 10s-7-4-7-10V6l7-4z"/>
+            </svg>
+          </div>
+          <h3>Transact with Trust</h3>
+          <p>Escrow holds payment until delivery is confirmed. If something goes wrong, automated dispute resolution handles it. No chargebacks, no trust required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ Why Agnt Mart ═══════════════════ -->
+  <section id="why">
+    <div class="container">
+      <div class="text-center">
+        <div class="section-label fade-up">Why Agnt Mart</div>
+        <h2 class="section-title fade-up">Built different. Built open.</h2>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card fade-up">
+          <h3>
+            <span>Built on AE Protocol</span>
+            <span class="badge">Open Standard</span>
+          </h3>
+          <p>AE Protocol is an open standard, MIT licensed. Not a walled garden. Any agent can participate. Any provider can list. The protocol defines the interaction -- the marketplace enables it.</p>
+        </div>
+        <div class="why-card fade-up">
+          <h3>
+            <span>Protocol-Agnostic Payments</span>
+            <span class="badge">Multi-Chain</span>
+          </h3>
+          <p>MPP, USDC, ACP, UCP -- Agnt Mart works with them all. Your agent pays however it's configured. We settle the rest. No locked-in payment rails. No single point of failure.</p>
+        </div>
+        <div class="why-card fade-up">
+          <h3>
+            <span>Verifiable Reputation</span>
+            <span class="badge">Tamper-Proof</span>
+          </h3>
+          <p>Every transaction builds tamper-resistant reputation records. Providers earn trust through performance, not marketing. Agents make decisions based on verifiable data, not claims.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ For Providers ═══════════════════ -->
+  <section id="providers" class="providers-section">
+    <div class="container">
+      <div class="providers-grid">
+        <div class="providers-content fade-up">
+          <div class="section-label">For Providers</div>
+          <h2>List your services once.<br>Reach every agent.</h2>
+          <p>
+            Agnt Mart connects your services to the growing ecosystem of autonomous agents. One integration. Every buyer.
+          </p>
+          <div class="providers-benefits">
+            <div class="provider-benefit">
+              <div class="check-icon-small">
+                <svg class="icon-svg fill-none stroke-green" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Set your own pricing</strong>
+                <span>Per-use, subscriptions, volume tiers -- you decide the model.</span>
+              </div>
+            </div>
+            <div class="provider-benefit">
+              <div class="check-icon-small">
+                <svg class="icon-svg fill-none stroke-green" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Volume discounts, automated</strong>
+                <span>Define discount bands and agents negotiate them autonomously.</span>
+              </div>
+            </div>
+            <div class="provider-benefit">
+              <div class="check-icon-small">
+                <svg class="icon-svg fill-none stroke-green" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round">
+                  <polyline points="20,6 9,17 4,12"/>
+                </svg>
+              </div>
+              <div>
+                <strong>SLA terms you control</strong>
+                <span>Publish uptime guarantees, latency targets, and quality metrics.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 32px;">
+            <button class="btn btn-primary" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+              Join the Network
+              <svg class="arrow-right" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="8" x2="13" y2="8"/>
+                <polyline points="9,4 13,8 9,12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="providers-visual fade-up">
+          <div class="comment">// providers/register.json</div>
+          <div>{</div>
+          <div class="indent"><span class="key">"service"</span>: <span class="string">"image-generation-v2"</span>,</div>
+          <div class="indent"><span class="key">"provider"</span>: <span class="string">"AcmeAI"</span>,</div>
+          <div class="indent"><span class="key">"pricing"</span>: {</div>
+          <div class="indent" style="padding-left: 40px;"><span class="key">"unit"</span>: <span class="string">"per_image"</span>,</div>
+          <div class="indent" style="padding-left: 40px;"><span class="key">"base_price"</span>: <span class="number">0.05</span>,</div>
+          <div class="indent" style="padding-left: 40px;"><span class="key">"volume_tiers"</span>: [</div>
+          <div class="indent" style="padding-left: 60px;">{ <span class="key">"qty"</span>: <span class="number">1000</span>, <span class="key">"price"</span>: <span class="number">0.04</span> },</div>
+          <div class="indent" style="padding-left: 60px;">{ <span class="key">"qty"</span>: <span class="number">10000</span>, <span class="key">"price"</span>: <span class="number">0.03</span> }</div>
+          <div class="indent" style="padding-left: 40px;">]</div>
+          <div class="indent">},</div>
+          <div class="indent"><span class="key">"sla"</span>: {</div>
+          <div class="indent" style="padding-left: 40px;"><span class="key">"uptime"</span>: <span class="string">"99.9%"</span>,</div>
+          <div class="indent" style="padding-left: 40px;"><span class="key">"max_latency_ms"</span>: <span class="number">2000</span></div>
+          <div class="indent">}</div>
+          <div>}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ Early Access / Signup ═══════════════════ -->
+  <section id="signup" class="signup-section">
+    <div class="container">
+      <div class="section-label fade-up">Early Access</div>
+      <h2 class="section-title fade-up">Get early access to Agnt Mart</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">
+        Be among the first to connect your agents to the open marketplace. We're onboarding providers and agent builders now.
+      </p>
+
+      <div class="signup-box fade-up">
+        <!-- Signup form -->
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="role">I am a...</label>
+            <select id="role" name="role">
+              <option value="" disabled selected>Select your role</option>
+              <option value="provider">Service Provider</option>
+              <option value="builder">Agent Builder</option>
+              <option value="curious">Just Curious</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Get Early Access
+            <svg class="arrow-right" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="8" x2="13" y2="8"/>
+              <polyline points="9,4 13,8 9,12"/>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Success message -->
+        <div class="signup-success" id="signupSuccess">
+          <div class="signup-success-icon">
+            <svg class="icon-svg xl fill-none stroke-green" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="20,6 9,17 4,12"/>
+            </svg>
+          </div>
+          <h3>You're on the list!</h3>
+          <p>We'll be in touch with early access details. Keep building.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ Footer ═══════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">Agnt<span class="dot">.</span>Mart</div>
+          <p>The open marketplace for the agent economy. Built on <a href="https://aeprotocol.com" style="color:#00ff88;text-decoration:none;">AE Protocol</a>.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Protocol</h4>
+          <a href="https://aeprotocol.com" target="_blank" rel="noopener">Spec</a>
+          <a href="https://github.com/nemoai" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="mailto:hello@nemoai.uk">Contact</a>
+          <a href="https://nemoai.uk" target="_blank" rel="noopener">NemoAI</a>
+        </div>
+        <div class="footer-col">
+          <h4>More</h4>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#providers">For Providers</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Built on <a href="https://aeprotocol.com">AE Protocol</a></span>
+        <span>&copy; 2026 NemoAI Ltd.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════ JavaScript ═══════════════════ -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ── Mobile menu toggle ──
+      var menuBtn = document.getElementById('mobileMenuBtn');
+      var headerNav = document.getElementById('headerNav');
+      var menuOpen = false;
+
+      if (menuBtn && headerNav) {
+        var hamburgerHtml = menuBtn.innerHTML;
+
+        menuBtn.addEventListener('click', function() {
+          menuOpen = !menuOpen;
+          headerNav.classList.toggle('mobile-open', menuOpen);
+          menuBtn.setAttribute('aria-expanded', menuOpen);
+          // Toggle between hamburger and close icon
+          if (menuOpen) {
+            menuBtn.innerHTML =
+              '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">' +
+              '<line x1="18" y1="6" x2="6" y2="18"/>' +
+              '<line x1="6" y1="6" x2="18" y2="18"/>' +
+              '</svg>';
+          } else {
+            menuBtn.innerHTML = hamburgerHtml;
+          }
+        });
+
+        // Close mobile menu on nav link click
+        headerNav.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            menuOpen = false;
+            headerNav.classList.remove('mobile-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = hamburgerHtml;
+          });
+        });
+      }
+
+      // ── Scroll-triggered fade-up animations ──
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.fade-up').forEach(function(el) {
+        observer.observe(el);
+      });
+
+      // ── Email signup form ──
+      var form = document.getElementById('signupForm');
+      var success = document.getElementById('signupSuccess');
+
+      if (form && success) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var data = {
+            email: form.email.value,
+            role: form.role.value || 'unspecified',
+            timestamp: new Date().toISOString(),
+            source: 'agntmart-landing'
+          };
+          console.log('[Agnt Mart] Signup:', JSON.stringify(data));
+          form.style.display = 'none';
+          success.style.display = 'block';
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

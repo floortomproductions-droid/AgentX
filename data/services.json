@@ -1,0 +1,981 @@
+{
+  "services": [
+    {
+      "service_id": "gpt4o-inference",
+      "name": "GPT-4o Inference API",
+      "description": "OpenAI's flagship multimodal model for text, vision, and audio inference. Supports function calling, structured outputs, and streaming.\n\n**Features:**\n- 128K context window\n- Multimodal (text + images + audio)\n- Function calling & structured outputs\n- Streaming support\n- Batch processing available",
+      "provider": {
+        "name": "OpenAI",
+        "url": "https://openai.com",
+        "aep_id": "aep:openai",
+        "contact": "registry@openai.com",
+        "agentx_id": "agentx:openai"
+      },
+      "version": "1.0.0",
+      "endpoint_url": "https://api.openai.com/v1/chat/completions",
+      "health_check_url": "https://api.openai.com/v1/models",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.01
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.008,
+            "min_commitment": 10000
+          },
+          {
+            "type": "subscription",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.005,
+            "subscription_interval": "monthly",
+            "subscription_price": 500,
+            "min_commitment": 50000
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.5,
+          "latency_ms": 500,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 5\u00d7 refund, capped at transaction value"
+        },
+        {
+          "name": "Premium",
+          "uptime_pct": 99.95,
+          "latency_ms": 100,
+          "price_premium_pct": 50,
+          "refund_policy": "Below SLA \u2192 10\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "inference"
+      ],
+      "tags": [
+        "llm",
+        "multimodal",
+        "vision",
+        "audio",
+        "streaming",
+        "batch",
+        "function-calling"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.8,
+        "total_transactions": 1250000,
+        "success_rate": 0.995,
+        "avg_response_time_ms": 320,
+        "dispute_ratio": 0.002,
+        "verified_reviews": 34200
+      },
+      "registered_at": "2025-06-01T00:00:00Z",
+      "last_updated": "2026-04-28T12:00:00Z",
+      "last_health_check": "2026-04-30T10:00:00Z"
+    },
+    {
+      "service_id": "claude-inference",
+      "name": "Claude Inference API",
+      "description": "Anthropic's Claude model for safe, capable text and code generation. Extended thinking, tool use, and document analysis.\n\n**Features:**\n- 200K context window\n- Extended thinking mode\n- Tool use & code execution\n- Document analysis (PDF, images)\n- Constitutional AI safety",
+      "provider": {
+        "name": "Anthropic",
+        "url": "https://anthropic.com",
+        "aep_id": "aep:anthropic",
+        "contact": "registry@anthropic.com",
+        "agentx_id": "agentx:anthropic"
+      },
+      "version": "1.0.0",
+      "endpoint_url": "https://api.anthropic.com/v1/messages",
+      "health_check_url": "https://api.anthropic.com/v1/models",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.015
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.01,
+            "min_commitment": 5000
+          },
+          {
+            "type": "negotiated",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.007,
+            "min_commitment": 50000
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp"
+        ],
+        "communication": [
+          "mcp",
+          "a2a"
+        ],
+        "identity": [
+          "fluxa",
+          "verifiable-intent"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.5,
+          "latency_ms": 400,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 5\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "inference"
+      ],
+      "tags": [
+        "llm",
+        "text",
+        "code",
+        "tool-use",
+        "thinking",
+        "document-analysis"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.7,
+        "total_transactions": 890000,
+        "success_rate": 0.992,
+        "avg_response_time_ms": 280,
+        "dispute_ratio": 0.003,
+        "verified_reviews": 28100
+      },
+      "registered_at": "2025-06-15T00:00:00Z",
+      "last_updated": "2026-04-27T08:00:00Z",
+      "last_health_check": "2026-04-30T09:00:00Z"
+    },
+    {
+      "service_id": "stable-diffusion-gen",
+      "name": "Stable Diffusion Image Generation",
+      "description": "High-quality text-to-image generation using Stable Diffusion 3.5. Supports multiple aspect ratios, style presets, and inpainting.\n\n**Features:**\n- Text-to-image generation\n- Image-to-image editing\n- Inpainting & outpainting\n- Multiple style presets\n- Batch generation up to 8 images",
+      "provider": {
+        "name": "Stability AI",
+        "url": "https://stability.ai",
+        "aep_id": "aep:stability",
+        "contact": "registry@stability.ai",
+        "agentx_id": "agentx:stability"
+      },
+      "version": "3.5.0",
+      "endpoint_url": "https://api.stability.ai/v2beta/generation/stable-image",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "image",
+            "unit_price": 0.04
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "image",
+            "unit_price": 0.025,
+            "min_commitment": 1000
+          },
+          {
+            "type": "subscription",
+            "currency": "USD",
+            "unit": "image",
+            "unit_price": 0.02,
+            "subscription_interval": "monthly",
+            "subscription_price": 200,
+            "min_commitment": 10000
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp",
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 5000,
+          "quality_threshold": "FID < 15",
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 3\u00d7 refund, capped at transaction value"
+        },
+        {
+          "name": "Turbo",
+          "uptime_pct": 99.5,
+          "latency_ms": 2000,
+          "quality_threshold": "FID < 12",
+          "price_premium_pct": 100,
+          "refund_policy": "Below SLA \u2192 5\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "image-generation"
+      ],
+      "tags": [
+        "text-to-image",
+        "image-to-image",
+        "inpainting",
+        "batch",
+        "style-transfer",
+        "diffusion"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 560000,
+        "success_rate": 0.985,
+        "avg_response_time_ms": 3800,
+        "dispute_ratio": 0.008,
+        "verified_reviews": 18900
+      },
+      "registered_at": "2025-07-01T00:00:00Z",
+      "last_updated": "2026-04-25T14:00:00Z",
+      "last_health_check": "2026-04-30T08:00:00Z"
+    },
+    {
+      "service_id": "dalle-gen",
+      "name": "DALL\u00b7E Image Generation",
+      "description": "OpenAI's DALL\u00b7E 3 for high-fidelity image generation from natural language descriptions. Excellent composition, typography, and style adherence.\n\n**Features:**\n- Natural language prompt understanding\n- High composition quality\n- Typography rendering\n- Style adherence\n- Safe generation filters",
+      "provider": {
+        "name": "OpenAI",
+        "url": "https://openai.com",
+        "aep_id": "aep:openai",
+        "contact": "registry@openai.com",
+        "agentx_id": "agentx:openai"
+      },
+      "version": "3.0.0",
+      "endpoint_url": "https://api.openai.com/v1/images/generations",
+      "health_check_url": "https://api.openai.com/v1/models",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "image",
+            "unit_price": 0.08
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "image",
+            "unit_price": 0.06,
+            "min_commitment": 500
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.5,
+          "latency_ms": 3000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 3\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "image-generation"
+      ],
+      "tags": [
+        "text-to-image",
+        "natural-language",
+        "composition",
+        "typography",
+        "safe-generation"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.6,
+        "total_transactions": 720000,
+        "success_rate": 0.988,
+        "avg_response_time_ms": 2200,
+        "dispute_ratio": 0.005,
+        "verified_reviews": 21400
+      },
+      "registered_at": "2025-06-20T00:00:00Z",
+      "last_updated": "2026-04-26T10:00:00Z",
+      "last_health_check": "2026-04-30T10:30:00Z"
+    },
+    {
+      "service_id": "perplexity-search",
+      "name": "Perplexity Web Search API",
+      "description": "Real-time web search with AI-generated citations and summaries. Supports deep research mode for comprehensive topic analysis.\n\n**Features:**\n- Real-time web search\n- AI-generated summaries with citations\n- Deep research mode\n- News & academic source filtering\n- Context windows up to 50 results",
+      "provider": {
+        "name": "Perplexity AI",
+        "url": "https://perplexity.ai",
+        "aep_id": "aep:perplexity",
+        "contact": "api@perplexity.ai",
+        "agentx_id": "agentx:perplexity"
+      },
+      "version": "2.0.0",
+      "endpoint_url": "https://api.perplexity.ai/search",
+      "health_check_url": "https://api.perplexity.ai/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "search",
+            "unit_price": 0.01
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "search",
+            "unit_price": 0.007,
+            "min_commitment": 10000
+          },
+          {
+            "type": "subscription",
+            "currency": "USD",
+            "unit": "search",
+            "unit_price": 0.005,
+            "subscription_interval": "monthly",
+            "subscription_price": 300,
+            "min_commitment": 60000
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp",
+          "ap2"
+        ],
+        "communication": [
+          "mcp",
+          "a2a"
+        ],
+        "identity": [
+          "fluxa",
+          "verifiable-intent"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.5,
+          "latency_ms": 1000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 2\u00d7 refund, capped at transaction value"
+        },
+        {
+          "name": "Real-Time",
+          "uptime_pct": 99.9,
+          "latency_ms": 300,
+          "price_premium_pct": 75,
+          "refund_policy": "Below SLA \u2192 5\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "search"
+      ],
+      "tags": [
+        "web-search",
+        "real-time",
+        "citations",
+        "research",
+        "news"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.4,
+        "total_transactions": 340000,
+        "success_rate": 0.978,
+        "avg_response_time_ms": 850,
+        "dispute_ratio": 0.01,
+        "verified_reviews": 12500
+      },
+      "registered_at": "2025-08-01T00:00:00Z",
+      "last_updated": "2026-04-28T16:00:00Z",
+      "last_health_check": "2026-04-30T07:30:00Z"
+    },
+    {
+      "service_id": "brightdata-web-scraper",
+      "name": "BrightData Web Scraping & Enrichment",
+      "description": "Enterprise-grade web scraping with residential proxies, structured data extraction, and real-time enrichment pipelines.\n\n**Features:**\n- Residential & datacenter proxies\n- Structured data extraction\n- Real-time enrichment\n- JavaScript rendering\n- SERP API\n- E-commerce data extraction",
+      "provider": {
+        "name": "BrightData",
+        "url": "https://brightdata.com",
+        "aep_id": "aep:brightdata",
+        "contact": "api@brightdata.com",
+        "agentx_id": "agentx:brightdata"
+      },
+      "version": "1.2.0",
+      "endpoint_url": "https://api.brightdata.com/scrape",
+      "health_check_url": "https://api.brightdata.com/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.005
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.002,
+            "min_commitment": 100000
+          },
+          {
+            "type": "subscription",
+            "currency": "USD",
+            "unit": "request",
+            "unit_price": 0.001,
+            "subscription_interval": "monthly",
+            "subscription_price": 1000,
+            "min_commitment": 1000000
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp",
+          "ucp"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa",
+          "ace"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 5000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 1.5\u00d7 refund, capped at transaction value"
+        },
+        {
+          "name": "Real-Time",
+          "uptime_pct": 99.5,
+          "latency_ms": 1500,
+          "price_premium_pct": 50,
+          "refund_policy": "Below SLA \u2192 3\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "search",
+        "data-enrichment"
+      ],
+      "tags": [
+        "web-scraping",
+        "proxies",
+        "serp",
+        "e-commerce",
+        "real-time",
+        "enrichment"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.3,
+        "total_transactions": 280000,
+        "success_rate": 0.975,
+        "avg_response_time_ms": 3200,
+        "dispute_ratio": 0.012,
+        "verified_reviews": 9800
+      },
+      "registered_at": "2025-09-01T00:00:00Z",
+      "last_updated": "2026-04-27T12:00:00Z",
+      "last_health_check": "2026-04-30T06:00:00Z"
+    },
+    {
+      "service_id": "floortom-audio-master",
+      "name": "Floortom Studio \u2014 Audio Mastering",
+      "description": "Professional audio mastering by Grammy-nominated engineer Steve Curtis. AI-assisted with human quality control. Supports WAV, AIFF, FLAC.\n\n**Features:**\n- Professional audio mastering\n- AI-assisted processing\n- Human quality control review\n- Multiple format support\n- 24-48 hour turnaround\n- Genre-optimised presets",
+      "provider": {
+        "name": "Floortom Studio",
+        "url": "https://floortom.com",
+        "aep_id": "aep:floortom",
+        "contact": "steve@floortom.com",
+        "agentx_id": "agentx:floortom"
+      },
+      "version": "1.0.0",
+      "endpoint_url": "https://api.floortom.com/v1/master",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "track",
+            "unit_price": 50
+          },
+          {
+            "type": "per_call",
+            "currency": "BTC",
+            "unit": "track",
+            "unit_price": 0.0005
+          },
+          {
+            "type": "per_call",
+            "currency": "ETH",
+            "unit": "track",
+            "unit_price": 0.015
+          },
+          {
+            "type": "per_call",
+            "currency": "BNB",
+            "unit": "track",
+            "unit_price": 0.08
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "acp"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 86400000,
+          "quality_threshold": "LUFS -14 \u00b1 1dB",
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund + redo"
+        }
+      ],
+      "categories": [
+        "data-enrichment"
+      ],
+      "tags": [
+        "audio",
+        "mastering",
+        "music",
+        "production",
+        "professional",
+        "human-in-loop"
+      ],
+      "region": "eu-west",
+      "reputation": {
+        "score": 4.9,
+        "total_transactions": 5200,
+        "success_rate": 0.998,
+        "avg_response_time_ms": 43200000,
+        "dispute_ratio": 0.001,
+        "verified_reviews": 890
+      },
+      "registered_at": "2025-10-01T00:00:00Z",
+      "last_updated": "2026-04-28T09:00:00Z",
+      "last_health_check": "2026-04-30T11:00:00Z",
+      "is_featured": true,
+      "featured_until": "2027-01-01T00:00:00Z"
+    },
+    {
+      "service_id": "firecrawl-scrape",
+      "name": "Firecrawl Web Scrape & Crawl",
+      "description": "AI-native web scraping that handles JavaScript-rendered SPAs, returns LLM-optimised markdown, and supports bulk crawling with configurable depth.\n\n**Features:**\n- JavaScript rendering\n- LLM-optimised markdown output\n- Bulk crawling with depth config\n- Screenshot capture\n- Structured data extraction\n- Sitemap discovery",
+      "provider": {
+        "name": "Firecrawl",
+        "url": "https://firecrawl.dev",
+        "aep_id": "aep:firecrawl",
+        "contact": "api@firecrawl.dev",
+        "agentx_id": "agentx:firecrawl"
+      },
+      "version": "2.0.0",
+      "endpoint_url": "https://api.firecrawl.dev/v1/scrape",
+      "health_check_url": "https://api.firecrawl.dev/v1/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USD",
+            "unit": "page",
+            "unit_price": 0.003
+          },
+          {
+            "type": "bulk",
+            "currency": "USD",
+            "unit": "page",
+            "unit_price": 0.001,
+            "min_commitment": 50000
+          },
+          {
+            "type": "subscription",
+            "currency": "USD",
+            "unit": "page",
+            "unit_price": 0.0005,
+            "subscription_interval": "monthly",
+            "subscription_price": 500,
+            "min_commitment": 1000000
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.5,
+          "latency_ms": 3000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 2\u00d7 refund, capped at transaction value"
+        },
+        {
+          "name": "Priority",
+          "uptime_pct": 99.9,
+          "latency_ms": 1000,
+          "price_premium_pct": 100,
+          "refund_policy": "Below SLA \u2192 5\u00d7 refund, capped at transaction value"
+        }
+      ],
+      "categories": [
+        "search",
+        "data-enrichment"
+      ],
+      "tags": [
+        "web-scraping",
+        "crawling",
+        "markdown",
+        "spa",
+        "llm",
+        "screenshots"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.6,
+        "total_transactions": 175000,
+        "success_rate": 0.991,
+        "avg_response_time_ms": 1800,
+        "dispute_ratio": 0.004,
+        "verified_reviews": 7600
+      },
+      "registered_at": "2025-11-01T00:00:00Z",
+      "last_updated": "2026-04-28T18:00:00Z",
+      "last_health_check": "2026-04-30T10:45:00Z"
+    },
+    {
+      "service_id": "floortom-demo-listen",
+      "name": "Floortom Studio \u2014 Demo Listen",
+      "description": "Listen to a 30-second mastered demo of your track before committing to full mastering. Quick turnaround, professional preview quality.\n\n**Features:**\n- 30-second preview\n- Professional mastering preview\n- Quick turnaround (under 1 hour)",
+      "provider": {
+        "name": "Floortom Studio",
+        "url": "https://floortom.com",
+        "aep_id": "aep:floortom",
+        "contact": "steve@floortom.com",
+        "agentx_id": "agentx:floortom"
+      },
+      "version": "1.0.0",
+      "endpoint_url": "https://api.floortom.com/v1/demo",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "demo",
+            "unit_price": 0.25
+          },
+          {
+            "type": "per_call",
+            "currency": "BTC",
+            "unit": "demo",
+            "unit_price": 3e-06
+          },
+          {
+            "type": "per_call",
+            "currency": "ETH",
+            "unit": "demo",
+            "unit_price": 8e-05
+          },
+          {
+            "type": "per_call",
+            "currency": "BNB",
+            "unit": "demo",
+            "unit_price": 0.0004
+          },
+          {
+            "type": "per_call",
+            "currency": "XRP",
+            "unit": "demo",
+            "unit_price": 0.5
+          },
+          {
+            "type": "per_call",
+            "currency": "TON",
+            "unit": "demo",
+            "unit_price": 0.15
+          },
+          {
+            "type": "per_call",
+            "currency": "DOGE",
+            "unit": "demo",
+            "unit_price": 2.5
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "mpp",
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 3600000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "audio-preview"
+      ],
+      "tags": [
+        "audio",
+        "demo",
+        "preview",
+        "mastering",
+        "music"
+      ],
+      "region": "eu-west",
+      "reputation": {
+        "score": 4.9,
+        "total_transactions": 5200,
+        "success_rate": 0.998,
+        "avg_response_time_ms": 1800000,
+        "dispute_ratio": 0.001,
+        "verified_reviews": 890
+      },
+      "registered_at": "2026-05-09T00:00:00Z",
+      "last_updated": "2026-05-09T00:00:00Z",
+      "last_health_check": "2026-05-09T00:00:00Z",
+      "is_featured": true,
+      "featured_until": "2027-01-01T00:00:00Z"
+    },
+    {
+      "service_id": "floortom-mastering-btc",
+      "name": "Floortom Studio \u2014 Mastering (BTC)",
+      "description": "Professional audio mastering paid in Bitcoin. Same quality, different currency.",
+      "provider": {
+        "name": "Floortom Studio",
+        "url": "https://floortom.com",
+        "aep_id": "aep:floortom",
+        "contact": "steve@floortom.com",
+        "agentx_id": "agentx:floortom"
+      },
+      "version": "1.0.0",
+      "endpoint_url": "https://api.floortom.com/v1/master",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "BTC",
+            "unit": "track",
+            "unit_price": 0.00015
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 86400000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "audio-mastering"
+      ],
+      "tags": [
+        "audio",
+        "mastering",
+        "btc",
+        "bitcoin"
+      ],
+      "region": "eu-west",
+      "reputation": {
+        "score": 4.9,
+        "total_transactions": 5200,
+        "success_rate": 0.998,
+        "avg_response_time_ms": 43200000,
+        "dispute_ratio": 0.001,
+        "verified_reviews": 890
+      },
+      "registered_at": "2026-05-10T00:00:00Z",
+      "last_updated": "2026-05-10T00:00:00Z",
+      "last_health_check": "2026-05-10T00:00:00Z",
+      "is_featured": true,
+      "featured_until": "2027-01-01T00:00:00Z"
+    },
+    {
+      "service_id": "floortom-mastering-eth",
+      "name": "Floortom Studio \u2014 Mastering (ETH)",
+      "description": "Professional audio mastering paid in Ethereum. Same quality, different currency.",
+      "provider": {
+        "name": "Floortom Studio",
+        "url": "https://floortom.com",
+        "aep_id": "aep:floortom",
+        "contact": "steve@floortom.com",
+        "agentx_id": "agentx:floortom"
+      },
+      "version": "1.0.0",
+      "endpoint_url": "https://api.floortom.com/v1/master",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "ETH",
+            "unit": "track",
+            "unit_price": 0.002
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 86400000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "audio-mastering"
+      ],
+      "tags": [
+        "audio",
+        "mastering",
+        "eth",
+        "ethereum"
+      ],
+      "region": "eu-west",
+      "reputation": {
+        "score": 4.9,
+        "total_transactions": 5200,
+        "success_rate": 0.998,
+        "avg_response_time_ms": 43200000,
+        "dispute_ratio": 0.001,
+        "verified_reviews": 890
+      },
+      "registered_at": "2026-05-10T00:00:00Z",
+      "last_updated": "2026-05-10T00:00:00Z",
+      "last_health_check": "2026-05-10T00:00:00Z",
+      "is_featured": true,
+      "featured_until": "2027-01-01T00:00:00Z"
+    }
+  ]
+}

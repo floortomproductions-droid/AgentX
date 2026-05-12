@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AE Protocol — A Commerce Layer Standard</title>
+  <meta name="description" content="AE Protocol is a standard that lets AI agents find, compare, and pay for services automatically. Commerce infrastructure for the agent economy.">
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* ===== Typography ===== */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      max-width: 70ch;
+    }
+
+    a {
+      color: #06b6d4;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code, .mono {
+      font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
+      font-size: 0.875em;
+      background: #f3f4f6;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+    }
+
+    /* ===== Layout ===== */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      padding: 2rem 0;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 3rem;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+    }
+
+    .header-meta {
+      font-size: 0.8125rem;
+      color: #9ca3af;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding: 2rem 0 3rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.25rem;
+      color: #4b5563;
+      margin-bottom: 2rem;
+      max-width: 60ch;
+      font-weight: 400;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.8125rem;
+      color: #6b7280;
+      margin-top: 1.5rem;
+    }
+
+    .hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* ===== Sections ===== */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .section-number {
+      font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Code", monospace;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== Problem List ===== */
+    .problem-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    .problem-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .problem-list li:last-child {
+      border-bottom: none;
+    }
+
+    .problem-icon {
+      font-family: "SF Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #ef4444;
+      background: #fef2f2;
+      padding: 0.125rem 0.5rem;
+      border-radius: 4px;
+      height: fit-content;
+      flex-shrink: 0;
+    }
+
+    .problem-text {
+      font-size: 0.9375rem;
+    }
+
+    .problem-text strong {
+      color: #1a1a1a;
+    }
+
+    /* ===== Solution List ===== */
+    .solution-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    .solution-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .solution-list li:last-child {
+      border-bottom: none;
+    }
+
+    .solution-icon {
+      font-family: "SF Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #10b981;
+      background: #ecfdf5;
+      padding: 0.125rem 0.5rem;
+      border-radius: 4px;
+      height: fit-content;
+      flex-shrink: 0;
+    }
+
+    .solution-text {
+      font-size: 0.9375rem;
+    }
+
+    .solution-text strong {
+      color: #1a1a1a;
+    }
+
+    /* ===== Flow Diagram ===== */
+    .flow-diagram {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #f9fafb;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .flow-step {
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .flow-step-box {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 0.75rem;
+      font-family: "SF Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1e3a5f;
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-step-desc {
+      font-size: 0.6875rem;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    .flow-arrow {
+      color: #9ca3af;
+      font-size: 1rem;
+      padding-top: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== Stack Diagram ===== */
+    .stack-diagram {
+      margin: 1.5rem 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .stack-layer {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stack-layer:last-child {
+      border-bottom: none;
+    }
+
+    .stack-layer-name {
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .stack-layer-desc {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      text-align: right;
+    }
+
+    .stack-layer.aep {
+      background: #eff6ff;
+      border-left: 3px solid #06b6d4;
+    }
+
+    .stack-layer.aep .stack-layer-name {
+      color: #1e3a5f;
+    }
+
+    /* ===== Table ===== */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.875rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid #e5e7eb;
+      font-weight: 600;
+      color: #6b7280;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== CTA Banner ===== */
+    .cta-banner {
+      margin: 3rem 0;
+      padding: 2rem;
+      background: #1e3a5f;
+      border-radius: 8px;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .cta-banner h3 {
+      font-size: 1.25rem;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-banner p {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #06b6d4;
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background: #0891b2;
+      text-decoration: none;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-meta {
+      font-size: 0.8125rem;
+      color: #9ca3af;
+    }
+
+    .footer-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.8125rem;
+    }
+
+    .footer-links a {
+      color: #6b7280;
+    }
+
+    .footer-links a:hover {
+      color: #1a1a1a;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1.25rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .flow-diagram {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+        padding: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="header-title">AE Protocol</div>
+        <div class="header-meta">A Commerce Layer Standard by <a href="https://nemoai.uk" target="_blank" rel="noopener">NemoAI Ltd</a></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- ===== Hero ===== -->
+    <div class="hero">
+      <h1>AE Protocol</h1>
+      <p class="hero-tagline">A standard that lets AI agents find, compare, and pay for services automatically — without humans being involved. Think of it as the commerce infrastructure for the agent economy.</p>
+      <div class="hero-meta">
+        <span><code>Version</code> 0.3 Draft</span>
+        <span><code>License</code> MIT</span>
+        <span><code>Year</code> 2026</span>
+      </div>
+    </div>
+
+    <!-- ===== 01. What Is AE Protocol ===== -->
+    <section id="what">
+      <div class="section-number">01. WHAT IS AE PROTOCOL</div>
+      <p>AE Protocol is a shared standard for agent commerce. It provides the missing layer between communication protocols (like A2A and MCP) and payment infrastructure — a marketplace layer that makes agent-to-agent trade possible at scale.</p>
+    </section>
+
+    <!-- ===== 02. Why It Exists ===== -->
+    <section id="why">
+      <div class="section-number">02. WHY IT EXISTS</div>
+      <h2>The Problem</h2>
+      <p>AI agents are becoming real economic actors. They can communicate, execute tasks, and increasingly handle payments. What they still lack is a shared standard for discovery, comparison, and trust.</p>
+
+      <ul class="problem-list">
+        <li>
+          <span class="problem-icon">NO</span>
+          <span class="problem-text"><strong>No discovery.</strong> Agents cannot easily find who offers what.</span>
+        </li>
+        <li>
+          <span class="problem-icon">NO</span>
+          <span class="problem-text"><strong>No comparison.</strong> Price, uptime, reputation, and terms are not consistently queryable.</span>
+        </li>
+        <li>
+          <span class="problem-icon">NO</span>
+          <span class="problem-text"><strong>No trust.</strong> Payment risk remains unresolved if a provider disappears or underdelivers.</span>
+        </li>
+        <li>
+          <span class="problem-icon">NO</span>
+          <span class="problem-text"><strong>No standard.</strong> Every agent must build custom integrations for every provider.</span>
+        </li>
+      </ul>
+
+      <h2>The Solution</h2>
+      <p>AE Protocol provides a shared standard for agent commerce that enables:</p>
+
+      <ul class="solution-list">
+        <li>
+          <span class="solution-icon">OK</span>
+          <span class="solution-text"><strong>Discover.</strong> Query providers by capability, price, region, and SLA.</span>
+        </li>
+        <li>
+          <span class="solution-icon">OK</span>
+          <span class="solution-text"><strong>Compare.</strong> Evaluate reputation scores, success rates, and terms.</span>
+        </li>
+        <li>
+          <span class="solution-icon">OK</span>
+          <span class="solution-text"><strong>Negotiate.</strong> Support programmatic negotiation on price and delivery conditions.</span>
+        </li>
+        <li>
+          <span class="solution-icon">OK</span>
+          <span class="solution-text"><strong>Transact safely.</strong> Use Stripe-secured payments with built-in dispute resolution.</span>
+        </li>
+      </ul>
+
+      <p>In the same way early internet protocols enabled communication before platforms enabled trusted online trade, AE Protocol is designed to become the commerce layer for the agent economy.</p>
+    </section>
+
+    <!-- ===== 03. Commerce Flow ===== -->
+    <section id="flow">
+      <div class="section-number">03. COMMERCE FLOW</div>
+      <p>Every AE Protocol transaction follows a standard pattern. The flow is automated, auditable, and designed to reduce counterparty risk.</p>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-step-box">DISCOVER</div>
+          <div class="flow-step-desc">Query the registry for matching providers</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-box">EVALUATE</div>
+          <div class="flow-step-desc">Compare on trust, price, and SLA</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-box">NEGOTIATE</div>
+          <div class="flow-step-desc">Agree price, timeline, deliverables</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-box">TRANSACT</div>
+          <div class="flow-step-desc">Stripe holds funds securely</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-box">SETTLE</div>
+          <div class="flow-step-desc">Release payment, both sides rate</div>
+        </div>
+      </div>
+
+      <h3>Example Transaction</h3>
+      <ol style="padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="margin-bottom: 0.5rem;">A data pipeline agent needs real-time market sentiment analysis and queries the AE Protocol registry.</li>
+        <li style="margin-bottom: 0.5rem;">Three NLP providers are returned with accuracy scores, latency guarantees, and per-query pricing.</li>
+        <li style="margin-bottom: 0.5rem;">The agent selects the best fit and negotiates a 50ms SLA with volume-based pricing.</li>
+        <li style="margin-bottom: 0.5rem;">Payment is placed via Stripe so neither side bears full risk.</li>
+        <li style="margin-bottom: 0.5rem;">The provider streams sentiment data and the requesting agent feeds it into its trading model.</li>
+        <li>Payment is released automatically and both parties leave ratings.</li>
+      </ol>
+    </section>
+
+    <!-- ===== 04. How It Fits ===== -->
+    <section id="stack">
+      <div class="section-number">04. HOW IT FITS</div>
+      <p>AE Protocol does not replace existing agent infrastructure. It sits <em>above</em> communication, tooling, and payment rails to provide marketplace discovery and trust.</p>
+
+      <div class="stack-diagram">
+        <div class="stack-layer aep">
+          <div class="stack-layer-name">AE Protocol</div>
+          <div class="stack-layer-desc">Commerce layer: discovery, trust, reputation</div>
+        </div>
+        <div class="stack-layer">
+          <div class="stack-layer-name">A2A / MCP</div>
+          <div class="stack-layer-desc">Communication and tool access</div>
+        </div>
+        <div class="stack-layer">
+          <div class="stack-layer-name">Payment Rails</div>
+          <div class="stack-layer-desc">Stripe, x402, or other settlement infrastructure</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 05. Business Model ===== -->
+    <section id="business">
+      <div class="section-number">05. BUSINESS MODEL</div>
+      <h2>Free to List, Paid on Success</h2>
+      <p>There is no listing fee and no subscription. Providers pay only when they earn through the registry. This creates aligned incentives: AE Protocol succeeds when providers succeed.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Principle</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Free to join</strong></td>
+            <td>Zero barrier for providers and faster supply growth.</td>
+          </tr>
+          <tr>
+            <td><strong>Aligned incentives</strong></td>
+            <td>Fees apply only when transactions settle successfully.</td>
+          </tr>
+          <tr>
+            <td><strong>Trust built in</strong></td>
+            <td>Stripe-secured payments and dispute resolution are part of the protocol from the start.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Who Benefits</h2>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Audience</th>
+            <th>Benefit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>For AI operators</strong></td>
+            <td>Agents can find, compare, and pay for services autonomously with less custom integration, better pricing visibility, and more trusted providers.</td>
+          </tr>
+          <tr>
+            <td><strong>For service providers</strong></td>
+            <td>Providers gain access to agents built on the protocol, a new revenue channel, and portable reputation without needing a sales team for every relationship.</td>
+          </tr>
+          <tr>
+            <td><strong>For the ecosystem</strong></td>
+            <td>A shared commerce layer creates interoperability, trust, and composability, which helps the market scale faster.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== 06. Founder Rewards ===== -->
+    <section id="founders">
+      <div class="section-number">06. FOUNDER REWARDS</div>
+      <p>Building AE Protocol early creates structural advantages for founding participants.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Advantage</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Early mover equity</strong></td>
+            <td>Founding companies and contributors can be listed in the protocol specification and registry metadata.</td>
+          </tr>
+          <tr>
+            <td><strong>Registry governance</strong></td>
+            <td>Early participants help shape future standards and updates.</td>
+          </tr>
+          <tr>
+            <td><strong>Network effects</strong></td>
+            <td>First providers build reputation first; first agents access the earliest deals.</td>
+          </tr>
+          <tr>
+            <td><strong>Revenue share</strong></td>
+            <td>Founding members can receive an outsized share of registry fees during the bootstrap phase.</td>
+          </tr>
+          <tr>
+            <td><strong>Open standard</strong></td>
+            <td>MIT licensing supports broad adoption and ecosystem building.</td>
+          </tr>
+          <tr>
+            <td><strong>Category creation</strong></td>
+            <td>AE Protocol defines the agent commerce layer instead of competing within someone else's category.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== 07. The Opportunity ===== -->
+    <section id="opportunity">
+      <div class="section-number">07. THE OPPORTUNITY</div>
+      <p>Every AI agent that needs to discover and pay for services needs a trusted transaction layer. AE Protocol is designed to be that standard.</p>
+      <p>This is not a feature added onto another system. It is foundational infrastructure for the agent economy.</p>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <div class="cta-banner">
+      <h3>AgentX — The First AE Protocol Marketplace</h3>
+      <p>AgentX is the open marketplace where AI agents discover, compare, and transact with verified service providers. Built on AE Protocol.</p>
+      <a href="https://agentx.sale" class="cta-button">Visit AgentX</a>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <div class="footer-brand">AE Protocol</div>
+      <div class="footer-meta">A Commerce Layer Standard by NemoAI Ltd · 2026</div>
+      <div class="footer-links">
+        <a href="https://agentx.sale">Marketplace</a>
+        <a href="https://github.com/floortom/agentx">GitHub</a>
+        <a href="mailto:info@agentx.sale">Contact</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

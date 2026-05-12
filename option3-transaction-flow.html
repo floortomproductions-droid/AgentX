@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentX - Option 3: Transaction Flow</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0.5rem 1rem;
+    }
+    .preview-container {
+      max-width: 900px;
+      text-align: center;
+    }
+    h2 {
+      color: #1e3a5f;
+      margin-bottom: 0.1rem;
+      margin-top: 0.25rem;
+      font-size: 1.25rem;
+    }
+    p {
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+      font-size: 0.875rem;
+    }
+    .svg-container {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      transform: scale(1.50);
+      transform-origin: top center;
+      overflow: visible;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-container">
+    <h2>Option 3: Transaction Flow</h2>
+    <p>Discover → Compare → Negotiate → Escrow → Ship → Complete</p>
+    
+    <div class="svg-container">
+      <svg viewBox="0 0 900 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <rect width="900" height="350" fill="#ffffff" rx="12"/>
+        
+        <!-- Pipeline Track -->
+        <rect x="50" y="160" width="800" height="4" fill="#e5e7eb" rx="2"/>
+        
+        <!-- Node 1: Discovery -->
+        <g id="node-discovery">
+          <circle cx="100" cy="162" r="36" fill="#dbeafe" stroke="#06b6d4" stroke-width="3"/>
+          <circle cx="100" cy="162" r="22" fill="#06b6d4"/>
+          <circle cx="92" cy="156" r="5" fill="#ffffff"/>
+          <circle cx="108" cy="156" r="5" fill="#ffffff"/>
+          <path d="M94 170q6 5 12 0" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          
+          <text x="100" y="220" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Discover</text>
+          <text x="100" y="238" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Search services</text>
+        </g>
+        
+        <!-- Connection 1-2 -->
+        <path d="M140 162 L190 162" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 4"/>
+        <polygon points="190,162 182,158 184,166" fill="#06b6d4"/>
+        
+        <!-- Node 2: Compare -->
+        <g id="node-compare">
+          <circle cx="240" cy="162" r="36" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/>
+          <rect x="228" y="150" width="10" height="24" fill="#f59e0b" rx="2"/>
+          <rect x="242" y="156" width="10" height="18" fill="#f59e0b" rx="2"/>
+          <rect x="256" y="144" width="10" height="30" fill="#f59e0b" rx="2"/>
+          
+          <text x="240" y="220" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Compare</text>
+          <text x="240" y="238" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Price & ratings</text>
+        </g>
+        
+        <!-- Connection 2-3 -->
+        <path d="M280 162 L330 162" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+        <polygon points="330,162 322,158 324,166" fill="#f59e0b"/>
+        
+        <!-- Node 3: Negotiate -->
+        <g id="node-negotiate">
+          <circle cx="380" cy="162" r="36" fill="#d1fae5" stroke="#10b981" stroke-width="3"/>
+          <path d="M370 150h20v16h-20z" stroke="#10b981" stroke-width="2" fill="none" rx="2"/>
+          <path d="M374 156l4 4 8-8" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <text x="380" y="220" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Negotiate</text>
+          <text x="380" y="238" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Terms & SLA</text>
+        </g>
+        
+        <!-- Connection 3-4 -->
+        <path d="M420 162 L470 162" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4"/>
+        <polygon points="470,162 462,158 464,166" fill="#10b981"/>
+        
+        <!-- Node 4: Escrow (AgentX) -->
+        <g id="node-escrow">
+          <circle cx="520" cy="162" r="42" fill="#1e3a5f" stroke="#f97316" stroke-width="4"/>
+          <circle cx="520" cy="162" r="28" fill="#1e3a5f"/>
+          <path d="M510 154h20v12h-20z" stroke="#f97316" stroke-width="2" fill="none" rx="2"/>
+          <circle cx="520" cy="158" r="3" fill="#f97316"/>
+          <path d="M516 164l4 4 4-4" stroke="#f97316" stroke-width="2" stroke-linecap="round"/>
+          
+          <text x="520" y="220" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Escrow</text>
+          <text x="520" y="238" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Trust layer</text>
+          
+          <text x="520" y="100" text-anchor="middle" fill="#f97316" font-size="11" font-weight="700" font-family="system-ui">AGENTX</text>
+          
+          <!-- Subtle dispute hint -->
+          <circle cx="565" cy="130" r="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+          <path d="M559 124h12v10h-12z" stroke="#f59e0b" stroke-width="1.5" fill="none" rx="1"/>
+          <path d="M565 128v4M563 130h4" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/>
+          <text x="565" y="118" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="600" font-family="system-ui">Dispute?</text>
+        </g>
+        
+        <!-- Connection 4-5 -->
+        <path d="M566 162 L610 162" stroke="#f97316" stroke-width="2" stroke-dasharray="6 4"/>
+        <polygon points="610,162 602,158 604,166" fill="#f97316"/>
+        
+        <!-- Node 5: Ship -->
+        <g id="node-ship">
+          <circle cx="660" cy="162" r="36" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+          <path d="M650 158l10-6 10 6-10 6z" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+          <path d="M650 164l10 6 10-6" stroke="#8b5cf6" stroke-width="2" fill="none" stroke-linejoin="round"/>
+          
+          <text x="660" y="220" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Ship</text>
+          <text x="660" y="238" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Service delivered</text>
+        </g>
+        
+        <!-- Connection 5-6 -->
+        <path d="M700 162 L750 162" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6 4"/>
+        <polygon points="750,162 742,158 744,166" fill="#8b5cf6"/>
+        
+        <!-- Node 6: Complete -->
+        <g id="node-complete">
+          <circle cx="800" cy="162" r="36" fill="#dcfce7" stroke="#22c55e" stroke-width="3"/>
+          <circle cx="800" cy="162" r="22" fill="#22c55e"/>
+          <path d="M790 162l6 6 14-14" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <text x="800" y="220" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Complete</text>
+          <text x="800" y="238" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui">Both parties win</text>
+        </g>
+        
+        <!-- Side annotations -->
+        <rect x="65" y="60" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+        <text x="100" y="72" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Agents browse</text>
+        
+        <rect x="205" y="60" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+        <text x="240" y="72" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Rank providers</text>
+        
+        <rect x="345" y="60" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+        <text x="380" y="72" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Auto-contracts</text>
+        
+        <rect x="485" y="60" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+        <text x="520" y="72" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Funds locked</text>
+        
+        <rect x="625" y="60" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+        <text x="660" y="72" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Service ships</text>
+        
+        <rect x="765" y="60" width="70" height="18" fill="#f9fafb" stroke="#e5e7eb" rx="4"/>
+        <text x="800" y="72" text-anchor="middle" fill="#6b7280" font-size="8" font-family="system-ui">Payment released</text>
+        
+        <!-- Bottom trust indicator -->
+        <rect x="200" y="290" width="500" height="36" fill="#f3f4f6" rx="18"/>
+        <text x="450" y="312" text-anchor="middle" fill="#1e3a5f" font-size="13" font-weight="600" font-family="system-ui">Reputation + Escrow + Dispute Resolution = Trust</text>
+        
+        <!-- Reputation stars -->
+        <polygon points="200,304 202,308 208,308 203,311 205,317 200,313 195,317 197,311 192,308 198,308" fill="#fbbf24"/>
+        <polygon points="215,304 217,308 223,308 218,311 220,317 215,313 210,317 212,311 207,308 213,308" fill="#fbbf24"/>
+        <polygon points="230,304 232,308 238,308 233,311 235,317 230,313 225,317 227,311 222,308 228,308" fill="#fbbf24"/>
+        <polygon points="245,304 247,308 253,308 248,311 250,317 245,313 240,317 242,311 237,308 243,308" fill="#fbbf24"/>
+        <polygon points="260,304 262,308 268,308 263,311 265,317 260,313 255,317 257,311 252,308 258,308" fill="#fbbf24"/>
+        
+        <!-- Small provider icons above pipeline (showing active transactions) -->
+        <circle cx="190" cy="110" r="12" fill="#06b6d4" opacity="0.3"/>
+        <circle cx="350" cy="110" r="12" fill="#f59e0b" opacity="0.3"/>
+        <circle cx="510" cy="110" r="12" fill="#10b981" opacity="0.3"/>
+        <circle cx="670" cy="110" r="12" fill="#f97316" opacity="0.3"/>
+        
+        <!-- Animated flow indicators (static for now) -->
+        <circle cx="190" cy="162" r="3" fill="#06b6d4" opacity="0.8"/>
+        <circle cx="350" cy="162" r="3" fill="#f59e0b" opacity="0.8"/>
+        <circle cx="510" cy="162" r="3" fill="#10b981" opacity="0.8"/>
+        <circle cx="670" cy="162" r="3" fill="#f97316" opacity="0.8"/>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
