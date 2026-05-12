@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "not found" }, { status: 404 });
   }
 
-  const providerId = service.provider.agentx_id || `agentx:${service.provider.name.toLowerCase().replace(/\s+/g, '-')}`;
+  const providerId = service.provider.aep_id || `agentx:${service.provider.name.toLowerCase().replace(/\s+/g, '-')}`;
   const walletAddress = resolveProviderWallet(providerId, chainId);
   
   if (!walletAddress) {
