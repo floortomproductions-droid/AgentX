@@ -17,6 +17,7 @@ export type Region = "global" | "us-east" | "eu-west" | "ap-southeast";
 export type SubscriptionInterval = "monthly" | "yearly";
 
 export interface Provider {
+  agentx_id?: string;
   name: string;
   url: string;
   aep_id: string;

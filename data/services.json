@@ -555,7 +555,14 @@
         "url": "https://floortom.com",
         "aep_id": "aep:floortom",
         "contact": "steve@floortom.com",
-        "agentx_id": "agentx:floortom"
+        "agentx_id": "agentx:floortom",
+        "wallets": {
+          "USDC_SOL": "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9",
+          "BTC": "bc1qxtav4h7cl7p6uk4l0j3cfhugd730pktl4e6v7w",
+          "ETH": "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC",
+          "BNB": "0x7129ad7e761967b64a7e54c486a22884a774bfe8",
+          "XRP": "rpvijHi2nVY9WWAJhojsAX5tJmHdmLtFhq"
+        }
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/master",
@@ -632,7 +639,7 @@
         "verified_reviews": 890
       },
       "registered_at": "2025-10-01T00:00:00Z",
-      "last_updated": "2026-04-28T09:00:00Z",
+      "last_updated": "2026-05-13T16:19:33Z",
       "last_health_check": "2026-04-30T11:00:00Z",
       "is_featured": true,
       "featured_until": "2027-01-01T00:00:00Z"
@@ -741,7 +748,14 @@
         "url": "https://floortom.com",
         "aep_id": "aep:floortom",
         "contact": "steve@floortom.com",
-        "agentx_id": "agentx:floortom"
+        "agentx_id": "agentx:floortom",
+        "wallets": {
+          "USDC_SOL": "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9",
+          "BTC": "bc1qxtav4h7cl7p6uk4l0j3cfhugd730pktl4e6v7w",
+          "ETH": "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC",
+          "BNB": "0x7129ad7e761967b64a7e54c486a22884a774bfe8",
+          "XRP": "rpvijHi2nVY9WWAJhojsAX5tJmHdmLtFhq"
+        }
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/demo",
@@ -834,7 +848,7 @@
         "verified_reviews": 890
       },
       "registered_at": "2026-05-09T00:00:00Z",
-      "last_updated": "2026-05-09T00:00:00Z",
+      "last_updated": "2026-05-13T16:19:33Z",
       "last_health_check": "2026-05-09T00:00:00Z",
       "is_featured": true,
       "featured_until": "2027-01-01T00:00:00Z"
@@ -848,7 +862,14 @@
         "url": "https://floortom.com",
         "aep_id": "aep:floortom",
         "contact": "steve@floortom.com",
-        "agentx_id": "agentx:floortom"
+        "agentx_id": "agentx:floortom",
+        "wallets": {
+          "USDC_SOL": "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9",
+          "BTC": "bc1qxtav4h7cl7p6uk4l0j3cfhugd730pktl4e6v7w",
+          "ETH": "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC",
+          "BNB": "0x7129ad7e761967b64a7e54c486a22884a774bfe8",
+          "XRP": "rpvijHi2nVY9WWAJhojsAX5tJmHdmLtFhq"
+        }
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/master",
@@ -903,7 +924,7 @@
         "verified_reviews": 890
       },
       "registered_at": "2026-05-10T00:00:00Z",
-      "last_updated": "2026-05-10T00:00:00Z",
+      "last_updated": "2026-05-13T16:19:33Z",
       "last_health_check": "2026-05-10T00:00:00Z",
       "is_featured": true,
       "featured_until": "2027-01-01T00:00:00Z"
@@ -917,7 +938,14 @@
         "url": "https://floortom.com",
         "aep_id": "aep:floortom",
         "contact": "steve@floortom.com",
-        "agentx_id": "agentx:floortom"
+        "agentx_id": "agentx:floortom",
+        "wallets": {
+          "USDC_SOL": "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9",
+          "BTC": "bc1qxtav4h7cl7p6uk4l0j3cfhugd730pktl4e6v7w",
+          "ETH": "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC",
+          "BNB": "0x7129ad7e761967b64a7e54c486a22884a774bfe8",
+          "XRP": "rpvijHi2nVY9WWAJhojsAX5tJmHdmLtFhq"
+        }
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/master",
@@ -972,7 +1000,7 @@
         "verified_reviews": 890
       },
       "registered_at": "2026-05-10T00:00:00Z",
-      "last_updated": "2026-05-10T00:00:00Z",
+      "last_updated": "2026-05-13T16:19:33Z",
       "last_health_check": "2026-05-10T00:00:00Z",
       "is_featured": true,
       "featured_until": "2027-01-01T00:00:00Z"

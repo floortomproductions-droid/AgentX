@@ -1,6 +1,6 @@
 import { ServiceListing } from "@/types/aep";
 import { ServiceCardClient } from "@/components/ServiceCardClient";
-import { FilterBar } from "@/components/FilterBar";
+import { FilterBarWrapper } from "@/components/FilterBarWrapper";
 
 interface SearchParams {
   category?: string;
@@ -121,17 +121,11 @@ export default async function Home({
 
       {/* Filter bar */}
       <div className="max-w-6xl mx-auto px-4 py-4">
-        <FilterBar
+        <FilterBarWrapper
           categories={categories}
           protocols={protocols}
           regions={regions}
-          selectedCategory={currentCategory}
-          selectedProtocol={currentProtocol}
-          selectedRegion={currentRegion}
           total={total}
-          onCategoryChange={(v) => console.log('category', v)}
-          onProtocolChange={(v) => console.log('protocol', v)}
-          onRegionChange={(v) => console.log('region', v)}
         />
 
         {/* Content */}

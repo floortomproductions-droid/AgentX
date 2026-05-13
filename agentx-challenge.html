@@ -140,10 +140,14 @@
 
     // ===== Simple PoW Solver =====
     async function sha256(message) {
-      const msgBuffer = new TextEncoder().encode(message);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      // Simple hash for demo - crypto.subtle only works on HTTPS
+      let hash = 0;
+      for (let i = 0; i < message.length; i++) {
+        const char = message.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+      }
+      return Math.abs(hash).toString(16).padStart(64, '0');
     }
 
     function sleep(ms) {
@@ -235,12 +239,12 @@
 
       // Auto-redirect to marketplace after 2 seconds
       setTimeout(function() {
-        window.location.href = 'agents.html';
+        window.location.href = '/agents.html';
       }, 2000);
     }
 
     function enterMarketplace() {
-      window.location.href = 'agents.html';
+      window.location.href = '/agents.html';
     }
 
     function goBack() {
