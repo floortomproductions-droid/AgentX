@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { execSync } from "child_process";
 import { getServiceById } from "@/lib/services";
 import { resolveProviderWallet } from "@/lib/provider-registry";
+import { verifyPayment } from "@/lib/payment-verification";
 
 /**
  * POST /api/services/site-mapper
@@ -20,6 +21,13 @@ interface MapRequest {
   };
 }
 
+// x402 quote for this service
+const SERVICE_QUOTE = {
+  maxAmountRequired: 20000, // $0.02 USDC (6 decimals)
+  payTo: "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9",
+  asset: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+};
+
 export async function POST(request: NextRequest) {
   try {
     const body: MapRequest = await request.json();
@@ -35,28 +43,38 @@ export async function POST(request: NextRequest) {
     // Payment check
     const xPayment = request.headers.get("x-payment");
     const authToken = request.headers.get("authorization")?.replace("Bearer ", "");
-    const isPaid = !!xPayment || !!authToken;
 
-    if (!isPaid) {
-      const walletAddress = resolveProviderWallet("agentx:agentx", "solana");
-
+    // If no payment header, return x402 quote
+    if (!xPayment && !authToken) {
       return NextResponse.json(
         {
           x402Version: 1,
           accepts: [{
             scheme: "exact",
             network: "solana",
-            maxAmountRequired: 20000, // $0.02 USDC (6 decimals)
+            maxAmountRequired: SERVICE_QUOTE.maxAmountRequired,
             resource: `/api/services/site-mapper`,
             description: `Site Mapper — ${url}`,
             mimeType: "application/json",
-            payTo: walletAddress?.address || "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9",
-            asset: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            payTo: SERVICE_QUOTE.payTo,
+            asset: SERVICE_QUOTE.asset,
             maxTimeoutSeconds: 60,
           }]
         },
         { status: 402 }
       );
+    }
+
+    // Verify on-chain payment if x-payment header provided
+    if (xPayment) {
+      const verification = await verifyPayment(xPayment, SERVICE_QUOTE);
+      if (!verification.valid) {
+        return NextResponse.json(
+          { error: "payment_required", message: verification.reason },
+          { status: 402 }
+        );
+      }
+      console.log("[SiteMapper] Payment verified:", verification.txDetails);
     }
 
     const startTime = Date.now();
