@@ -20,8 +20,8 @@ const PROVIDER_REGISTRY: Record<string, ProviderRecord> = {
     provider_id: "agentx:agentx",
     name: "AgentX Marketplace",
     wallets: {
-      "solana": { address: "3LpYUqWjHYtbyzi4d1nTk3QmqUCryqXCeaiwjm4SuJeR" },
-      "eip155:501": { address: "3LpYUqWjHYtbyzi4d1nTk3QmqUCryqXCeaiwjm4SuJeR" },
+      "solana": { address: "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9" },
+      "eip155:501": { address: "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9" },
       "base": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
       "eip155:8453": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
       "ethereum": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
