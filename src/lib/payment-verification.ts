@@ -137,7 +137,7 @@ function parseTokenTransfers(tx: any): Array<{
     const key = `${post.accountIndex}-${post.mint}`;
     const preAmount = preBalances.get(key) || 0;
     const postAmount = parseInt(post.uiTokenAmount.amount);
-    const delta = postAmount - preAmount;
+    const delta = postAmount - Number(preAmount);
 
     if (delta > 0) {
       transfers.push({
