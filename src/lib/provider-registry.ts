@@ -16,6 +16,23 @@ export interface ProviderRecord {
 
 // AgentX Provider Registry - Maps provider IDs to their actual wallet addresses
 const PROVIDER_REGISTRY: Record<string, ProviderRecord> = {
+  "agentx:agentx": {
+    provider_id: "agentx:agentx",
+    name: "AgentX Marketplace",
+    wallets: {
+      "solana": { address: "3LpYUqWjHYtbyzi4d1nTk3QmqUCryqXCeaiwjm4SuJeR" },
+      "eip155:501": { address: "3LpYUqWjHYtbyzi4d1nTk3QmqUCryqXCeaiwjm4SuJeR" },
+      "base": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
+      "eip155:8453": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
+      "ethereum": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
+      "eip155:1": { address: "0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC" },
+      "bitcoin": { address: "bc1qxtav4h7cl7p6uk4l0j3cfhugd730pktl4e6v7w" },
+      "bnb": { address: "0x7129ad7e761967b64a7e54c486a22884a774bfe8" },
+      "xrp": { address: "rpvijHi2nVY9WWAJhojsAX5tJmHdmLtFhq", destinationTag: "436803643" },
+      "ton": { address: "UQCiwOHpM_-Ws2fE1APCngj0DDo7pzI9eDApjDGYQQdJEYB_" },
+      "doge": { address: "D8dP9zeEit2P9jZ9ZPoqjncdU4PmBHaGix" },
+    }
+  },
   "agentx:floortom": {
     provider_id: "agentx:floortom",
     name: "Floortom Studio",
