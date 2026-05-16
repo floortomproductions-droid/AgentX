@@ -1294,6 +1294,76 @@
       "registered_at": "2026-05-16T00:00:00Z",
       "last_updated": "2026-05-16T00:00:00Z",
       "last_health_check": "2026-05-16T00:00:00Z"
+    },
+    {
+      "service_id": "batch-scrape",
+      "name": "Batch Scrape",
+      "description": "Scrape multiple URLs concurrently. Extract clean markdown from up to 10 URLs in a single call. Perfect for agents that need content from multiple sources at once.\n\n**Input:** Array of URLs (max 10)\n**Output:** Markdown for each URL\n**Options:** Strip navigation/footers, wait for JS rendering",
+      "provider": {
+        "name": "AgentX",
+        "url": "https://agentx.sale",
+        "aep_id": "aep:agentx",
+        "contact": "info@agentx.sale",
+        "agentx_id": "agentx:agentx"
+      },
+      "version": "0.1.0",
+      "endpoint_url": "https://agentx.sale/api/services/batch-scrape",
+      "health_check_url": "https://agentx.sale/api/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "url",
+            "unit_price": 0.03
+          }
+        ]
+      },
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 0,
+        "success_rate": 1,
+        "avg_response_time_ms": 8000,
+        "dispute_ratio": 0,
+        "verified_reviews": 0
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99,
+          "latency_ms": 15000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "data-enrichment"
+      ],
+      "tags": [
+        "batch",
+        "scrape",
+        "markdown",
+        "web",
+        "concurrent"
+      ],
+      "region": "global",
+      "registered_at": "2026-05-16T00:00:00Z",
+      "last_updated": "2026-05-16T00:00:00Z",
+      "last_health_check": "2026-05-16T00:00:00Z"
     }
-  ]
+  ],
+  "total": 16
 }
