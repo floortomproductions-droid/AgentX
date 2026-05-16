@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
           accepts: [{
             scheme: "exact",
             network: "solana",
-            maxAmountRequired: "100000", // $0.10
+            maxAmountRequired: 100000, // $0.10
             resource: `/api/services/browser-agent`,
             description: `Browser Agent — ${url}`,
             mimeType: "application/json",

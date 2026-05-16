@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
           accepts: [{
             scheme: "exact",
             network: "solana",
-            maxAmountRequired: "20000", // $0.02
+            maxAmountRequired: 20000, // $0.02 USDC (6 decimals)
             resource: `/api/services/site-mapper`,
             description: `Site Mapper — ${url}`,
             mimeType: "application/json",

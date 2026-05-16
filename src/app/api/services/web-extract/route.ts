@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
           accepts: [{
             scheme: "exact",
             network: "solana",
-            maxAmountRequired: "30000", // $0.03 USDC (6 decimals)
+            maxAmountRequired: 30000, // $0.03 USDC (6 decimals)
             resource: `/api/services/web-extract`,
             description: `${service.name} — ${service.description?.substring(0, 100)}...`,
             mimeType: "application/json",
