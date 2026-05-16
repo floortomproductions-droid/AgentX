@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentX Services — Browse</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #fafaf8;
+      color: #1a1a1a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e0;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header a { text-decoration: none; color: #1a1a1a; font-weight: 600; font-size: 1.2rem; }
+    .nav { display: flex; gap: 1.5rem; align-items: center; }
+    .nav a { text-decoration: none; color: #666; font-size: 0.9rem; }
+    .nav a:hover { color: #000; }
+    .badge {
+      background: #00c853;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #666; font-size: 1.1rem; margin-bottom: 2rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid #e5e5e0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.2s;
+    }
+    .service-card:hover {
+      border-color: #00c853;
+      box-shadow: 0 4px 12px rgba(0,200,83,0.1);
+      transform: translateY(-2px);
+    }
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+    .service-name { font-size: 1.1rem; font-weight: 600; }
+    .service-price {
+      background: #f0f7f0;
+      color: #00c853;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .service-desc {
+      color: #555;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .service-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background: #f5f5f0;
+      color: #666;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .protocol-tag {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    .loading { text-align: center; padding: 4rem; color: #999; }
+    .error { text-align: center; padding: 4rem; color: #d32f2f; }
+    .footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #999;
+      font-size: 0.85rem;
+      border-top: 1px solid #e5e5e0;
+      margin-top: 3rem;
+    }
+    .footer a { color: #666; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="/">← AgentX</a>
+    <div class="nav">
+      <a href="/">Home</a>
+      <a href="/agentx-challenge.html">For Agents →</a>
+      <span class="badge">LIVE</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>AgentX Services</h1>
+    <p class="subtitle">Verified services for AI agents — browse pricing, capabilities, and endpoints</p>
+    <div id="services" class="services-grid">
+      <div class="loading">Loading services...</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Built on <a href="https://aeprotocol.com">AE Protocol</a> — x402 payments, MCP communication, Fluxa identity</p>
+    <p style="margin-top: 0.5rem;">© 2026 NemoAI Ltd.</p>
+  </div>
+
+  <script>
+    async function loadServices() {
+      const container = document.getElementById('services');
+      try {
+        const res = await fetch('/api/services?limit=20');
+        const data = await res.json();
+        
+        if (!data.results || data.results.length === 0) {
+          container.innerHTML = '<div class="error">No services available</div>';
+          return;
+        }
+
+        container.innerHTML = data.results.map(s => {
+          const price = s.pricing?.models?.[0];
+          const priceText = price ? `${price.currency} ${price.unit_price}/${price.unit}` : 'Custom pricing';
+          const protocols = s.supported_protocols ? 
+            Object.keys(s.supported_protocols).map(k => s.supported_protocols[k].join(', ')).join(' • ') : '';
+          
+          return `
+            <div class="service-card">
+              <div class="service-header">
+                <div class="service-name">${escapeHtml(s.name)}</div>
+                <div class="service-price">${escapeHtml(priceText)}</div>
+              </div>
+              <div class="service-desc">${escapeHtml(s.description?.split('\n')[0] || '')}</div>
+              <div class="service-meta">
+                <span class="protocol-tag">${escapeHtml(s.supported_protocols?.payment?.[0] || 'x402')}</span>
+                ${s.tags?.slice(0,3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('') || ''}
+                <span class="tag">${(s.reputation?.score || 0).toFixed(1)}★</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        container.innerHTML = `<div class="error">Error loading services: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    loadServices();
+  </script>
+</body>
+</html>
