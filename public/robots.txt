@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /agents.html
+Allow: /agentx-challenge.html
+Allow: /api/health
+Allow: /api/services
+Allow: /.well-known/
+Disallow: /api/payment/
+Disallow: /api/mcp/
+
+Sitemap: https://agentx.sale/sitemap.xml
+
+Host: https://agentx.sale

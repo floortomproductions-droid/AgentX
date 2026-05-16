@@ -14,7 +14,7 @@
       "version": "1.0.0",
       "endpoint_url": "https://api.openai.com/v1/chat/completions",
       "health_check_url": "https://api.openai.com/v1/models",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -109,7 +109,7 @@
       "version": "1.0.0",
       "endpoint_url": "https://api.anthropic.com/v1/messages",
       "health_check_url": "https://api.anthropic.com/v1/models",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -194,7 +194,7 @@
       },
       "version": "3.5.0",
       "endpoint_url": "https://api.stability.ai/v2beta/generation/stable-image",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -291,7 +291,7 @@
       "version": "3.0.0",
       "endpoint_url": "https://api.openai.com/v1/images/generations",
       "health_check_url": "https://api.openai.com/v1/models",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -368,7 +368,7 @@
       "version": "2.0.0",
       "endpoint_url": "https://api.perplexity.ai/search",
       "health_check_url": "https://api.perplexity.ai/health",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -463,7 +463,7 @@
       "version": "1.2.0",
       "endpoint_url": "https://api.brightdata.com/scrape",
       "health_check_url": "https://api.brightdata.com/health",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -566,7 +566,7 @@
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/master",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -658,7 +658,7 @@
       "version": "2.0.0",
       "endpoint_url": "https://api.firecrawl.dev/v1/scrape",
       "health_check_url": "https://api.firecrawl.dev/v1/health",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -759,7 +759,7 @@
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/demo",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -873,7 +873,7 @@
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/master",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -949,7 +949,7 @@
       },
       "version": "1.0.0",
       "endpoint_url": "https://api.floortom.com/v1/master",
-      "status": "active",
+      "status": "coming_soon",
       "pricing": {
         "models": [
           {
@@ -1004,6 +1004,366 @@
       "last_health_check": "2026-05-10T00:00:00Z",
       "is_featured": true,
       "featured_until": "2027-01-01T00:00:00Z"
+    },
+    {
+      "service_id": "web-extract",
+      "name": "Web Extract",
+      "description": "Extract clean, structured content from any web page. Returns LLM-optimized markdown \u2014 perfect for agents that need to read and reason over web content.\n\n**Input:** URL to scrape\n**Output:** Clean markdown with main content extracted\n**Options:** Strip navigation/footers, wait for JS rendering, include links",
+      "provider": {
+        "name": "AgentX",
+        "url": "https://agentx.sale",
+        "aep_id": "aep:agentx",
+        "contact": "info@agentx.sale",
+        "agentx_id": "agentx:agentx"
+      },
+      "version": "0.1.0",
+      "endpoint_url": "https://agentx.sale/api/services/web-extract",
+      "health_check_url": "https://agentx.sale/api/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "page",
+            "unit_price": 0.03
+          },
+          {
+            "type": "bulk",
+            "currency": "USDC",
+            "unit": "page",
+            "unit_price": 0.025,
+            "min_commitment": 50
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 15000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "data-enrichment"
+      ],
+      "tags": [
+        "scrape",
+        "extract",
+        "markdown",
+        "web",
+        "content"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 0,
+        "success_rate": 1.0,
+        "avg_response_time_ms": 8000,
+        "dispute_ratio": 0.0,
+        "verified_reviews": 0
+      },
+      "registered_at": "2026-05-16T00:00:00Z",
+      "last_updated": "2026-05-16T00:00:00Z",
+      "last_health_check": "2026-05-16T00:00:00Z"
+    },
+    {
+      "service_id": "web-search",
+      "name": "Web Search",
+      "description": "Search the web with optional full-page content extraction. Returns real search results (not snippets) with source URLs, titles, and descriptions. Optionally scrape the top result for complete content.\n\n**Input:** Search query\n**Output:** Ranked results with metadata\n**Options:** News filter, time filter, location, category filter",
+      "provider": {
+        "name": "AgentX",
+        "url": "https://agentx.sale",
+        "aep_id": "aep:agentx",
+        "contact": "info@agentx.sale",
+        "agentx_id": "agentx:agentx"
+      },
+      "version": "0.1.0",
+      "endpoint_url": "https://agentx.sale/api/services/web-search",
+      "health_check_url": "https://agentx.sale/api/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "query",
+            "unit_price": 0.02
+          },
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "query+scrape",
+            "unit_price": 0.05
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 10000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "search"
+      ],
+      "tags": [
+        "search",
+        "web",
+        "research",
+        "news",
+        "discover"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 0,
+        "success_rate": 1.0,
+        "avg_response_time_ms": 6000,
+        "dispute_ratio": 0.0,
+        "verified_reviews": 0
+      },
+      "registered_at": "2026-05-16T00:00:00Z",
+      "last_updated": "2026-05-16T00:00:00Z",
+      "last_health_check": "2026-05-16T00:00:00Z"
+    },
+    {
+      "service_id": "site-mapper",
+      "name": "Site Mapper",
+      "description": "Discover and list all URLs on any website. Perfect for agents that need to explore a domain, find specific pages, or map site structure before crawling.\n\n**Input:** Domain URL\n**Output:** Complete URL list with metadata\n**Options:** Include subdomains, search filter, sitemap handling",
+      "provider": {
+        "name": "AgentX",
+        "url": "https://agentx.sale",
+        "aep_id": "aep:agentx",
+        "contact": "info@agentx.sale",
+        "agentx_id": "agentx:agentx"
+      },
+      "version": "0.1.0",
+      "endpoint_url": "https://agentx.sale/api/services/site-mapper",
+      "health_check_url": "https://agentx.sale/api/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "domain",
+            "unit_price": 0.02
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 12000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "data-enrichment"
+      ],
+      "tags": [
+        "map",
+        "discover",
+        "urls",
+        "site-structure",
+        "explore"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 0,
+        "success_rate": 1.0,
+        "avg_response_time_ms": 5000,
+        "dispute_ratio": 0.0,
+        "verified_reviews": 0
+      },
+      "registered_at": "2026-05-16T00:00:00Z",
+      "last_updated": "2026-05-16T00:00:00Z",
+      "last_health_check": "2026-05-16T00:00:00Z"
+    },
+    {
+      "service_id": "site-crawler",
+      "name": "Site Crawler",
+      "description": "Bulk extract content from entire websites or site sections. Crawls pages following links up to configured depth, returning structured markdown for every page.\n\n**Input:** Start URL + options (depth, limit, path filters)\n**Output:** Structured content for all crawled pages\n**Options:** Depth limit, page limit, include/exclude paths",
+      "provider": {
+        "name": "AgentX",
+        "url": "https://agentx.sale",
+        "aep_id": "aep:agentx",
+        "contact": "info@agentx.sale",
+        "agentx_id": "agentx:agentx"
+      },
+      "version": "0.1.0",
+      "endpoint_url": "https://agentx.sale/api/services/site-crawler",
+      "health_check_url": "https://agentx.sale/api/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "page",
+            "unit_price": 0.03,
+            "min_commitment": 10
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 99.0,
+          "latency_ms": 30000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 prorated refund based on pages delivered"
+        }
+      ],
+      "categories": [
+        "data-enrichment"
+      ],
+      "tags": [
+        "crawl",
+        "bulk",
+        "extract",
+        "site",
+        "documentation"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 0,
+        "success_rate": 1.0,
+        "avg_response_time_ms": 15000,
+        "dispute_ratio": 0.0,
+        "verified_reviews": 0
+      },
+      "registered_at": "2026-05-16T00:00:00Z",
+      "last_updated": "2026-05-16T00:00:00Z",
+      "last_health_check": "2026-05-16T00:00:00Z"
+    },
+    {
+      "service_id": "browser-agent",
+      "name": "Browser Agent",
+      "description": "Interact with JavaScript-rendered pages \u2014 click buttons, fill forms, navigate pagination, and extract data from dynamic content. For pages that static scraping can't reach.\n\n**Input:** URL + interaction instructions\n**Output:** Extracted data after interaction\n**Options:** Form fills, clicks, pagination, login flows",
+      "provider": {
+        "name": "AgentX",
+        "url": "https://agentx.sale",
+        "aep_id": "aep:agentx",
+        "contact": "info@agentx.sale",
+        "agentx_id": "agentx:agentx"
+      },
+      "version": "0.1.0",
+      "endpoint_url": "https://agentx.sale/api/services/browser-agent",
+      "health_check_url": "https://agentx.sale/api/health",
+      "status": "active",
+      "pricing": {
+        "models": [
+          {
+            "type": "per_call",
+            "currency": "USDC",
+            "unit": "session",
+            "unit_price": 0.1,
+            "min_commitment": 1
+          }
+        ]
+      },
+      "supported_protocols": {
+        "payment": [
+          "x402"
+        ],
+        "communication": [
+          "mcp",
+          "webmcp"
+        ],
+        "identity": [
+          "fluxa"
+        ]
+      },
+      "slas": [
+        {
+          "name": "Standard",
+          "uptime_pct": 98.0,
+          "latency_ms": 45000,
+          "price_premium_pct": 0,
+          "refund_policy": "Below SLA \u2192 full refund"
+        }
+      ],
+      "categories": [
+        "data-enrichment"
+      ],
+      "tags": [
+        "interact",
+        "browser",
+        "dynamic",
+        "forms",
+        "js-rendered"
+      ],
+      "region": "global",
+      "reputation": {
+        "score": 4.5,
+        "total_transactions": 0,
+        "success_rate": 1.0,
+        "avg_response_time_ms": 20000,
+        "dispute_ratio": 0.0,
+        "verified_reviews": 0
+      },
+      "registered_at": "2026-05-16T00:00:00Z",
+      "last_updated": "2026-05-16T00:00:00Z",
+      "last_health_check": "2026-05-16T00:00:00Z"
     }
   ]
 }
