@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       const excludePaths = options.excludePaths ? `--exclude-paths "${options.excludePaths.join(",")}"` : "";
       const wait = options.wait !== false ? "--wait" : "";
 
-      const cmd = `firecrawl crawl "${url}" --limit ${limit} --max-depth ${depth} ${includePaths} ${excludePaths} ${wait} --json -o /tmp/crawl.json 2>&1`;
+      const cmd = `firecrawl crawl "${url}" --limit ${limit} --max-depth ${depth} ${includePaths} ${excludePaths} --wait --poll-interval 2 -o /tmp/crawl.json 2>&1`;
       execSync(cmd, { timeout: 60000, encoding: "utf-8" });
       
       const data = JSON.parse(require("fs").readFileSync("/tmp/crawl.json", "utf-8"));
