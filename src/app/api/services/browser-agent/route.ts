@@ -64,14 +64,21 @@ export async function POST(request: NextRequest) {
 
     try {
       // Step 1: Scrape to get a scrape ID
-      const scrapeCmd = `firecrawl scrape "${url}" -o /tmp/interact-scrape.md 2>&1`;
-      execSync(scrapeCmd, { timeout: 20000, encoding: "utf-8" });
+      const scrapeOutput = execSync(`firecrawl scrape "${url}" 2>&1`, { timeout: 20000, encoding: "utf-8" });
+      const scrapeIdMatch = scrapeOutput.match(/Scrape ID:\s*([\w-]+)/);
+      const scrapeId = scrapeIdMatch ? scrapeIdMatch[1] : null;
+      
+      if (!scrapeId) {
+        return NextResponse.json(
+          { error: "scrape_failed", message: "Could not get scrape ID" },
+          { status: 500 }
+        );
+      }
 
-      // Step 2: Interact
+      // Step 2: Interact using scrape ID
       const timeout = options.timeout || 30;
-      const language = options.code ? "--language bash" : "";
-      const interactCmd = `firecrawl interact --prompt "${instructions}" --timeout ${timeout} ${language} -o /tmp/interact-result.json 2>&1`;
-      execSync(interactCmd, { timeout: (timeout + 5) * 1000, encoding: "utf-8" });
+      const interactCmd = `firecrawl interact "${scrapeId}" "${instructions}" --timeout ${timeout} --json -o /tmp/interact-result.json 2>&1`;
+      execSync(interactCmd, { timeout: (timeout + 10) * 1000, encoding: "utf-8" });
 
       result = JSON.parse(require("fs").readFileSync("/tmp/interact-result.json", "utf-8"));
     } catch (error: any) {
