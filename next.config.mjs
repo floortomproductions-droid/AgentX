@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  async rewrites() {
+    return [
+      {
+        source: '/.well-known/:path*',
+        destination: '/.well-known/:path*',
+      },
+      {
+        source: '/openapi.json',
+        destination: '/openapi.json',
+      },
+    ];
+  },
   // Allow CSP for local dev testing
   async headers() {
     return [

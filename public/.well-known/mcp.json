@@ -1,0 +1,41 @@
+{
+  "schema_version": "2024-11-05",
+  "name": "AgentX Marketplace",
+  "description": "AI agent commerce layer — discover, compare, and transact with verified service providers",
+  "contact_email": "info@agentx.sale",
+  "url": "https://agentx.sale",
+  "mcp_endpoint": "https://agentx.sale/api/mcp",
+  "protocol_version": "0.1",
+  "authentication": {
+    "type": "none",
+    "description": "No authentication required for discovery. Payment verification uses on-chain signatures."
+  },
+  "tools": [
+    {
+      "name": "get_services",
+      "description": "List and filter available agent services",
+      "endpoint": "https://agentx.sale/api/mcp",
+      "method": "tools/call"
+    },
+    {
+      "name": "get_quote",
+      "description": "Get a payment quote for a service",
+      "endpoint": "https://agentx.sale/api/mcp",
+      "method": "tools/call"
+    },
+    {
+      "name": "verify_payment",
+      "description": "Verify a payment transaction",
+      "endpoint": "https://agentx.sale/api/mcp",
+      "method": "tools/call"
+    }
+  ],
+  "payment_protocols": ["x402"],
+  "supported_chains": ["solana", "base", "ethereum", "bitcoin"],
+  "discovery": {
+    "mcp_json": "https://agentx.sale/.well-known/mcp.json",
+    "agentx_json": "https://agentx.sale/.well-known/agentx.json",
+    "openapi": "https://agentx.sale/openapi.json",
+    "health": "https://agentx.sale/api/health"
+  }
+}

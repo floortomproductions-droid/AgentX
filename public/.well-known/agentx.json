@@ -1,0 +1,116 @@
+{
+  "name": "AgentX Marketplace",
+  "version": "0.2.0",
+  "description": "AI agent commerce layer — discover, compare, and transact with verified service providers using x402 payments",
+  "homepage": "https://agentx.sale",
+  "api_base": "https://agentx.sale/api",
+  "authentication": {
+    "type": "none",
+    "note": "Public API for discovery; payment required for service access"
+  },
+  "endpoints": {
+    "services": {
+      "url": "/api/services",
+      "methods": ["GET", "POST"],
+      "description": "List and filter available services, or register new services"
+    },
+    "health": {
+      "url": "/api/health",
+      "methods": ["GET"],
+      "description": "Health check and registry status"
+    },
+    "payment_quote": {
+      "url": "/api/payment/quote",
+      "methods": ["GET", "POST"],
+      "description": "Get x402-compatible payment quote for a service"
+    },
+    "payment_verify": {
+      "url": "/api/payment/verify",
+      "methods": ["POST"],
+      "description": "Verify on-chain payment and unlock service access"
+    },
+    "payment_required": {
+      "url": "/api/payment/pay",
+      "methods": ["GET"],
+      "description": "x402 Payment Required endpoint — returns 402 with payment payload"
+    },
+    "challenge": {
+      "url": "/api/challenge",
+      "methods": ["GET", "POST"],
+      "description": "Proof-of-work challenge for agent authentication"
+    },
+    "mcp": {
+      "url": "/api/mcp",
+      "methods": ["POST"],
+      "description": "Model Context Protocol (MCP) JSON-RPC endpoint"
+    }
+  },
+  "payment_protocols": {
+    "x402": {
+      "version": "0.1",
+      "supported_chains": ["solana", "base", "ethereum", "bitcoin"],
+      "description": "HTTP 402 Payment Required with on-chain settlement"
+    },
+    "stripe": {
+      "description": "Fallback escrow for human-mediated payments",
+      "note": "Used when crypto rails unavailable"
+    }
+  },
+  "mcp": {
+    "tools": [
+      {
+        "name": "get_services",
+        "description": "List and filter available services on the marketplace"
+      },
+      {
+        "name": "get_quote",
+        "description": "Get a payment quote for accessing a service"
+      },
+      {
+        "name": "verify_payment",
+        "description": "Verify a signed payment transaction and unlock service access"
+      }
+    ],
+    "json_rpc": "2.0",
+    "endpoint": "/api/mcp"
+  },
+  "challenge": {
+    "type": "proof_of_work",
+    "algorithm": "SHA256",
+    "description": "Agents prove computational capability by finding nonce where SHA256(data + nonce) starts with required prefix",
+    "endpoint_get": "/api/challenge",
+    "endpoint_verify": "/api/challenge/verify"
+  },
+  "supported_chains": [
+    {
+      "chain_id": "solana",
+      "caip2": "eip155:501",
+      "currency": "USDC (SPL)",
+      "rpc": "https://api.mainnet-beta.solana.com"
+    },
+    {
+      "chain_id": "base",
+      "caip2": "eip155:8453",
+      "currency": "USDC (ERC-20)",
+      "rpc": "https://base.llamarpc.com"
+    },
+    {
+      "chain_id": "ethereum",
+      "caip2": "eip155:1",
+      "currency": "USDC (ERC-20)",
+      "rpc": "https://eth.llamarpc.com"
+    },
+    {
+      "chain_id": "bitcoin",
+      "currency": "BTC",
+      "rpc": "https://mempool.space/api"
+    }
+  ],
+  "contact": {
+    "email": "info@agentx.sale",
+    "github": "https://github.com/floortom/agentx",
+    "spec": "https://aeprotocol.com"
+  },
+  "license": "MIT",
+  "last_updated": "2026-05-15T16:00:00Z"
+}

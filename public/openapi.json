@@ -1,0 +1,481 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AgentX Marketplace API",
+    "version": "0.2.0",
+    "description": "AI agent commerce layer — discover, compare, and transact with verified service providers. Supports x402 payments on Solana, Base, Ethereum, and Bitcoin.",
+    "contact": {
+      "email": "info@agentx.sale",
+      "url": "https://agentx.sale"
+    },
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://agentx.sale/api",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "description": "Returns registry status, version, and uptime.",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "Registry is operational",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/services": {
+      "get": {
+        "summary": "List services",
+        "description": "Query available services with optional filters. Returns paginated results.",
+        "operationId": "listServices",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by category (e.g. inference, search)"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Comma-separated tags"
+          },
+          {
+            "name": "protocol",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by payment protocol (x402, mpp, acp, etc.)"
+          },
+          {
+            "name": "max_price",
+            "in": "query",
+            "schema": { "type": "number" },
+            "description": "Maximum unit price"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by region"
+          },
+          {
+            "name": "min_success_rate",
+            "in": "query",
+            "schema": { "type": "number" },
+            "description": "Minimum success rate (0-1)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 20 },
+            "description": "Results per page"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": { "type": "integer", "default": 0 },
+            "description": "Pagination offset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of services",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Register a service",
+        "description": "Register a new service listing. Returns service_id and verification token.",
+        "operationId": "registerService",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceRegistration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Service registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/payment/quote": {
+      "get": {
+        "summary": "Get payment quote",
+        "description": "Returns an x402-compatible payment request for a service.",
+        "operationId": "getQuote",
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Service to quote for"
+          },
+          {
+            "name": "chain_id",
+            "in": "query",
+            "schema": { "type": "string", "default": "eip155:8453" },
+            "description": "Blockchain (solana, base, ethereum, bitcoin)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment quote",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentQuote"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Service or wallet not found"
+          }
+        }
+      },
+      "post": {
+        "summary": "Get payment quote (POST)",
+        "description": "Same as GET but accepts JSON body.",
+        "operationId": "getQuotePost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "service_id": { "type": "string" },
+                  "chain_id": { "type": "string" }
+                },
+                "required": ["service_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment quote"
+          }
+        }
+      }
+    },
+    "/payment/verify": {
+      "post": {
+        "summary": "Verify payment",
+        "description": "Verify an on-chain payment transaction. Supports Solana, Base, Ethereum, Bitcoin.",
+        "operationId": "verifyPayment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "service_id": { "type": "string" },
+                  "signed_tx_hash": { "type": "string" },
+                  "chain_id": { "type": "string" },
+                  "x402_payload": { "type": "object" },
+                  "agent_id": { "type": "string" }
+                },
+                "required": ["service_id", "signed_tx_hash"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment/pay": {
+      "get": {
+        "summary": "x402 Payment Required",
+        "description": "Returns HTTP 402 with x402 payment payload. Agent must pay to proceed.",
+        "operationId": "paymentRequired",
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "chain_id",
+            "in": "query",
+            "schema": { "type": "string", "default": "solana" }
+          }
+        ],
+        "responses": {
+          "402": {
+            "description": "Payment Required — x402 payload in body"
+          },
+          "200": {
+            "description": "Payment verified (X-Payment header present)"
+          }
+        }
+      }
+    },
+    "/challenge": {
+      "get": {
+        "summary": "Get PoW challenge",
+        "description": "Returns a proof-of-work challenge for agent authentication.",
+        "operationId": "getChallenge",
+        "responses": {
+          "200": {
+            "description": "Challenge details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Challenge"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Verify challenge solution",
+        "description": "Submit a solved PoW challenge. Returns session token on success.",
+        "operationId": "verifyChallenge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "challenge_id": { "type": "string" },
+                  "data": { "type": "string" },
+                  "nonce": { "type": "integer" },
+                  "prefix": { "type": "string" }
+                },
+                "required": ["challenge_id", "data", "nonce", "prefix"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChallengeVerify"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mcp": {
+      "post": {
+        "summary": "MCP JSON-RPC endpoint",
+        "description": "Model Context Protocol endpoint. Supports initialize, tools/list, tools/call.",
+        "operationId": "mcpEndpoint",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MCPRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON-RPC response"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "healthy" },
+          "version": { "type": "string", "example": "0.2.0" },
+          "protocol": { "type": "string", "example": "AEP" },
+          "uptime": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "services_count": { "type": "integer" }
+        }
+      },
+      "ServiceList": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "object" },
+          "results": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Service" }
+          },
+          "total": { "type": "integer" },
+          "page": { "type": "integer" }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "service_id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "provider": { "type": "object" },
+          "endpoint_url": { "type": "string", "format": "uri" },
+          "pricing": { "type": "object" },
+          "reputation": { "type": "object" },
+          "supported_protocols": { "type": "object" },
+          "is_featured": { "type": "boolean" }
+        }
+      },
+      "ServiceRegistration": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "endpoint_url": { "type": "string" },
+          "provider": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" }
+            },
+            "required": ["name"]
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "models": { "type": "array" }
+            },
+            "required": ["models"]
+          }
+        },
+        "required": ["name", "description", "endpoint_url"]
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "service_id": { "type": "string" },
+          "status": { "type": "string", "example": "active" },
+          "verification_token": { "type": "string" }
+        }
+      },
+      "PaymentQuote": {
+        "type": "object",
+        "properties": {
+          "service_id": { "type": "string" },
+          "service_name": { "type": "string" },
+          "provider": { "type": "string" },
+          "amount": { "type": "number" },
+          "currency": { "type": "string" },
+          "chain_id": { "type": "string" },
+          "provider_id": { "type": "string" },
+          "recipient_address": { "type": "string" },
+          "expires_at": { "type": "string", "format": "date-time" },
+          "x402_payload": { "type": "object" }
+        }
+      },
+      "VerificationResult": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "enum": ["confirmed", "failed"] },
+          "tx_hash": { "type": "string" },
+          "service_id": { "type": "string" },
+          "service_name": { "type": "string" },
+          "chain_id": { "type": "string" },
+          "amount_paid": { "type": "number" },
+          "fee": { "type": "number" },
+          "block_time": { "type": "integer" },
+          "block_height": { "type": "integer" },
+          "verified_at": { "type": "string", "format": "date-time" },
+          "message": { "type": "string" }
+        }
+      },
+      "Challenge": {
+        "type": "object",
+        "properties": {
+          "challenge_id": { "type": "string" },
+          "data": { "type": "string" },
+          "prefix": { "type": "string" },
+          "difficulty": { "type": "integer" },
+          "algorithm": { "type": "string", "example": "SHA256" },
+          "expires_at": { "type": "string", "format": "date-time" },
+          "instructions": { "type": "string" }
+        }
+      },
+      "ChallengeVerify": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "verified" },
+          "message": { "type": "string" },
+          "session_token": { "type": "string" },
+          "valid_until": { "type": "string", "format": "date-time" },
+          "challenge_id": { "type": "string" },
+          "nonce_found": { "type": "integer" },
+          "hash": { "type": "string" }
+        }
+      },
+      "MCPRequest": {
+        "type": "object",
+        "properties": {
+          "jsonrpc": { "type": "string", "example": "2.0" },
+          "method": { "type": "string", "enum": ["initialize", "tools/list", "tools/call"] },
+          "params": { "type": "object" },
+          "id": { "type": "string" }
+        },
+        "required": ["jsonrpc", "method"]
+      }
+    }
+  }
+}
