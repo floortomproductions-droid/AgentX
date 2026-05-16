@@ -71,7 +71,8 @@ export async function POST(request: NextRequest) {
       execSync(cmd, { timeout: 20000, encoding: "utf-8" });
       
       const data = JSON.parse(require("fs").readFileSync("/tmp/map.json", "utf-8"));
-      urls = data.data?.map((u: any) => u.url) || data.data || [];
+      const links = data.data?.links || data.data || [];
+      urls = links.map((u: any) => typeof u === 'string' ? u : u.url);
     } catch (error: any) {
       console.error("[SiteMapper] Firecrawl error:", error.message);
       return NextResponse.json(
