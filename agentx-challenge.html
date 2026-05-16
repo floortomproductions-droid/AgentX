@@ -253,7 +253,7 @@
           sessionStorage.setItem('agentx_token_expiry', verifyResult.valid_until);
 
           setTimeout(function() {
-            window.location.href = '/agents.html';
+            window.location.href = '/';
           }, 2500);
         } else {
           elFail.classList.remove('hidden');
@@ -267,11 +267,11 @@
     }
 
     function enterMarketplace() {
-      window.location.href = '/agents.html';
+      window.location.href = '/';
     }
 
     function goBack() {
-      window.location.href = 'index.html';
+      window.location.href = '/';
     }
 
     // Start when page loads
