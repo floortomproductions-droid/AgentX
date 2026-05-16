@@ -83,39 +83,32 @@ export async function POST(request: NextRequest) {
     const results: any[] = [];
 
     try {
-      // Build Firecrawl command
       const urlList = urls.map(u => `"${u}"`).join(" ");
       const mainContent = options.onlyMainContent ? "--only-main-content" : "";
       const waitFor = options.waitFor ? `--wait-for ${options.waitFor}` : "";
       const format = options.format === "json" ? "--format markdown,links" : "--format markdown";
 
-      // Scrape all URLs concurrently
-      const cmd = `firecrawl scrape ${urlList} ${mainContent} ${waitFor} ${format} -o /tmp/batch-scrape.json 2>&1`;
+      // Scrape all URLs concurrently (Firecrawl saves to .firecrawl/ dir)
+      const cmd = `cd /tmp && firecrawl scrape ${urlList} ${mainContent} ${waitFor} ${format} 2>&1`;
       
       execSync(cmd, { timeout: 60000, encoding: "utf-8" });
       
-      // Parse results
+      // Read results from .firecrawl/ directory
       const fs = require("fs");
-      if (fs.existsSync("/tmp/batch-scrape.json")) {
-        const data = JSON.parse(fs.readFileSync("/tmp/batch-scrape.json", "utf-8"));
-        
-        if (Array.isArray(data)) {
-          results.push(...data);
-        } else if (data.data) {
-          results.push(...(Array.isArray(data.data) ? data.data : [data.data]));
-        } else {
-          results.push(data);
+      const path = require("path");
+      const firecrawlDir = "/tmp/.firecrawl";
+      
+      if (fs.existsSync(firecrawlDir)) {
+        const files = fs.readdirSync(firecrawlDir).filter((f: string) => f.endsWith(".md"));
+        for (const file of files) {
+          const content = fs.readFileSync(path.join(firecrawlDir, file), "utf-8");
+          const url = "https://" + file.replace(".md", "");
+          results.push({
+            url: url,
+            markdown: content,
+            filename: file
+          });
         }
-      }
-
-      // Also check for individual .md files
-      const mdFiles = fs.readdirSync("/tmp").filter((f: string) => f.startsWith("batch-scrape-"));
-      for (const file of mdFiles) {
-        const content = fs.readFileSync(`/tmp/${file}`, "utf-8");
-        results.push({
-          url: file.replace("batch-scrape-", "").replace(".md", ""),
-          markdown: content
-        });
       }
 
     } catch (error: any) {
