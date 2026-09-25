@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# PM2 config contains live API keys — never commit
+/ecosystem.config.js
+
+# firecrawl CLI working data
+/.firecrawl/

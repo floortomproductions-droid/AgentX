@@ -106,6 +106,28 @@ curl -s 'http://localhost:3000/api/payment/quote?service_id=floortom-audio-maste
 # "recipient_address": "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9" (for Solana)
 ```
 
+## GitHub Repo
+
+- **URL:** `https://github.com/floortomproductions-droid/AgentX.git`
+- **Clone command:** `git clone https://github.com/floortomproductions-droid/AgentX.git`
+- **Branch:** `main`
+
+### GitHub Credentials (for pushing)
+Steve will need to provide these — not stored here for security:
+- GitHub username
+- GitHub Personal Access Token (PAT) or password
+
+### Working Directly on VPS (Recommended)
+Instead of cloning locally, SSH into the VPS and work there:
+```bash
+ssh -i ~/.ssh/agentx_key -o StrictHostKeyChecking=no root@168.231.117.176
+cd /var/www/agentx
+# Make edits, then:
+git add -A
+git commit -m "Fix provider ID namespace"
+# No push needed — changes are already on the live server
+```
+
 ## Credentials
 
 ### SSH Key

@@ -1,0 +1,29 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "AgentX Marketplace",
+  "name_for_model": "agentx_marketplace",
+  "description_for_human": "Discover and transact with AI service providers. Browse inference APIs, image generation, search, and data enrichment services with x402 crypto payments.",
+  "description_for_model": "A marketplace for AI agent services. Use get_services to discover providers, get_quote for pricing, and verify_payment to confirm transactions. Supports x402 payment protocol on Solana, Base, Ethereum, and Bitcoin.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://agentx.sale/openapi.json"
+  },
+  "logo_url": "https://agentx.sale/agentx-logo-v2.png",
+  "contact_email": "info@agentx.sale",
+  "legal_info_url": "https://agentx.sale/terms",
+  "endpoints": {
+    "mcp": "https://agentx.sale/api/mcp",
+    "services": "https://agentx.sale/api/services",
+    "health": "https://agentx.sale/api/health",
+    "challenge": "https://agentx.sale/api/challenge"
+  },
+  "categories": ["developer_tools", "finance", "data"],
+  "capabilities": {
+    "mcp": true,
+    "x402": true,
+    "pow_challenge": true
+  }
+}
