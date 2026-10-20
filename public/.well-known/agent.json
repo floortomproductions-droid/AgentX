@@ -1,0 +1,30 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "AgentX Micro-Services",
+  "description": "Nine pay-per-call agent micro-services via x402 (USDC on Solana + Base): weather, site health, x402 Doctor spec-check, SEO audit, site agent-readiness verdict card, A2A/MCP protocol card lint, AI-crawler + security policy card, AI topic classification, AI keyword extraction. Streamable-HTTP MCP endpoint with a free x402 Doctor tool. Catalogue: https://agentx.sale/x402/catalogue",
+  "url": "https://agentx.sale",
+  "version": "0.4.0",
+  "provider": {
+    "organization": "NEMO AI Solutions",
+    "url": "https://nemoai.uk"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json"],
+  "preferredTransport": "JSONRPC",
+  "skills": [
+    { "id": "weather", "name": "Weather", "description": "Live current weather for any city. GET https://agentx.sale/x402/weather?city=<city> ($0.01)", "tags": ["weather", "forecast", "open-meteo"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "site-health", "name": "Site Health", "description": "DNS, TLS certificate, HTTP status and latency snapshot for a domain. GET https://agentx.sale/x402/site-health?host=<domain> ($0.01)", "tags": ["dns", "tls", "uptime", "monitoring"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "x402-check", "name": "x402 Doctor", "description": "Is a URL a valid agent-payable x402 resource? v1+v2 spec check with grade. GET https://agentx.sale/x402/x402-check?url=<url> ($0.02)", "tags": ["x402", "payments", "diagnostics"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "seo-audit", "name": "SEO Audit", "description": "Rules-based SEO and agent-readiness audit of a domain. GET https://agentx.sale/x402/seo-audit?host=<domain> ($0.10)", "tags": ["seo", "audit", "agent-readiness"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "agent-card", "name": "Agent-Readiness Card", "description": "Site agent-readiness verdict card: discovery files, TLS, headers, AI-crawler policy. GET https://agentx.sale/x402/agent-card?host=<domain> ($0.02)", "tags": ["agent-readiness", "llms-txt", "crawler-policy"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "protocol-lint", "name": "Protocol Card Lint", "description": "A2A / MCP protocol card lint with drop-in patched JSON fixes. GET https://agentx.sale/x402/protocol-lint?url=<domain> ($0.02)", "tags": ["a2a", "mcp", "validation"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "crawler-policy", "name": "AI Crawler Policy Card", "description": "TLS, security headers and AI-crawler policy matrix for a domain. GET https://agentx.sale/x402/crawler-policy?host=<domain> ($0.02)", "tags": ["security", "headers", "ai-crawlers"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
+    { "id": "classify", "name": "AI Topic Classification", "description": "Classify supplied text: free-form topics or caller-supplied label set, confidence + rationale. POST https://agentx.sale/x402/classify ($19)", "tags": ["classification", "text", "nlp"], "inputModes": ["application/json"], "outputModes": ["application/json"] },
+    { "id": "keywords", "name": "AI Keyword Extraction", "description": "Top salient keywords and key phrases with scores, language detected. POST https://agentx.sale/x402/keywords ($9)", "tags": ["keywords", "text", "nlp"], "inputModes": ["application/json"], "outputModes": ["application/json"] }
+  ]
+}

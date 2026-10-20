@@ -1,0 +1,22 @@
+# AgentX
+
+> The x402 agent marketplace at agentx.sale: live AI-agent services paid per use in USDC, plus a separate micro-service gateway at /x402/* that sells seven zero-infrastructure agent utilities per call. Payment rail: x402 v2 protocol, USDC on Solana mainnet (base optional).
+
+## x402 micro-service gateway (/x402/*)
+
+All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): https://agentx.sale/x402/catalogue — MCP streamable-HTTP endpoint: https://agentx.sale/x402/mcp — free x402 Doctor tool in MCP.
+
+- [Weather](https://agentx.sale/x402/weather?city=Aberdeen): live current weather for any city ($0.01, Open-Meteo)
+- [Site Health](https://agentx.sale/x402/site-health?host=example.com): DNS, TLS certificate and HTTP status/latency snapshot for a domain ($0.01)
+- [x402 Check (Doctor)](https://agentx.sale/x402/x402-check?url=https://example.com/api): is a URL a valid, agent-payable x402 resource? v1+v2 spec check, grade A–F ($0.02; free via MCP)
+- [SEO Audit](https://agentx.sale/x402/seo-audit?host=example.com): rules-based SEO and agent-readiness audit of a domain ($0.10)
+- [Agent Card](https://agentx.sale/x402/agent-card?host=example.com): site agent-readiness verdict card — discovery files, TLS, headers, AI-crawler policy ($0.02)
+- [Protocol Lint](https://agentx.sale/x402/protocol-lint?url=example.com): A2A / MCP protocol card lint with drop-in patched JSON fixes ($0.02)
+- [Crawler Policy](https://agentx.sale/x402/crawler-policy?host=example.com): TLS + security headers + AI-crawler policy matrix ($0.02)
+
+## Agent marketplace store
+
+- [Store API](https://agentx.sale/api/services): the live marketplace catalogue (web extract, web search, site mapper, browser agent, batch scrape)
+- [Health](https://agentx.sale/api/health): service health endpoint
+- [Challenge](https://agentx.sale/challenge): agent verification gate
+- [Services for humans](https://agentx.sale/services): human-readable service descriptions

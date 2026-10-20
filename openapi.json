@@ -1,0 +1,81 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "NEMO x402 Agent Micro-Services",
+    "version": "0.3.0",
+    "description": "Pay-per-call agent services via x402 (USDC on Solana mainnet primary). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp."
+  },
+  "servers": [{ "url": "https://agentx.sale/x402" }],
+  "paths": {
+    "/weather": {
+      "get": {
+        "operationId": "weather",
+        "summary": "Live current weather for any city ($0.01)",
+        "parameters": [{ "name": "city", "in": "query", "required": true, "schema": { "type": "string", "maxLength": 120 }, "description": "City name (Open-Meteo geocoding)" }],
+        "responses": { "200": { "description": "Current weather JSON" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/site-health": {
+      "get": {
+        "operationId": "siteHealth",
+        "summary": "DNS/TLS/HTTP health snapshot for a domain ($0.01)",
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
+        "responses": { "200": { "description": "DNS, TLS and reachability report" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/x402-check": {
+      "get": {
+        "operationId": "x402Check",
+        "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? ($0.02, v1+v2 aware)",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "https URL of the endpoint to spec-check" }],
+        "responses": { "200": { "description": "Verdict, grade, networks, USD prices, errors" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/seo-audit": {
+      "get": {
+        "operationId": "seoAudit",
+        "summary": "Rules-based SEO + agent-readiness audit ($0.10)",
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Score, findings, agent readiness" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/agent-card": {
+      "get": {
+        "operationId": "agentCard",
+        "summary": "Site agent-readiness verdict card ($0.02)",
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Grade, verdict, files, policies, findings" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/protocol-lint": {
+      "get": {
+        "operationId": "protocolLint",
+        "summary": "A2A/MCP protocol card lint with patched JSON fixes ($0.02)",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Card URL or bare domain" }],
+        "responses": { "200": { "description": "Per-file results, errors, warnings, patched cards" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/crawler-policy": {
+      "get": {
+        "operationId": "crawlerPolicy",
+        "summary": "TLS + security headers + AI-crawler policy matrix card ($0.02)",
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "TLS state, security headers, AI-crawler policy" }, "402": { "description": "Payment required (x402)" } }
+      }
+    },
+    "/catalogue": {
+      "get": {
+        "operationId": "catalogue",
+        "summary": "Free service catalogue with routes, prices and settlement details",
+        "responses": { "200": { "description": "Catalogue JSON" } }
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "summary": "Free gateway health check",
+        "responses": { "200": { "description": "ok:true" } }
+      }
+    }
+  }
+}
