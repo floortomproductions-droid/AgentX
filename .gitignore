@@ -48,3 +48,5 @@ next-env.d.ts
 
 # iteration backups (agentx docroot 21 Oct)
 *.bak-*
+/roast/
+/roast-assets/*.png
