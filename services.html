@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentX Services — Browse</title>
+  <title>AgentX</title>
+  <meta name="description" content="Where Agents get results & work done. Micro-services, some are FREE.">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,9 +20,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
     .header a { text-decoration: none; color: #1a1a1a; font-weight: 600; font-size: 1.2rem; }
-    .nav { display: flex; gap: 1.5rem; align-items: center; }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      display: block;
+      height: 36px;
+      width: auto;
+    }
+    .header .nav a { font-weight: 400; font-size: 0.9rem; color: #666; }
+    .nav { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
     .nav a { text-decoration: none; color: #666; font-size: 0.9rem; }
     .nav a:hover { color: #000; }
     .badge {
@@ -33,8 +46,124 @@
       font-weight: 600;
     }
     .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .subtitle { color: #666; font-size: 1.1rem; margin-bottom: 2rem; }
+    h1 {
+      font-size: clamp(1.85rem, 4vw, 2.6rem);
+      margin-bottom: 0.75rem;
+      max-width: 18ch;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+      max-width: 36ch;
+    }
+    .hero {
+      background: #e7f4fb;
+    }
+    .listings {
+      background: #eef8ef;
+      padding: 1.75rem 0;
+      margin: 0;
+    }
+    .listings h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.02em;
+    }
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+    .listing-card {
+      display: block;
+      background: #fff;
+      border: 1px solid #d7eadb;
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      text-decoration: none;
+      color: #1a1a1a;
+    }
+    .listing-card:hover {
+      border-color: #00c853;
+    }
+    .listing-card strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .listing-card span {
+      display: block;
+      margin-top: 0.15rem;
+      color: #666;
+      font-size: 0.75rem;
+    }
+    .prompt-band {
+      background: #e7f4fb;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    .prompt-band h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.02em;
+    }
+    .prompt-box {
+      display: inline-block;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #d3e7f2;
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      max-width: 22rem;
+    }
+    .prompt-box p {
+      margin: 0 0 0.7rem;
+      color: #1a1a1a;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+    .prompt-box p:last-child { margin-bottom: 0; }
+    .prompt-box .n {
+      color: #888;
+      font-weight: 600;
+      min-width: 1.1rem;
+    }
+    .prompt-box a,
+    .prompt-box button {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .prompt-box a {
+      color: #1a1a1a;
+      background: #fff;
+      border: 1px solid #c5d9e4;
+    }
+    .prompt-box a:hover { border-color: #00c853; }
+    .prompt-box button {
+      color: #fff;
+      background: #00c853;
+      border: 0;
+    }
+    .prompt-box button:hover { background: #00b34a; }
+    .prompt-box .hint {
+      color: #666;
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -57,6 +186,7 @@
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 0.75rem;
+      gap: 0.75rem;
     }
     .service-name { font-size: 1.1rem; font-weight: 600; }
     .service-price {
@@ -71,8 +201,14 @@
     .service-desc {
       color: #555;
       font-size: 0.9rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       line-height: 1.5;
+    }
+    .service-route {
+      color: #999;
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+      word-break: break-all;
     }
     .service-meta {
       display: flex;
@@ -80,19 +216,23 @@
       flex-wrap: wrap;
     }
     .tag {
-      background: #f5f5f0;
-      color: #666;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-    }
-    .protocol-tag {
-      background: #1a1a1a;
-      color: #fff;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+      background: #fff;
+      color: #2563eb;
+      border: 1px solid #2563eb;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
       font-size: 0.7rem;
       font-weight: 500;
+    }
+    .tag-v2 {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+    .tag-free {
+      background: #fff;
+      color: #00c853;
+      border-color: #00c853;
     }
     .loading { text-align: center; padding: 4rem; color: #999; }
     .error { text-align: center; padding: 4rem; color: #d32f2f; }
@@ -102,69 +242,207 @@
       color: #999;
       font-size: 0.85rem;
       border-top: 1px solid #e5e5e0;
-      margin-top: 3rem;
     }
-    .footer a { color: #666; }
+    .footer a {
+      color: #666;
+      text-decoration: none;
+    }
+    .footer a:hover { color: #000; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 640px) {
+      .header { padding: 1rem; }
+      .logo img { height: 28px; }
+      .container { padding: 2rem 1rem; }
+      h1 { font-size: 1.75rem; }
+      .subtitle { font-size: 1rem; }
+      .listings { padding: 1.35rem 0; }
+      .prompt-band { padding: 1.35rem 0; }
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <a href="/">← AgentX</a>
+    <a class="logo" href="/">
+      <img src="assets/agentx-wordmark.png" alt="AgentX">
+    </a>
     <div class="nav">
       <a href="/">Home</a>
-      <a href="/agentx-challenge.html">For Agents →</a>
       <span class="badge">LIVE</span>
     </div>
   </div>
 
-  <div class="container">
-    <h1>AgentX Services</h1>
-    <p class="subtitle">Verified services for AI agents — browse pricing, capabilities, and endpoints</p>
+  <div class="hero">
+    <div class="container">
+      <h1>Where Agents get results &amp; work done</h1>
+      <p class="subtitle">Micro-services, some are FREE.</p>
+    </div>
+  </div>
+
+  <div class="listings">
+    <div class="container" style="padding-top:0;padding-bottom:0;">
+      <h2>Where agents find us</h2>
+      <div class="listing-grid">
+        <a class="listing-card" target="_blank" rel="noopener" href="https://agentic.market/services/agentx-sale">
+          <strong>Bazaar</strong>
+          <span>Agentic.Market</span>
+        </a>
+        <a class="listing-card" target="_blank" rel="noopener" href="https://registry.modelcontextprotocol.io/?q=agentx-x402-gateway">
+          <strong>MCP Registry</strong>
+          <span>Official directory</span>
+        </a>
+        <a class="listing-card" target="_blank" rel="noopener" href="https://glama.ai/mcp/connectors/io.github.floortomproductions-droid/agentx-x402-gateway">
+          <strong>Glama</strong>
+          <span>MCP connector</span>
+        </a>
+        <a class="listing-card" target="_blank" rel="noopener" href="https://www.x402scan.com/server/94335b1f-2002-48bd-805e-07de542baecb">
+          <strong>x402scan</strong>
+          <span>Paid endpoints</span>
+        </a>
+        <a class="listing-card" target="_blank" rel="noopener" href="https://agentx.sale/x402/catalogue">
+          <strong>Catalogue</strong>
+          <span>Machine list</span>
+        </a>
+        <a class="listing-card" target="_blank" rel="noopener" href="https://agentx.sale/x402/mcp">
+          <strong>MCP</strong>
+          <span>Free Doctor</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-band">
+    <div class="container" style="padding-top:0;padding-bottom:0;">
+      <h2>Send your agent to get services</h2>
+      <div class="prompt-box">
+        <p><span class="n">1.</span> <a target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a></p>
+        <p><span class="n">2.</span> <button type="button" id="copy-prompt">Copy prompt</button> <span class="hint">Paste it into your agent chat.</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:2rem;">
     <div id="services" class="services-grid">
       <div class="loading">Loading services...</div>
     </div>
   </div>
 
   <div class="footer">
-    <p>Built on <a href="https://aeprotocol.com">AE Protocol</a> — x402 payments, MCP communication, Fluxa identity</p>
-    <p style="margin-top: 0.5rem;">© 2026 NemoAI Ltd.</p>
+    <p>© 2026 NemoAI Ltd.</p>
+    <div class="footer-links">
+      <a href="https://nemoai.uk/">nemoai.uk</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
   </div>
 
   <script>
-    async function loadServices() {
-      const container = document.getElementById('services');
-      try {
-        const res = await fetch('/api/services?limit=20');
-        const data = await res.json();
-        
-        if (!data.results || data.results.length === 0) {
-          container.innerHTML = '<div class="error">No services available</div>';
-          return;
-        }
+    const COPY = {
+      'weather': {
+        name: 'Weather',
+        outcome: 'Current weather for any city',
+        chips: ['Utility']
+      },
+      'site-health': {
+        name: 'Site Health',
+        outcome: 'DNS, TLS, HTTP status and latency for a domain',
+        chips: ['Utility']
+      },
+      'x402-check': {
+        name: 'x402 Doctor',
+        outcome: 'A grade for whether a URL is a valid agent-payable resource',
+        chips: ['Utility'],
+        free: true
+      },
+      'seo-audit': {
+        name: 'SEO Audit',
+        outcome: 'SEO and agent-readiness audit, with a score and findings',
+        chips: ['Utility']
+      },
+      'agent-card': {
+        name: 'Agent Card',
+        outcome: 'Shareable agent-readiness card for a site',
+        chips: ['Utility']
+      },
+      'protocol-lint': {
+        name: 'Protocol Lint',
+        outcome: 'A2A / MCP card lint, with patched JSON to drop in',
+        chips: ['Utility']
+      },
+      'crawler-policy': {
+        name: 'Crawler Policy',
+        outcome: 'TLS, security headers, and AI-crawler policy card',
+        chips: ['Utility']
+      },
+      'webmcp-check': {
+        name: 'WebMCP Check',
+        outcome: 'Tells you if a site is WEBMCP READY, with inventory and findings',
+        chips: ['Utility']
+      },
+      'webmcp-upgrade': {
+        name: 'WebMCP Upgrade',
+        outcome: 'A generated webmcp.js file and the steps to publish it',
+        chips: ['Utility']
+      },
+      'classify': {
+        name: 'Classify',
+        outcome: 'Topic labels for supplied text, with confidence',
+        chips: ['AI']
+      },
+      'keywords': {
+        name: 'Keywords',
+        outcome: 'Keywords and phrases from supplied text',
+        chips: ['AI']
+      },
+      'gtm-roast': {
+        name: 'Landing Page Roast',
+        outcome: 'Five persona takes on a landing page, plus a shareable SVG card',
+        chips: ['Opinion']
+      }
+    };
 
-        container.innerHTML = data.results.map(s => {
-          const price = s.pricing?.models?.[0];
-          const priceText = price ? `${price.currency} ${price.unit_price}/${price.unit}` : 'Custom pricing';
-          const protocols = s.supported_protocols ? 
-            Object.keys(s.supported_protocols).map(k => s.supported_protocols[k].join(', ')).join(' • ') : '';
-          
-          return `
-            <div class="service-card">
-              <div class="service-header">
-                <div class="service-name">${escapeHtml(s.name)}</div>
-                <div class="service-price">${escapeHtml(priceText)}</div>
-              </div>
-              <div class="service-desc">${escapeHtml(s.description?.split('\n')[0] || '')}</div>
-              <div class="service-meta">
-                <span class="protocol-tag">${escapeHtml(s.supported_protocols?.payment?.[0] || 'x402')}</span>
-                ${s.tags?.slice(0,3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('') || ''}
-                <span class="tag">${(s.reputation?.score || 0).toFixed(1)}★</span>
-              </div>
-            </div>
-          `;
-        }).join('');
+    const ORDER = [
+      'x402-check',
+      'weather',
+      'site-health',
+      'agent-card',
+      'protocol-lint',
+      'crawler-policy',
+      'gtm-roast',
+      'seo-audit',
+      'webmcp-check',
+      'keywords',
+      'classify',
+      'webmcp-upgrade'
+    ];
+
+    function slugOf(route) {
+      try {
+        const path = new URL(route).pathname.replace(/\/+$/, '');
+        const parts = path.split('/');
+        return parts[parts.length - 1] || '';
       } catch (err) {
-        container.innerHTML = `<div class="error">Error loading services: ${escapeHtml(err.message)}</div>`;
+        return '';
+      }
+    }
+
+    function formatPrice(n) {
+      const num = Number(n);
+      if (!Number.isFinite(num)) return '';
+      return '$' + num.toFixed(2);
+    }
+
+    function routeLabel(route, method) {
+      try {
+        const u = new URL(route);
+        return (method || 'GET') + ' ' + u.pathname;
+      } catch (err) {
+        return method || '';
       }
     }
 
@@ -175,7 +453,109 @@
       return div.innerHTML;
     }
 
+    function mergeServices(rows) {
+      const bySlug = new Map();
+      (rows || []).forEach(function (s) {
+        const id = slugOf(s.route);
+        if (!id) return;
+        const prev = bySlug.get(id);
+        if (!prev) {
+          bySlug.set(id, {
+            slug: id,
+            route: s.route,
+            methods: [s.method || 'GET'],
+            price_usd: s.price_usd,
+            desc: s.desc || ''
+          });
+          return;
+        }
+        const method = s.method || 'GET';
+        if (prev.methods.indexOf(method) === -1) prev.methods.push(method);
+      });
+      const list = Array.from(bySlug.values());
+      list.sort(function (a, b) {
+        const ia = ORDER.indexOf(a.slug);
+        const ib = ORDER.indexOf(b.slug);
+        const pa = ia === -1 ? 1000 : ia;
+        const pb = ib === -1 ? 1000 : ib;
+        if (pa !== pb) return pa - pb;
+        return a.slug.localeCompare(b.slug);
+      });
+      return list;
+    }
+
+    function renderCard(s) {
+      const meta = COPY[s.slug] || {};
+      const name = meta.name || s.slug;
+      const outcome = meta.outcome || s.desc || '';
+      const methods = (s.methods || ['GET']).join('/');
+      const chips = meta.chips || [];
+      const tags = chips.map(function (c) {
+        return '<span class="tag">' + escapeHtml(c) + '</span>';
+      });
+      tags.push('<span class="tag tag-v2">v2</span>');
+      if (meta.free) tags.push('<span class="tag tag-free">FREE</span>');
+      return (
+        '<div class="service-card">' +
+          '<div class="service-header">' +
+            '<div class="service-name">' + escapeHtml(name) + '</div>' +
+            '<div class="service-price">' + escapeHtml(formatPrice(s.price_usd)) + '</div>' +
+          '</div>' +
+          '<div class="service-desc">' + escapeHtml(outcome) + '</div>' +
+          '<div class="service-route">' + escapeHtml(routeLabel(s.route, methods)) + '</div>' +
+          '<div class="service-meta">' + tags.join('') + '</div>' +
+        '</div>'
+      );
+    }
+
+    async function loadCatalogue() {
+      const urls = ['/x402/catalogue', 'https://agentx.sale/x402/catalogue', './catalogue-snapshot.json'];
+      let lastError = null;
+      for (let i = 0; i < urls.length; i++) {
+        try {
+          const res = await fetch(urls[i], { cache: 'no-store' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!data || !Array.isArray(data.services)) throw new Error('Bad catalogue');
+          return data;
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      throw lastError || new Error('Catalogue unavailable');
+    }
+
+    async function loadServices() {
+      const container = document.getElementById('services');
+      try {
+        const data = await loadCatalogue();
+        const services = mergeServices(data.services);
+        if (!services.length) {
+          container.innerHTML = '<div class="error">No services available</div>';
+          return;
+        }
+        container.innerHTML = services.map(renderCard).join('');
+      } catch (err) {
+        container.innerHTML = '<div class="error">Could not load the catalogue</div>';
+      }
+    }
+
     loadServices();
+
+    (function () {
+      const btn = document.getElementById('copy-prompt');
+      if (!btn) return;
+      const text = 'Look up AgentX at https://agentx.sale/x402/catalogue and use the service that matches what I need. Free start over MCP: https://agentx.sale/x402/mcp';
+      btn.addEventListener('click', function () {
+        const done = function () {
+          btn.textContent = 'Copied';
+          setTimeout(function () { btn.textContent = 'Copy prompt'; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function () {});
+        }
+      });
+    })();
   </script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 # AgentX
 
-> The x402 agent marketplace at agentx.sale: live AI-agent services paid per use in USDC, plus a separate micro-service gateway at /x402/* that sells seven zero-infrastructure agent utilities per call. Payment rail: x402 v2 protocol, USDC on Solana mainnet (base optional).
+> The x402 agent marketplace at agentx.sale: live AI-agent services paid per use in USDC, plus a micro-service gateway at /x402/* that sells agent utilities per call. Payment rail: x402 v2 protocol, USDC on Base + Solana.
 
 ## x402 micro-service gateway (/x402/*)
 
-All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): https://agentx.sale/x402/catalogue — MCP streamable-HTTP endpoint: https://agentx.sale/x402/mcp — free x402 Doctor tool in MCP.
+All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): https://agentx.sale/x402/catalogue — MCP: https://agentx.sale/x402/mcp (free catalogue + x402 Doctor).
 
 - [Weather](https://agentx.sale/x402/weather?city=Aberdeen): live current weather for any city ($0.01, Open-Meteo)
 - [Site Health](https://agentx.sale/x402/site-health?host=example.com): DNS, TLS certificate and HTTP status/latency snapshot for a domain ($0.01)
@@ -13,6 +13,11 @@ All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): 
 - [Agent Card](https://agentx.sale/x402/agent-card?host=example.com): site agent-readiness verdict card — discovery files, TLS, headers, AI-crawler policy ($0.02)
 - [Protocol Lint](https://agentx.sale/x402/protocol-lint?url=example.com): A2A / MCP protocol card lint with drop-in patched JSON fixes ($0.02)
 - [Crawler Policy](https://agentx.sale/x402/crawler-policy?host=example.com): TLS + security headers + AI-crawler policy matrix ($0.02)
+- [WebMCP Check](https://agentx.sale/x402/webmcp-check?host=example.com): WebMCP agent-compatibility check ($0.10)
+- [WebMCP Upgrade](https://agentx.sale/x402/webmcp-upgrade): generated webmcp.js tool file with publish instructions (POST JSON {url}, $4.00)
+- [Classify](https://agentx.sale/x402/classify): AI topic classification of supplied text (POST JSON {text}, $1.75)
+- [Keywords](https://agentx.sale/x402/keywords): AI keyword extraction (POST JSON {text}, $0.90)
+- [New Landing Page Roast](https://agentx.sale/x402/gtm-roast?url=https://floortom.com): five persona critiques of a landing page offer, focus and durability, plus a shareable SVG card (GET or POST {url}, $0.02)
 
 ## Agent marketplace store
 

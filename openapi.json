@@ -2,17 +2,23 @@
   "openapi": "3.1.0",
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
-    "version": "0.3.0",
-    "description": "Pay-per-call agent services via x402 (USDC on Solana mainnet primary). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp."
+    "version": "0.7.0",
+    "description": "Pay-per-call agent services via x402 (USDC on Base + Solana). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp.",
+    "contact": { "email": "steve@nemoai.uk", "name": "NEMO AI Solutions", "url": "https://nemoai.uk" },
+    "x-guidance": "Call GET /catalogue first (free) for routes and prices. Paid routes return HTTP 402 with a PAYMENT-REQUIRED header; settle USDC on Base (first) or Solana, then retry the same request. Slow jobs (roast, upgrade, classify, keywords) may answer 202 with a free /jobs/:id poller. MCP at /mcp exposes the catalogue and a free x402 Doctor."
   },
   "servers": [{ "url": "https://agentx.sale/x402" }],
+  "x-discovery": {
+    "ownershipProofs": ["0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83"]
+  },
   "paths": {
     "/weather": {
       "get": {
         "operationId": "weather",
         "summary": "Live current weather for any city ($0.01)",
         "parameters": [{ "name": "city", "in": "query", "required": true, "schema": { "type": "string", "maxLength": 120 }, "description": "City name (Open-Meteo geocoding)" }],
-        "responses": { "200": { "description": "Current weather JSON" }, "402": { "description": "Payment required (x402)" } }
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.01" } },
+        "responses": { "200": { "description": "Current weather JSON" }, "402": { "description": "Payment Required" } }
       }
     },
     "/site-health": {
@@ -20,7 +26,8 @@
         "operationId": "siteHealth",
         "summary": "DNS/TLS/HTTP health snapshot for a domain ($0.01)",
         "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
-        "responses": { "200": { "description": "DNS, TLS and reachability report" }, "402": { "description": "Payment required (x402)" } }
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.01" } },
+        "responses": { "200": { "description": "DNS, TLS and reachability report" }, "402": { "description": "Payment Required" } }
       }
     },
     "/x402-check": {
@@ -28,23 +35,26 @@
         "operationId": "x402Check",
         "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? ($0.02, v1+v2 aware)",
         "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "https URL of the endpoint to spec-check" }],
-        "responses": { "200": { "description": "Verdict, grade, networks, USD prices, errors" }, "402": { "description": "Payment required (x402)" } }
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
+        "responses": { "200": { "description": "Verdict, grade, networks, USD prices, errors" }, "402": { "description": "Payment Required" } }
       }
     },
     "/seo-audit": {
       "get": {
         "operationId": "seoAudit",
         "summary": "Rules-based SEO + agent-readiness audit ($0.10)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "Score, findings, agent readiness" }, "402": { "description": "Payment required (x402)" } }
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.10" } },
+        "responses": { "200": { "description": "Score, findings, agent readiness" }, "402": { "description": "Payment Required" } }
       }
     },
     "/agent-card": {
       "get": {
         "operationId": "agentCard",
         "summary": "Site agent-readiness verdict card ($0.02)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "Grade, verdict, files, policies, findings" }, "402": { "description": "Payment required (x402)" } }
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
+        "responses": { "200": { "description": "Grade, verdict, files, policies, findings" }, "402": { "description": "Payment Required" } }
       }
     },
     "/protocol-lint": {
@@ -52,21 +62,104 @@
         "operationId": "protocolLint",
         "summary": "A2A/MCP protocol card lint with patched JSON fixes ($0.02)",
         "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Card URL or bare domain" }],
-        "responses": { "200": { "description": "Per-file results, errors, warnings, patched cards" }, "402": { "description": "Payment required (x402)" } }
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
+        "responses": { "200": { "description": "Per-file results, errors, warnings, patched cards" }, "402": { "description": "Payment Required" } }
       }
     },
     "/crawler-policy": {
       "get": {
         "operationId": "crawlerPolicy",
         "summary": "TLS + security headers + AI-crawler policy matrix card ($0.02)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "TLS state, security headers, AI-crawler policy" }, "402": { "description": "Payment required (x402)" } }
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
+        "responses": { "200": { "description": "TLS state, security headers, AI-crawler policy" }, "402": { "description": "Payment Required" } }
+      }
+    },
+    "/webmcp-check": {
+      "get": {
+        "operationId": "webmcpCheck",
+        "summary": "WebMCP agent-compatibility check ($0.10)",
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain" }],
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.10" } },
+        "responses": { "200": { "description": "WEBMCP READY / NOT WEBMCP READY, inventory, findings" }, "402": { "description": "Payment Required" } }
+      }
+    },
+    "/webmcp-upgrade": {
+      "post": {
+        "operationId": "webmcpUpgrade",
+        "summary": "WebMCP upgrade order: generated webmcp.js ($4.00)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "required": ["url"], "properties": { "url": { "type": "string", "description": "https URL of the site to upgrade" } } }
+            }
+          }
+        },
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "4.00" } },
+        "responses": { "200": { "description": "Generated webmcp.js plus publish instructions" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+      }
+    },
+    "/classify": {
+      "post": {
+        "operationId": "classify",
+        "summary": "AI topic classification of supplied text ($1.75)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "required": ["text"], "properties": { "text": { "type": "string", "description": "Text to classify" }, "labels": { "type": "array", "items": { "type": "string" } }, "multiLabel": { "type": "boolean" } } }
+            }
+          }
+        },
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "1.75" } },
+        "responses": { "200": { "description": "Classification, confidence, rationale" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+      }
+    },
+    "/keywords": {
+      "post": {
+        "operationId": "keywords",
+        "summary": "AI keyword extraction from supplied text ($0.90)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "required": ["text"], "properties": { "text": { "type": "string", "description": "Text to extract keywords from" }, "maxKeywords": { "type": "integer" } } }
+            }
+          }
+        },
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.90" } },
+        "responses": { "200": { "description": "Keywords and scores" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+      }
+    },
+    "/gtm-roast": {
+      "get": {
+        "operationId": "gtmRoastGet",
+        "summary": "New Landing Page Roast ($0.02)",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "https URL of the landing page" }],
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
+        "responses": { "200": { "description": "Headline, five persona roasts, shareable SVG card" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+      },
+      "post": {
+        "operationId": "gtmRoastPost",
+        "summary": "New Landing Page Roast ($0.02)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "required": ["url"], "properties": { "url": { "type": "string", "description": "https URL of the landing page" } } }
+            }
+          }
+        },
+        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
+        "responses": { "200": { "description": "Headline, five persona roasts, shareable SVG card" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
       }
     },
     "/catalogue": {
       "get": {
         "operationId": "catalogue",
         "summary": "Free service catalogue with routes, prices and settlement details",
+        "security": [],
         "responses": { "200": { "description": "Catalogue JSON" } }
       }
     },
@@ -74,6 +167,7 @@
       "get": {
         "operationId": "health",
         "summary": "Free gateway health check",
+        "security": [],
         "responses": { "200": { "description": "ok:true" } }
       }
     }

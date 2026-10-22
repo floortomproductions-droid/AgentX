@@ -45,3 +45,6 @@ next-env.d.ts
 
 # firecrawl CLI working data
 /.firecrawl/
+
+# iteration backups (agentx docroot 21 Oct)
+*.bak-*
