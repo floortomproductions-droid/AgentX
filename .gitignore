@@ -50,3 +50,6 @@ next-env.d.ts
 *.bak-*
 /roast/
 /roast-assets/*.png
+/roast/
+/roasts/
+roast-assets/*.json
