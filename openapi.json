@@ -759,6 +759,163 @@
           }
         }
       }
+    },
+    "/polymarket-book": {
+      "get": {
+        "operationId": "polymarketBook",
+        "summary": "Polymarket order book: bid/ask, spread, USD depth for both outcomes ($0.01)",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Market topic or slug"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/polymarket-history": {
+      "get": {
+        "operationId": "polymarketHistory",
+        "summary": "Polymarket YES-price series 1-90 days with change and high/low ($0.01)",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Market topic or slug"
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "1-90, default 7"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/polymarket-resolution": {
+      "get": {
+        "operationId": "polymarketResolution",
+        "summary": "Did a market resolve, which outcome won, resolution source ($0.01)",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Market topic or slug; omit for newest resolved"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/polymarket-arb": {
+      "get": {
+        "operationId": "polymarketArb",
+        "summary": "Arb scan: YES+NO ask pairs under $1.00 across top-volume markets ($0.01)",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "1-25 events, default 10"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
     }
   }
 }

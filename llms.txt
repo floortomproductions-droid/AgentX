@@ -23,6 +23,10 @@ All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): 
 - [Gas Check](https://agentx.sale/x402/gas-check?chain=base): live gas price on Base, Ethereum, Polygon, Avalanche, Arbitrum or OP Mainnet, with USD cost of a transfer ($0.01)
 - [Polymarket Trending](https://agentx.sale/x402/polymarket-trending?limit=10): top open prediction markets by 24h volume with live YES prices ($0.01)
 - [Polymarket Odds](https://agentx.sale/x402/polymarket-odds?q=fed%20decision): live YES/NO odds for any named Polymarket market ($0.01)
+- [Polymarket Book](https://agentx.sale/x402/polymarket-book?q=fed%20decision): top-of-book bid/ask, spread and USD resting depth for both outcomes of a Polymarket market ($0.01)
+- [Polymarket History](https://agentx.sale/x402/polymarket-history?q=fed%20decision&days=7): YES-price time series over 1-90 days with change and high/low ($0.01)
+- [Polymarket Resolution](https://agentx.sale/x402/polymarket-resolution?q=fed%20decision): did a market resolve, which outcome won, resolution source; bare call shows newest resolved ($0.01)
+- [Polymarket Arb](https://agentx.sale/x402/polymarket-arb?limit=10): scans top-volume markets for YES+NO ask pairs under $1.00 ($0.01)
 
 ## Agent marketplace store
 
