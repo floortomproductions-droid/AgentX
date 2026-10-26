@@ -4,84 +4,319 @@
     "title": "NEMO x402 Agent Micro-Services",
     "version": "0.7.0",
     "description": "Pay-per-call agent services via x402 (USDC on Base + Solana). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp.",
-    "contact": { "email": "steve@nemoai.uk", "name": "NEMO AI Solutions", "url": "https://nemoai.uk" },
+    "contact": {
+      "email": "steve@nemoai.uk",
+      "name": "NEMO AI Solutions",
+      "url": "https://nemoai.uk"
+    },
     "x-guidance": "Call GET /catalogue first (free) for routes and prices. Paid routes return HTTP 402 with a PAYMENT-REQUIRED header; settle USDC on Base (first) or Solana, then retry the same request. Slow jobs (roast, upgrade, classify, keywords) may answer 202 with a free /jobs/:id poller. MCP at /mcp exposes the catalogue and a free x402 Doctor."
   },
-  "servers": [{ "url": "https://agentx.sale/x402" }],
+  "servers": [
+    {
+      "url": "https://agentx.sale/x402"
+    }
+  ],
   "x-discovery": {
-    "ownershipProofs": ["0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83"]
+    "ownershipProofs": [
+      "0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83"
+    ]
   },
   "paths": {
     "/weather": {
       "get": {
         "operationId": "weather",
         "summary": "Live current weather for any city ($0.01)",
-        "parameters": [{ "name": "city", "in": "query", "required": true, "schema": { "type": "string", "maxLength": 120 }, "description": "City name (Open-Meteo geocoding)" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.01" } },
-        "responses": { "200": { "description": "Current weather JSON" }, "402": { "description": "Payment Required" } }
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "description": "City name (Open-Meteo geocoding)"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Current weather JSON"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/site-health": {
       "get": {
         "operationId": "siteHealth",
         "summary": "DNS/TLS/HTTP health snapshot for a domain ($0.01)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.01" } },
-        "responses": { "200": { "description": "DNS, TLS and reachability report" }, "402": { "description": "Payment Required" } }
+        "parameters": [
+          {
+            "name": "host",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bare domain, no path"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "DNS, TLS and reachability report"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/x402-check": {
       "get": {
         "operationId": "x402Check",
-        "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? ($0.02, v1+v2 aware)",
-        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "https URL of the endpoint to spec-check" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
-        "responses": { "200": { "description": "Verdict, grade, networks, USD prices, errors" }, "402": { "description": "Payment Required" } }
+        "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? ($0.01, v1+v2 aware)",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "https URL of the endpoint to spec-check"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verdict, grade, networks, USD prices, errors"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/seo-audit": {
       "get": {
         "operationId": "seoAudit",
         "summary": "Rules-based SEO + agent-readiness audit ($0.10)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.10" } },
-        "responses": { "200": { "description": "Score, findings, agent readiness" }, "402": { "description": "Payment Required" } }
+        "parameters": [
+          {
+            "name": "host",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bare domain, no path"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.10"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Score, findings, agent readiness"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/agent-card": {
       "get": {
         "operationId": "agentCard",
-        "summary": "Site agent-readiness verdict card ($0.02)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
-        "responses": { "200": { "description": "Grade, verdict, files, policies, findings" }, "402": { "description": "Payment Required" } }
+        "summary": "Site agent-readiness verdict card ($0.01)",
+        "parameters": [
+          {
+            "name": "host",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bare domain, no path"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Grade, verdict, files, policies, findings"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/protocol-lint": {
       "get": {
         "operationId": "protocolLint",
-        "summary": "A2A/MCP protocol card lint with patched JSON fixes ($0.02)",
-        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Card URL or bare domain" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
-        "responses": { "200": { "description": "Per-file results, errors, warnings, patched cards" }, "402": { "description": "Payment Required" } }
+        "summary": "A2A/MCP protocol card lint with patched JSON fixes ($0.01)",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Card URL or bare domain"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Per-file results, errors, warnings, patched cards"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/crawler-policy": {
       "get": {
         "operationId": "crawlerPolicy",
-        "summary": "TLS + security headers + AI-crawler policy matrix card ($0.02)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain, no path" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
-        "responses": { "200": { "description": "TLS state, security headers, AI-crawler policy" }, "402": { "description": "Payment Required" } }
+        "summary": "TLS + security headers + AI-crawler policy matrix card ($0.01)",
+        "parameters": [
+          {
+            "name": "host",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bare domain, no path"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "TLS state, security headers, AI-crawler policy"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/webmcp-check": {
       "get": {
         "operationId": "webmcpCheck",
         "summary": "WebMCP agent-compatibility check ($0.10)",
-        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Bare domain" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.10" } },
-        "responses": { "200": { "description": "WEBMCP READY / NOT WEBMCP READY, inventory, findings" }, "402": { "description": "Payment Required" } }
+        "parameters": [
+          {
+            "name": "host",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bare domain"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.10"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "WEBMCP READY / NOT WEBMCP READY, inventory, findings"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/webmcp-upgrade": {
@@ -92,12 +327,44 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "object", "required": ["url"], "properties": { "url": { "type": "string", "description": "https URL of the site to upgrade" } } }
+              "schema": {
+                "type": "object",
+                "required": [
+                  "url"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "https URL of the site to upgrade"
+                  }
+                }
+              }
             }
           }
         },
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "4.00" } },
-        "responses": { "200": { "description": "Generated webmcp.js plus publish instructions" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "4.00"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Generated webmcp.js plus publish instructions"
+          },
+          "202": {
+            "description": "Payment captured; poll /jobs/:id"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/classify": {
@@ -108,12 +375,53 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "object", "required": ["text"], "properties": { "text": { "type": "string", "description": "Text to classify" }, "labels": { "type": "array", "items": { "type": "string" } }, "multiLabel": { "type": "boolean" } } }
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to classify"
+                  },
+                  "labels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "multiLabel": {
+                    "type": "boolean"
+                  }
+                }
+              }
             }
           }
         },
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "1.75" } },
-        "responses": { "200": { "description": "Classification, confidence, rationale" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "1.75"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Classification, confidence, rationale"
+          },
+          "202": {
+            "description": "Payment captured; poll /jobs/:id"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/keywords": {
@@ -124,35 +432,133 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "object", "required": ["text"], "properties": { "text": { "type": "string", "description": "Text to extract keywords from" }, "maxKeywords": { "type": "integer" } } }
+              "schema": {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Text to extract keywords from"
+                  },
+                  "maxKeywords": {
+                    "type": "integer"
+                  }
+                }
+              }
             }
           }
         },
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.90" } },
-        "responses": { "200": { "description": "Keywords and scores" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.90"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Keywords and scores"
+          },
+          "202": {
+            "description": "Payment captured; poll /jobs/:id"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/gtm-roast": {
       "get": {
         "operationId": "gtmRoastGet",
-        "summary": "New Landing Page Roast ($0.02)",
-        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "description": "https URL of the landing page" }],
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
-        "responses": { "200": { "description": "Headline, five persona roasts, shareable SVG card" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+        "summary": "New Landing Page Roast ($0.01)",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "https URL of the landing page"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Score, verdict, 1-2 of the five legend roasts, shareable SVG card"
+          },
+          "202": {
+            "description": "Payment captured; poll /jobs/:id"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       },
       "post": {
         "operationId": "gtmRoastPost",
-        "summary": "New Landing Page Roast ($0.02)",
+        "summary": "New Landing Page Roast ($0.01)",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "object", "required": ["url"], "properties": { "url": { "type": "string", "description": "https URL of the landing page" } } }
+              "schema": {
+                "type": "object",
+                "required": [
+                  "url"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "https URL of the landing page"
+                  }
+                }
+              }
             }
           }
         },
-        "x-payment-info": { "protocols": [{ "x402": {} }], "price": { "mode": "fixed", "currency": "USD", "amount": "0.02" } },
-        "responses": { "200": { "description": "Headline, five persona roasts, shareable SVG card" }, "202": { "description": "Payment captured; poll /jobs/:id" }, "402": { "description": "Payment Required" } }
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Score, verdict, 1-2 of the five legend roasts, shareable SVG card"
+          },
+          "202": {
+            "description": "Payment captured; poll /jobs/:id"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     },
     "/catalogue": {
@@ -160,7 +566,11 @@
         "operationId": "catalogue",
         "summary": "Free service catalogue with routes, prices and settlement details",
         "security": [],
-        "responses": { "200": { "description": "Catalogue JSON" } }
+        "responses": {
+          "200": {
+            "description": "Catalogue JSON"
+          }
+        }
       }
     },
     "/health": {
@@ -168,7 +578,186 @@
         "operationId": "health",
         "summary": "Free gateway health check",
         "security": [],
-        "responses": { "200": { "description": "ok:true" } }
+        "responses": {
+          "200": {
+            "description": "ok:true"
+          }
+        }
+      }
+    },
+    "/crypto-ticker": {
+      "get": {
+        "operationId": "cryptoTicker",
+        "summary": "Live USD price + 24h move for up to 10 tokens ($0.01)",
+        "parameters": [
+          {
+            "name": "assets",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma-separated symbols or coingecko ids, e.g. btc,eth"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/fear-greed": {
+      "get": {
+        "operationId": "fearGreed",
+        "summary": "Crypto Fear & Greed Index with 7d history ($0.01)",
+        "parameters": [],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/gas-check": {
+      "get": {
+        "operationId": "gasCheck",
+        "summary": "Live gas price on six chains with USD transfer cost ($0.01)",
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "base|ethereum|polygon|avalanche|arbitrum|optimism; default base"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/polymarket-trending": {
+      "get": {
+        "operationId": "polymarketTrending",
+        "summary": "Top open Polymarket markets by 24h volume with YES prices ($0.01)",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of events, 1-20, default 10"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/polymarket-odds": {
+      "get": {
+        "operationId": "polymarketOdds",
+        "summary": "Live YES/NO odds for a named Polymarket market ($0.01)",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Market topic or slug, e.g. fed decision"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
       }
     }
   }
