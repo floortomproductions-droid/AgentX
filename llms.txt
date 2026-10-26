@@ -1,6 +1,6 @@
 # AgentX
 
-> The x402 agent marketplace at agentx.sale: live AI-agent services paid per use in USDC, plus a micro-service gateway at /x402/* that sells agent utilities per call. Payment rail: x402 v2 protocol, USDC on Base + Solana.
+> NEMO x402 Micro-Services at agentx.sale: live AI-agent services paid per use. Three payment rails in one 402: x402 v2 (USDC, Base + Solana), the IETF Machine Payments Protocol (WWW-Authenticate: Payment), and Stripe cards on $1+ routes. Every settled call returns a Payment-Receipt. On-chain identity: ERC-8004 agentId 1135219 on Base.
 
 ## x402 micro-service gateway (/x402/*)
 

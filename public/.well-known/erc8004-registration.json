@@ -1,13 +1,13 @@
 {
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "NEMO x402 Micro-Services",
-  "description": "Twenty-four pay-per-call agent micro-services, listed in the catalogue at agentx.sale and settled on-chain via x402 (USDC on Base): weather, site health & SEO, crypto ticker / gas / Fear&Greed, the full Polymarket toolkit (trending, odds, order book, history, resolution watch, arb scan), email deliverability, FX rates, Bitcoin fees, WebMCP tools, and an x402 Doctor spec-check.",
+  "description": "Twenty-four pay-per-call agent micro-services, listed in the catalogue at agentx.sale and settled on-chain via x402 (USDC on Base) or the IETF Machine Payments Protocol (stablecoin via the Coinbase facilitator; card payments via Stripe on $1+ routes): weather, site health & SEO, crypto ticker / gas / Fear&Greed, the full Polymarket toolkit (trending, odds, order book, history, resolution watch, arb scan), email deliverability, FX rates, Bitcoin fees, WebMCP tools, and an x402 Doctor spec-check.",
   "image": "https://agentx.sale/assets/agentx-og.png",
   "services": [
-    { "name": "x402", "endpoint": "https://agentx.sale/x402/catalogue", "version": "0.7.5" },
-    { "name": "mcp", "endpoint": "https://agentx.sale/x402/mcp", "version": "0.7.5" },
-    { "name": "a2a", "endpoint": "https://agentx.sale/.well-known/agent-card.json", "version": "0.7.5" },
-    { "name": "web", "endpoint": "https://agentx.sale/", "version": "0.7.5" }
+    { "name": "x402", "endpoint": "https://agentx.sale/x402/catalogue", "version": "0.7.8" },
+    { "name": "mcp", "endpoint": "https://agentx.sale/x402/mcp", "version": "0.7.8" },
+    { "name": "a2a", "endpoint": "https://agentx.sale/.well-known/agent-card.json", "version": "0.7.8" },
+    { "name": "web", "endpoint": "https://agentx.sale/", "version": "0.7.8" }
   ],
   "x402Support": true,
   "active": true,

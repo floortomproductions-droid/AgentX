@@ -1,9 +1,9 @@
 {
   "protocolVersion": "0.3.0",
   "name": "AgentX Micro-Services",
-  "description": "Seventeen pay-per-call agent micro-services via x402 (USDC on Base + Solana): weather, site health, crypto ticker, crypto Fear & Greed, gas check, Polymarket trending and odds, x402 Doctor spec-check, SEO audit, site agent-readiness verdict card, A2A/MCP protocol card lint, AI-crawler + security policy card, WebMCP check, WebMCP upgrade, AI topic classification, AI keyword extraction, New Landing Page Roast. Streamable-HTTP MCP with a free catalogue and x402 Doctor. Catalogue: https://agentx.sale/x402/catalogue",
+  "description": "Twenty-four pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, site health & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
-  "version": "0.7.3",
+  "version": "0.7.8",
   "provider": {
     "organization": "NEMO AI Solutions",
     "url": "https://nemoai.uk"
@@ -13,33 +13,406 @@
     "pushNotifications": false,
     "stateTransitionHistory": false
   },
-  "defaultInputModes": ["text/plain", "application/json"],
-  "defaultOutputModes": ["application/json"],
+  "defaultInputModes": [
+    "text/plain",
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
   "preferredTransport": "JSONRPC",
   "skills": [
-    { "id": "weather", "name": "Weather", "description": "Live current weather for any city. GET https://agentx.sale/x402/weather?city=<city> ($0.01)", "tags": ["weather", "forecast", "open-meteo"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "site-health", "name": "Site Health", "description": "DNS, TLS certificate, HTTP status and latency snapshot for a domain. GET https://agentx.sale/x402/site-health?host=<domain> ($0.01)", "tags": ["dns", "tls", "uptime", "monitoring"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "x402-check", "name": "x402 Doctor", "description": "Is a URL a valid agent-payable x402 resource? v1+v2 spec check with grade. GET https://agentx.sale/x402/x402-check?url=<url> ($0.01)", "tags": ["x402", "payments", "diagnostics"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "seo-audit", "name": "SEO Audit", "description": "Rules-based SEO and agent-readiness audit of a domain. GET https://agentx.sale/x402/seo-audit?host=<domain> ($0.10)", "tags": ["seo", "audit", "agent-readiness"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "agent-card", "name": "Agent-Readiness Card", "description": "Site agent-readiness verdict card: discovery files, TLS, headers, AI-crawler policy. GET https://agentx.sale/x402/agent-card?host=<domain> ($0.01)", "tags": ["agent-readiness", "llms-txt", "crawler-policy"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "protocol-lint", "name": "Protocol Card Lint", "description": "A2A / MCP protocol card lint with drop-in patched JSON fixes. GET https://agentx.sale/x402/protocol-lint?url=<domain> ($0.01)", "tags": ["a2a", "mcp", "validation"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "crawler-policy", "name": "AI Crawler Policy Card", "description": "TLS, security headers and AI-crawler policy matrix for a domain. GET https://agentx.sale/x402/crawler-policy?host=<domain> ($0.01)", "tags": ["security", "headers", "ai-crawlers"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "webmcp-check", "name": "WebMCP Check", "description": "WebMCP agent-compatibility check with inventory and readiness verdict. GET https://agentx.sale/x402/webmcp-check?host=<domain> ($0.10)", "tags": ["webmcp", "agent-readiness"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "webmcp-upgrade", "name": "WebMCP Upgrade", "description": "Generated webmcp.js tool file with publish instructions. POST https://agentx.sale/x402/webmcp-upgrade ($4.00)", "tags": ["webmcp", "upgrade"], "inputModes": ["application/json"], "outputModes": ["application/json"] },
-    { "id": "classify", "name": "AI Topic Classification", "description": "Classify supplied text: free-form topics or caller-supplied label set, confidence + rationale. POST https://agentx.sale/x402/classify ($1.75)", "tags": ["classification", "text", "nlp"], "inputModes": ["application/json"], "outputModes": ["application/json"] },
-    { "id": "keywords", "name": "AI Keyword Extraction", "description": "Top salient keywords and key phrases with scores, language detected. POST https://agentx.sale/x402/keywords ($0.90)", "tags": ["keywords", "text", "nlp"], "inputModes": ["application/json"], "outputModes": ["application/json"] },
-    { "id": "gtm-roast", "name": "New Landing Page Roast", "description": "Any 1-2 of five cartoon legends roast the page's biggest flaw — score, verdict, shareable SVG card. GET https://agentx.sale/x402/gtm-roast?url=<url> or POST {url} ($0.01)", "tags": ["gtm", "roast", "landing-page", "card"], "inputModes": ["text/plain", "application/json"], "outputModes": ["application/json"] },
-    { "id": "crypto-ticker", "name": "Crypto Ticker", "description": "Live USD price + 24h move for up to 10 tokens. GET https://agentx.sale/x402/crypto-ticker?assets=<symbols> ($0.01)", "tags": ["crypto", "prices", "defi"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "fear-greed", "name": "Crypto Fear & Greed", "description": "Crypto Fear & Greed Index with the last 7 days of history. GET https://agentx.sale/x402/fear-greed ($0.01)", "tags": ["crypto", "sentiment", "market"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "gas-check", "name": "Gas Check", "description": "Live gas price on Base, Ethereum, Polygon, Avalanche, Arbitrum or OP Mainnet with USD transfer cost. GET https://agentx.sale/x402/gas-check?chain=<chain> ($0.01)", "tags": ["gas", "crypto", "fees", "monitoring"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "polymarket-trending", "name": "Polymarket Trending", "description": "Top open Polymarket prediction markets by 24h volume with live YES prices. GET https://agentx.sale/x402/polymarket-trending?limit=<n> ($0.01)", "tags": ["polymarket", "prediction-markets", "odds"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "polymarket-odds", "name": "Polymarket Odds", "description": "Live YES/NO prices for any named Polymarket market — search by topic. GET https://agentx.sale/x402/polymarket-odds?q=<topic> ($0.01)", "tags": ["polymarket", "prediction-markets", "odds"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "polymarket-book", "name": "Polymarket Order Book", "description": "Top-of-book bid/ask, spread and USD depth for both outcomes of a Polymarket market. GET https://agentx.sale/x402/polymarket-book?q=<topic> ($0.01)", "tags": ["polymarket", "orderbook", "depth"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "polymarket-history", "name": "Polymarket Price History", "description": "YES-price time series over 1-90 days with change and high/low. GET https://agentx.sale/x402/polymarket-history?q=<topic>&days=<n> ($0.01)", "tags": ["polymarket", "history", "sparkline"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "polymarket-resolution", "name": "Polymarket Resolution Watch", "description": "Did a market resolve, which outcome won, resolution source; bare call shows newest resolved. GET https://agentx.sale/x402/polymarket-resolution?q=<topic> ($0.01)", "tags": ["polymarket", "resolution"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "polymarket-arb", "name": "Polymarket Arb Scan", "description": "Flags markets where YES+NO asks sum under $1.00 across top-volume markets. GET https://agentx.sale/x402/polymarket-arb?limit=<n> ($0.01)", "tags": ["polymarket", "arbitrage"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "email-check", "name": "Email Deliverability Check", "description": "Can a domain receive email? MX, A-fallback, SPF, DMARC policy with an outreach verdict. GET https://agentx.sale/x402/email-check?q=<domain> ($0.01)", "tags": ["email", "deliverability", "mx", "outreach"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "fx-rates", "name": "FX Rates", "description": "ECB reference rates for any fiat pair. GET https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc> ($0.01)", "tags": ["fx", "currency", "rates", "finance"], "inputModes": ["text/plain"], "outputModes": ["application/json"] },
-    { "id": "btc-fees", "name": "Bitcoin Fee Forecast", "description": "Recommended sat/vB for next block, 30 min, 1 hour and economy sends. GET https://agentx.sale/x402/btc-fees ($0.01)", "tags": ["bitcoin", "fees", "onchain"], "inputModes": ["text/plain"], "outputModes": ["application/json"] }
-  ]
+    {
+      "id": "weather",
+      "name": "Weather",
+      "description": "Live current weather for any city. GET https://agentx.sale/x402/weather?city=<city> ($0.01)",
+      "tags": [
+        "weather",
+        "forecast",
+        "open-meteo"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "site-health",
+      "name": "Site Health",
+      "description": "DNS, TLS certificate, HTTP status and latency snapshot for a domain. GET https://agentx.sale/x402/site-health?host=<domain> ($0.01)",
+      "tags": [
+        "dns",
+        "tls",
+        "uptime",
+        "monitoring"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "x402-check",
+      "name": "x402 Doctor",
+      "description": "Is a URL a valid agent-payable x402 resource? v1+v2 spec check with grade. GET https://agentx.sale/x402/x402-check?url=<url> ($0.01)",
+      "tags": [
+        "x402",
+        "payments",
+        "diagnostics"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "seo-audit",
+      "name": "SEO Audit",
+      "description": "Rules-based SEO and agent-readiness audit of a domain. GET https://agentx.sale/x402/seo-audit?host=<domain> ($0.10)",
+      "tags": [
+        "seo",
+        "audit",
+        "agent-readiness"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "agent-card",
+      "name": "Agent-Readiness Card",
+      "description": "Site agent-readiness verdict card: discovery files, TLS, headers, AI-crawler policy. GET https://agentx.sale/x402/agent-card?host=<domain> ($0.01)",
+      "tags": [
+        "agent-readiness",
+        "llms-txt",
+        "crawler-policy"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "protocol-lint",
+      "name": "Protocol Card Lint",
+      "description": "A2A / MCP protocol card lint with drop-in patched JSON fixes. GET https://agentx.sale/x402/protocol-lint?url=<domain> ($0.01)",
+      "tags": [
+        "a2a",
+        "mcp",
+        "validation"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "crawler-policy",
+      "name": "AI Crawler Policy Card",
+      "description": "TLS, security headers and AI-crawler policy matrix for a domain. GET https://agentx.sale/x402/crawler-policy?host=<domain> ($0.01)",
+      "tags": [
+        "security",
+        "headers",
+        "ai-crawlers"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "webmcp-check",
+      "name": "WebMCP Check",
+      "description": "WebMCP agent-compatibility check with inventory and readiness verdict. GET https://agentx.sale/x402/webmcp-check?host=<domain> ($0.10)",
+      "tags": [
+        "webmcp",
+        "agent-readiness"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "webmcp-upgrade",
+      "name": "WebMCP Upgrade",
+      "description": "Generated webmcp.js tool file with publish instructions. POST https://agentx.sale/x402/webmcp-upgrade ($4.00)",
+      "tags": [
+        "webmcp",
+        "upgrade"
+      ],
+      "inputModes": [
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "classify",
+      "name": "AI Topic Classification",
+      "description": "Classify supplied text: free-form topics or caller-supplied label set, confidence + rationale. POST https://agentx.sale/x402/classify ($1.75)",
+      "tags": [
+        "classification",
+        "text",
+        "nlp"
+      ],
+      "inputModes": [
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "keywords",
+      "name": "AI Keyword Extraction",
+      "description": "Top salient keywords and key phrases with scores, language detected. POST https://agentx.sale/x402/keywords ($0.90)",
+      "tags": [
+        "keywords",
+        "text",
+        "nlp"
+      ],
+      "inputModes": [
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "gtm-roast",
+      "name": "New Landing Page Roast",
+      "description": "Any 1-2 of five cartoon legends roast the page's biggest flaw \u2014 score, verdict, shareable SVG card. GET https://agentx.sale/x402/gtm-roast?url=<url> or POST {url} ($0.01)",
+      "tags": [
+        "gtm",
+        "roast",
+        "landing-page",
+        "card"
+      ],
+      "inputModes": [
+        "text/plain",
+        "application/json"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "crypto-ticker",
+      "name": "Crypto Ticker",
+      "description": "Live USD price + 24h move for up to 10 tokens. GET https://agentx.sale/x402/crypto-ticker?assets=<symbols> ($0.01)",
+      "tags": [
+        "crypto",
+        "prices",
+        "defi"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "fear-greed",
+      "name": "Crypto Fear & Greed",
+      "description": "Crypto Fear & Greed Index with the last 7 days of history. GET https://agentx.sale/x402/fear-greed ($0.01)",
+      "tags": [
+        "crypto",
+        "sentiment",
+        "market"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "gas-check",
+      "name": "Gas Check",
+      "description": "Live gas price on Base, Ethereum, Polygon, Avalanche, Arbitrum or OP Mainnet with USD transfer cost. GET https://agentx.sale/x402/gas-check?chain=<chain> ($0.01)",
+      "tags": [
+        "gas",
+        "crypto",
+        "fees",
+        "monitoring"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "polymarket-trending",
+      "name": "Polymarket Trending",
+      "description": "Top open Polymarket prediction markets by 24h volume with live YES prices. GET https://agentx.sale/x402/polymarket-trending?limit=<n> ($0.01)",
+      "tags": [
+        "polymarket",
+        "prediction-markets",
+        "odds"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "polymarket-odds",
+      "name": "Polymarket Odds",
+      "description": "Live YES/NO prices for any named Polymarket market \u2014 search by topic. GET https://agentx.sale/x402/polymarket-odds?q=<topic> ($0.01)",
+      "tags": [
+        "polymarket",
+        "prediction-markets",
+        "odds"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "polymarket-book",
+      "name": "Polymarket Order Book",
+      "description": "Top-of-book bid/ask, spread and USD depth for both outcomes of a Polymarket market. GET https://agentx.sale/x402/polymarket-book?q=<topic> ($0.01)",
+      "tags": [
+        "polymarket",
+        "orderbook",
+        "depth"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "polymarket-history",
+      "name": "Polymarket Price History",
+      "description": "YES-price time series over 1-90 days with change and high/low. GET https://agentx.sale/x402/polymarket-history?q=<topic>&days=<n> ($0.01)",
+      "tags": [
+        "polymarket",
+        "history",
+        "sparkline"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "polymarket-resolution",
+      "name": "Polymarket Resolution Watch",
+      "description": "Did a market resolve, which outcome won, resolution source; bare call shows newest resolved. GET https://agentx.sale/x402/polymarket-resolution?q=<topic> ($0.01)",
+      "tags": [
+        "polymarket",
+        "resolution"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "polymarket-arb",
+      "name": "Polymarket Arb Scan",
+      "description": "Flags markets where YES+NO asks sum under $1.00 across top-volume markets. GET https://agentx.sale/x402/polymarket-arb?limit=<n> ($0.01)",
+      "tags": [
+        "polymarket",
+        "arbitrage"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "email-check",
+      "name": "Email Deliverability Check",
+      "description": "Can a domain receive email? MX, A-fallback, SPF, DMARC policy with an outreach verdict. GET https://agentx.sale/x402/email-check?q=<domain> ($0.01)",
+      "tags": [
+        "email",
+        "deliverability",
+        "mx",
+        "outreach"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "fx-rates",
+      "name": "FX Rates",
+      "description": "ECB reference rates for any fiat pair. GET https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc> ($0.01)",
+      "tags": [
+        "fx",
+        "currency",
+        "rates",
+        "finance"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "btc-fees",
+      "name": "Bitcoin Fee Forecast",
+      "description": "Recommended sat/vB for next block, 30 min, 1 hour and economy sends. GET https://agentx.sale/x402/btc-fees ($0.01)",
+      "tags": [
+        "bitcoin",
+        "fees",
+        "onchain"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    }
+  ],
+  "payments": {
+    "x402": "v2, USDC (Base 8453 + Solana)",
+    "mpp": "IETF Payment scheme (WWW-Authenticate: Payment), evm/charge via Coinbase facilitator",
+    "stripe": "cards via Shared Payment Tokens on routes >= $0.50",
+    "receipt": "Payment-Receipt header on every settled call"
+  }
 }

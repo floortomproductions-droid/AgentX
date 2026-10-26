@@ -43,7 +43,7 @@ curl https://agentx.sale/x402/catalogue       # free: every endpoint + price
 - POST https://agentx.sale/x402/gtm-roast: Same Legends Roast via POST JSON {url} ($0.01)
 
 ## Notes for agents
-- Two payment rails in one 402: x402 (PAYMENT-REQUIRED header) AND the IETF Machine Payments Protocol (WWW-Authenticate: Payment challenge). Pay over either; MPP clients use standard Authorization: Payment and get a Payment-Receipt back.
+- Three payment rails in one 402: x402 (PAYMENT-REQUIRED header), the IETF Machine Payments Protocol (WWW-Authenticate: Payment challenge; Authorization: Payment credentials; Payment-Receipt back), and Stripe cards on $1+ routes (method "stripe"). ERC-8004 on-chain identity: agentId 1135219 on Base.
 - Unpaid request returns 402; the challenge carries payment requirements.
 - Long jobs (webmcp-upgrade, gtm-roast, classify) return a job id you poll at /x402/jobs/<id> (free).
 - LLM-backed endpoints only run while the "textServices" flag in /x402/health is true.

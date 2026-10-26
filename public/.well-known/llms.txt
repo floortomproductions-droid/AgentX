@@ -1,0 +1,42 @@
+# AgentX
+
+> NEMO x402 Micro-Services at agentx.sale: live AI-agent services paid per use. Three payment rails in one 402: x402 v2 (USDC, Base + Solana), the IETF Machine Payments Protocol (WWW-Authenticate: Payment), and Stripe cards on $1+ routes. Every settled call returns a Payment-Receipt. On-chain identity: ERC-8004 agentId 1135219 on Base.
+
+## x402 micro-service gateway (/x402/*)
+
+All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): https://agentx.sale/x402/catalogue — MCP: https://agentx.sale/x402/mcp (free catalogue + x402 Doctor).
+
+- [Weather](https://agentx.sale/x402/weather?city=Aberdeen): live current weather for any city ($0.01, Open-Meteo)
+- [Site Health](https://agentx.sale/x402/site-health?host=example.com): DNS, TLS certificate and HTTP status/latency snapshot for a domain ($0.01)
+- [x402 Check (Doctor)](https://agentx.sale/x402/x402-check?url=https://example.com/api): is a URL a valid, agent-payable x402 resource? v1+v2 spec check, grade A–F ($0.01; free via MCP)
+- [SEO Audit](https://agentx.sale/x402/seo-audit?host=example.com): rules-based SEO and agent-readiness audit of a domain ($0.10)
+- [Agent Card](https://agentx.sale/x402/agent-card?host=example.com): site agent-readiness verdict card — discovery files, TLS, headers, AI-crawler policy ($0.01)
+- [Protocol Lint](https://agentx.sale/x402/protocol-lint?url=example.com): A2A / MCP protocol card lint with drop-in patched JSON fixes ($0.01)
+- [Crawler Policy](https://agentx.sale/x402/crawler-policy?host=example.com): TLS + security headers + AI-crawler policy matrix ($0.01)
+- [WebMCP Check](https://agentx.sale/x402/webmcp-check?host=example.com): WebMCP agent-compatibility check ($0.10)
+- [WebMCP Upgrade](https://agentx.sale/x402/webmcp-upgrade): generated webmcp.js tool file with publish instructions (POST JSON {url}, $4.00)
+- [Classify](https://agentx.sale/x402/classify): AI topic classification of supplied text (POST JSON {text}, $1.75)
+- [Keywords](https://agentx.sale/x402/keywords): AI keyword extraction (POST JSON {text}, $0.90)
+- [New Landing Page Roast](https://agentx.sale/x402/gtm-roast?url=https://floortom.com): any 1-2 of five cartoon legends roast the page's biggest flaw — score, verdict (CREMATED to BASED), shareable SVG card (GET or POST {url}, $0.01)
+- [Crypto Ticker](https://agentx.sale/x402/crypto-ticker?assets=btc,eth): live USD price + 24h move for up to 10 tokens ($0.01)
+- [Fear & Greed](https://agentx.sale/x402/fear-greed): crypto Fear & Greed Index with the last 7 days of history ($0.01)
+- [Gas Check](https://agentx.sale/x402/gas-check?chain=base): live gas price on Base, Ethereum, Polygon, Avalanche, Arbitrum or OP Mainnet, with USD cost of a transfer ($0.01)
+- [Polymarket Trending](https://agentx.sale/x402/polymarket-trending?limit=10): top open prediction markets by 24h volume with live YES prices ($0.01)
+- [Polymarket Odds](https://agentx.sale/x402/polymarket-odds?q=fed%20decision): live YES/NO odds for any named Polymarket market ($0.01)
+- [Polymarket Book](https://agentx.sale/x402/polymarket-book?q=fed%20decision): top-of-book bid/ask, spread and USD resting depth for both outcomes of a Polymarket market ($0.01)
+- [Polymarket History](https://agentx.sale/x402/polymarket-history?q=fed%20decision&days=7): YES-price time series over 1-90 days with change and high/low ($0.01)
+- [Polymarket Resolution](https://agentx.sale/x402/polymarket-resolution?q=fed%20decision): did a market resolve, which outcome won, resolution source; bare call shows newest resolved ($0.01)
+- [Polymarket Arb](https://agentx.sale/x402/polymarket-arb?limit=10): scans top-volume markets for YES+NO ask pairs under $1.00 ($0.01)
+- [Email Check](https://agentx.sale/x402/email-check?q=nemoai.uk): can a domain receive email? MX, SPF, DMARC with an outreach verdict ($0.01)
+- [FX Rates](https://agentx.sale/x402/fx-rates?base=USD&symbols=GBP,EUR): ECB reference rates for any fiat pair ($0.01)
+- [BTC Fees](https://agentx.sale/x402/btc-fees): Bitcoin fee forecast — sat/vB for next block, 30 min, 1 hour, economy ($0.01)
+
+## Agent marketplace store
+
+- [Store API](https://agentx.sale/api/services): the live marketplace catalogue (web extract, web search, site mapper, browser agent, batch scrape)
+- [Health](https://agentx.sale/api/health): service health endpoint
+- [Challenge](https://agentx.sale/challenge): agent verification gate
+- [Services for humans](https://agentx.sale/services): human-readable service descriptions
+
+## ERC-8004 identity
+- [ERC-8004 Identity](https://agentx.sale/.well-known/erc8004-registration.json): on-chain agent identity on Base (chainId 8453), agentId 1135219; resolve tokenURI(1135219) on IdentityRegistry 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432. x402Support: true.
