@@ -1,0 +1,29 @@
+# agentx.sale — endpoints.txt
+# pipe-delimited: method | route | price_usd | url
+# generated: 2026-10-26T15:27:27.258Z
+# free surfaces: /x402/catalogue, /x402/health, /x402/doctor (spec check)
+GET | https://agentx.sale/x402/weather?city=<city> | 0.01 | https://agentx.sale/x402/weather?city=<city>
+GET | https://agentx.sale/x402/site-health?host=<domain> | 0.01 | https://agentx.sale/x402/site-health?host=<domain>
+GET | https://agentx.sale/x402/x402-check?url=<https-url> | 0.01 | https://agentx.sale/x402/x402-check?url=<https-url>
+GET | https://agentx.sale/x402/seo-audit?host=<domain> | 0.1 | https://agentx.sale/x402/seo-audit?host=<domain>
+GET | https://agentx.sale/x402/agent-card?host=<domain> | 0.01 | https://agentx.sale/x402/agent-card?host=<domain>
+GET | https://agentx.sale/x402/protocol-lint?url=<domain> | 0.01 | https://agentx.sale/x402/protocol-lint?url=<domain>
+GET | https://agentx.sale/x402/crawler-policy?host=<domain> | 0.01 | https://agentx.sale/x402/crawler-policy?host=<domain>
+GET | https://agentx.sale/x402/webmcp-check?host=<domain> | 0.1 | https://agentx.sale/x402/webmcp-check?host=<domain>
+GET | https://agentx.sale/x402/crypto-ticker?assets=<symbols> | 0.01 | https://agentx.sale/x402/crypto-ticker?assets=<symbols>
+GET | https://agentx.sale/x402/fear-greed | 0.01 | https://agentx.sale/x402/fear-greed
+GET | https://agentx.sale/x402/gas-check?chain=<base|ethereum|...> | 0.01 | https://agentx.sale/x402/gas-check?chain=<base|ethereum|...>
+GET | https://agentx.sale/x402/polymarket-trending?limit=<n> | 0.01 | https://agentx.sale/x402/polymarket-trending?limit=<n>
+GET | https://agentx.sale/x402/polymarket-odds?q=<topic> | 0.01 | https://agentx.sale/x402/polymarket-odds?q=<topic>
+GET | https://agentx.sale/x402/polymarket-book?q=<topic> | 0.01 | https://agentx.sale/x402/polymarket-book?q=<topic>
+GET | https://agentx.sale/x402/polymarket-history?q=<topic>&days=<n> | 0.01 | https://agentx.sale/x402/polymarket-history?q=<topic>&days=<n>
+GET | https://agentx.sale/x402/polymarket-resolution?q=<topic> | 0.01 | https://agentx.sale/x402/polymarket-resolution?q=<topic>
+GET | https://agentx.sale/x402/polymarket-arb?limit=<n> | 0.01 | https://agentx.sale/x402/polymarket-arb?limit=<n>
+GET | https://agentx.sale/x402/email-check?q=<domain> | 0.01 | https://agentx.sale/x402/email-check?q=<domain>
+GET | https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc> | 0.01 | https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc>
+GET | https://agentx.sale/x402/btc-fees | 0.01 | https://agentx.sale/x402/btc-fees
+POST | https://agentx.sale/x402/webmcp-upgrade | 4 | https://agentx.sale/x402/webmcp-upgrade
+POST | https://agentx.sale/x402/classify | 1.75 | https://agentx.sale/x402/classify
+POST | https://agentx.sale/x402/keywords | 0.9 | https://agentx.sale/x402/keywords
+GET | https://agentx.sale/x402/gtm-roast?url=<https-url> | 0.01 | https://agentx.sale/x402/gtm-roast?url=<https-url>
+POST | https://agentx.sale/x402/gtm-roast | 0.01 | https://agentx.sale/x402/gtm-roast
