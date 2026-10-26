@@ -1,41 +1,27 @@
 {
   "schema_version": "2024-11-05",
-  "name": "AgentX Marketplace",
-  "description": "AI agent commerce layer — discover, compare, and transact with verified service providers",
-  "contact_email": "info@agentx.sale",
+  "name": "NEMO x402 Micro-Services",
+  "description": "Twenty-four pay-per-call agent micro-services at agentx.sale, settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP); Stripe cards on $1+ routes. Free MCP catalogue and x402 Doctor at https://agentx.sale/x402/mcp.",
+  "contact_email": "steve@nemoai.uk",
   "url": "https://agentx.sale",
-  "mcp_endpoint": "https://agentx.sale/api/mcp",
+  "mcp_endpoint": "https://agentx.sale/x402/mcp",
   "protocol_version": "0.1",
+  "payment_protocols": ["x402", "mpp", "stripe"],
+  "payment_details": {
+    "x402": "v2, PAYMENT-REQUIRED header, USDC on Base (payTo 0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83) and Solana (payTo CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9)",
+    "mpp": "IETF Machine Payments Protocol — WWW-Authenticate: Payment challenge (evm/charge via the Coinbase facilitator), Authorization: Payment credential, Payment-Receipt on every settled call",
+    "stripe": "Shared Payment Token card flow on routes priced $1 and above (Stripe card minimum makes penny routes wallet-only)"
+  },
   "authentication": {
     "type": "none",
-    "description": "No authentication required for discovery. Payment verification uses on-chain signatures."
+    "description": "No authentication required for discovery. Payment verification uses on-chain signatures (x402/MPP) or Stripe Shared Payment Tokens."
   },
-  "tools": [
-    {
-      "name": "get_services",
-      "description": "List and filter available agent services",
-      "endpoint": "https://agentx.sale/api/mcp",
-      "method": "tools/call"
-    },
-    {
-      "name": "get_quote",
-      "description": "Get a payment quote for a service",
-      "endpoint": "https://agentx.sale/api/mcp",
-      "method": "tools/call"
-    },
-    {
-      "name": "verify_payment",
-      "description": "Verify a payment transaction",
-      "endpoint": "https://agentx.sale/api/mcp",
-      "method": "tools/call"
-    }
-  ],
-  "payment_protocols": ["x402"],
-  "supported_chains": ["solana", "base", "ethereum", "bitcoin"],
-  "discovery": {
-    "mcp_json": "https://agentx.sale/.well-known/mcp.json",
-    "agentx_json": "https://agentx.sale/.well-known/agentx.json",
-    "openapi": "https://agentx.sale/openapi.json",
-    "health": "https://agentx.sale/api/health"
+  "services_catalogue": "https://agentx.sale/x402/catalogue",
+  "onchain_identity": {
+    "standard": "ERC-8004",
+    "agentId": 1135219,
+    "chain": "base",
+    "registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+    "explorer": "https://8004scan.io/agents/base/1135219"
   }
 }
