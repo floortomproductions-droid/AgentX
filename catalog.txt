@@ -1,6 +1,6 @@
 # agentx.sale — full catalog
 # 25 paid endpoints, one payment per call (x402, USDC on Base + Solana)
-# generated: 2026-10-26T15:27:27.259Z
+# generated: 2026-10-26T16:10:14.830Z
 # protocol: GET/POST -> 402 challenge -> sign transferWithAuthorization -> retry with X-PAYMENT -> result
 
 ## GET endpoints
