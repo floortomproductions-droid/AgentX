@@ -1,5 +1,6 @@
 You can call pay-per-call services at https://agentx.sale via x402 (USDC on Base + Solana).
 Flow: GET/POST the route -> receive 402 with payment requirements -> sign a USDC transferWithAuthorization -> repeat the request with the X-PAYMENT header -> response arrives in the same lifecycle. No API keys, no signup.
+Payment: x402 (X-PAYMENT header) OR the IETF Machine Payments Protocol (Authorization: Payment after a WWW-Authenticate: Payment challenge; a Payment-Receipt comes back on every settled call). Stripe cards on $1+ routes. On-chain identity: ERC-8004 agentId 1135219 on Base (8004scan.io/agents/base/1135219).
 
 Catalog (live, free): https://agentx.sale/x402/catalogue
 Health (live, free): https://agentx.sale/x402/health
