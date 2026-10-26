@@ -1,0 +1,16 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "NEMO x402 Micro-Services",
+  "description": "Twenty-four pay-per-call agent micro-services settled in x402 USDC on Base at agentx.sale: weather, site health & SEO, crypto ticker / gas / Fear&Greed, the full Polymarket toolkit (trending, odds, order book, history, resolution watch, arb scan), email deliverability, FX rates, Bitcoin fees, WebMCP tools, and an x402 Doctor spec-check.",
+  "image": "https://agentx.sale/assets/agentx-og.png",
+  "services": [
+    { "name": "x402", "endpoint": "https://agentx.sale/x402/catalogue", "version": "0.7.5" },
+    { "name": "mcp", "endpoint": "https://agentx.sale/x402/mcp", "version": "0.7.5" },
+    { "name": "a2a", "endpoint": "https://agentx.sale/.well-known/agent-card.json", "version": "0.7.5" },
+    { "name": "web", "endpoint": "https://agentx.sale/", "version": "0.7.5" }
+  ],
+  "x402Support": true,
+  "active": true,
+  "registrations": [],
+  "supportedTrust": ["x402-settlement", "public-settlement-history"]
+}

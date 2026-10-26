@@ -37,3 +37,6 @@ All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): 
 - [Health](https://agentx.sale/api/health): service health endpoint
 - [Challenge](https://agentx.sale/challenge): agent verification gate
 - [Services for humans](https://agentx.sale/services): human-readable service descriptions
+
+## ERC-8004 identity
+- [ERC-8004 Identity](https://agentx.sale/.well-known/erc8004-registration.json): on-chain agent identity on Base (chainId 8453), agentId 1135219; resolve tokenURI(1135219) on IdentityRegistry 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432. x402Support: true.
