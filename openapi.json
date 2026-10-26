@@ -916,6 +916,116 @@
           }
         }
       }
+    },
+    "/email-check": {
+      "get": {
+        "operationId": "emailCheck",
+        "summary": "Email deliverability: MX, SPF, DMARC with outreach verdict ($0.01)",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Domain or email address"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/fx-rates": {
+      "get": {
+        "operationId": "fxRates",
+        "summary": "ECB reference FX rates for any fiat pair ($0.01)",
+        "parameters": [
+          {
+            "name": "base",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Base currency code, e.g. USD"
+          },
+          {
+            "name": "symbols",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Target codes, e.g. GBP,EUR"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/btc-fees": {
+      "get": {
+        "operationId": "btcFees",
+        "summary": "Bitcoin fee forecast: sat/vB recommendations ($0.01)",
+        "parameters": [],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON result"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
     }
   }
 }

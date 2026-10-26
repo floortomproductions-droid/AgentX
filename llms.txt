@@ -27,6 +27,9 @@ All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): 
 - [Polymarket History](https://agentx.sale/x402/polymarket-history?q=fed%20decision&days=7): YES-price time series over 1-90 days with change and high/low ($0.01)
 - [Polymarket Resolution](https://agentx.sale/x402/polymarket-resolution?q=fed%20decision): did a market resolve, which outcome won, resolution source; bare call shows newest resolved ($0.01)
 - [Polymarket Arb](https://agentx.sale/x402/polymarket-arb?limit=10): scans top-volume markets for YES+NO ask pairs under $1.00 ($0.01)
+- [Email Check](https://agentx.sale/x402/email-check?q=nemoai.uk): can a domain receive email? MX, SPF, DMARC with an outreach verdict ($0.01)
+- [FX Rates](https://agentx.sale/x402/fx-rates?base=USD&symbols=GBP,EUR): ECB reference rates for any fiat pair ($0.01)
+- [BTC Fees](https://agentx.sale/x402/btc-fees): Bitcoin fee forecast — sat/vB for next block, 30 min, 1 hour, economy ($0.01)
 
 ## Agent marketplace store
 
