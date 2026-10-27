@@ -1,7 +1,7 @@
 # agentx.sale — full catalog
-# 25 paid endpoints, one payment per call (x402, USDC on Base + Solana)
-# generated: 2026-10-26T17:19:49.624Z
-# protocol: GET/POST -> 402 challenge -> sign transferWithAuthorization -> retry with X-PAYMENT -> result
+# 25 paid endpoints, one payment per call (x402 USDC on Base + Solana; IETF MPP; Stripe cards on $1+ routes)
+# generated: 2026-10-27T11:17:46.271Z
+# protocol: GET/POST -> 402 challenge (PAYMENT-REQUIRED for x402 + WWW-Authenticate: Payment for MPP) -> settle (x402 X-PAYMENT / MPP Authorization: Payment / Stripe SPT on $1+) -> retry -> result + Payment-Receipt
 
 ## GET endpoints
 

@@ -2,14 +2,14 @@
   "openapi": "3.1.0",
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
-    "version": "0.7.0",
-    "description": "Pay-per-call agent services via x402 (USDC on Base + Solana). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp.",
+    "version": "0.7.13",
+    "description": "Pay-per-call agent services via x402 (USDC on Base + Solana), also accepting the IETF Machine Payments Protocol (MPP) and Stripe cards on $1+ routes. Unauthenticated calls return HTTP 402 carrying PAYMENT-REQUIRED (x402) and a WWW-Authenticate: Payment MPP challenge; settled calls return a Payment-Receipt. Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp.",
     "contact": {
       "email": "steve@nemoai.uk",
       "name": "NEMO AI Solutions",
       "url": "https://nemoai.uk"
     },
-    "x-guidance": "Call GET /catalogue first (free) for routes and prices. Paid routes return HTTP 402 with a PAYMENT-REQUIRED header; settle USDC on Base (first) or Solana, then retry the same request. Slow jobs (roast, upgrade, classify, keywords) may answer 202 with a free /jobs/:id poller. MCP at /mcp exposes the catalogue and a free x402 Doctor."
+    "x-guidance": "Call GET /catalogue first (free) for routes and prices. Paid routes return HTTP 402 with a PAYMENT-REQUIRED header; settle USDC on Base (first) or Solana, or pay with MPP (Authorization: Payment) or Stripe cards on $1+ routes, then retry the same request. Slow jobs (roast, upgrade, classify, keywords) may answer 202 with a free /jobs/:id poller. MCP at /mcp exposes the catalogue and a free x402 Doctor."
   },
   "servers": [
     {
@@ -90,6 +90,43 @@
         "responses": {
           "200": {
             "description": "DNS, TLS and reachability report"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/secscore": {
+      "get": {
+        "operationId": "secscore",
+        "summary": "Security Headers Check: CSP/HSTS/frame/cookies/TLS score 0\u201310 ($0.01)",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "https URL of the site to score"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.01"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "score, grade, checks, topFixes"
           },
           "402": {
             "description": "Payment Required"
@@ -312,6 +349,71 @@
         "responses": {
           "200": {
             "description": "WEBMCP READY / NOT WEBMCP READY, inventory, findings"
+          },
+          "402": {
+            "description": "Payment Required"
+          }
+        }
+      }
+    },
+    "/kevcheck": {
+      "get": {
+        "operationId": "kevcheck",
+        "summary": "CISA KEV + NVD CVE check for software+version ($0.10)",
+        "parameters": [
+          {
+            "name": "software",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Vendor or product name"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Software version x.y.z"
+          }
+        ],
+        "x-payment-info": {
+          "protocols": [
+            {
+              "x402": {}
+            }
+          ],
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.10"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "KEV matches, known CVEs, verdict, kev.versionConfidence (high|uncertain)",
+            "content": {
+              "application/json": {
+                "example": {
+                  "software": "nginx",
+                  "version": "1.24.0",
+                  "kev": {
+                    "onList": false,
+                    "versionConfidence": null,
+                    "matches": []
+                  },
+                  "knownCves": [],
+                  "fixedVersion": null,
+                  "verdict": "NO KNOWN CVES",
+                  "advice": [
+                    "No KEV hits and no NVD keyword matches for this name."
+                  ]
+                }
+              }
+            }
           },
           "402": {
             "description": "Payment Required"

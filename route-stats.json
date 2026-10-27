@@ -1,0 +1,532 @@
+{
+ "generatedAt": "2026-10-27T12:04:12.174Z",
+ "windowDays": 30,
+ "note": "Per-route verified-payment counts from gateway logs. Log window may be shorter than 30 days (pm2 rotation).",
+ "routes": {
+  "protocol-lint?": {
+   "calls": 6,
+   "volumeUsd": 0.09,
+   "lastCalledAt": "2026-10-26T12:18:00.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    3
+   ]
+  },
+  "webmcp-check?": {
+   "calls": 4,
+   "volumeUsd": 0.4,
+   "lastCalledAt": "2026-10-21T08:16:15.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0
+   ]
+  },
+  "classify": {
+   "calls": 1,
+   "volumeUsd": 1.75,
+   "lastCalledAt": "2026-10-20T20:23:52.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "keywords": {
+   "calls": 1,
+   "volumeUsd": 0.9,
+   "lastCalledAt": "2026-10-20T20:25:41.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "site-health?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-21T08:12:52.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0
+   ]
+  },
+  "weather?": {
+   "calls": 4,
+   "volumeUsd": 0.04,
+   "lastCalledAt": "2026-10-27T09:58:05.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    1,
+    1
+   ]
+  },
+  "webmcp-upgrade": {
+   "calls": 1,
+   "volumeUsd": 4,
+   "lastCalledAt": "2026-10-21T07:51:41.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "gtm-roast": {
+   "calls": 3,
+   "volumeUsd": 0.12,
+   "lastCalledAt": "2026-10-23T15:14:52.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    1,
+    0
+   ]
+  },
+  "gtm-roast?": {
+   "calls": 5,
+   "volumeUsd": 0.07,
+   "lastCalledAt": "2026-10-26T15:17:59.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    3
+   ]
+  },
+  "weather": {
+   "calls": 1,
+   "volumeUsd": 0.01,
+   "lastCalledAt": "2026-10-21T12:01:58.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "x402-check?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-26T10:20:20.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "agent-card?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-26T11:43:33.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "crawler-policy?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-26T11:43:35.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "crypto-ticker?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:08:28.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "fear-greed": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:13:20.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "gas-check?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:13:24.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "polymarket-trending?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:23:12.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "polymarket-odds?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:23:08.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "polymarket-book?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:18:04.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "polymarket-history?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:18:05.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "polymarket-resolution?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:23:10.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "polymarket-arb?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:18:01.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "email-check?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:08:30.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "fx-rates?": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:13:22.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  },
+  "btc-fees": {
+   "calls": 2,
+   "volumeUsd": 0.02,
+   "lastCalledAt": "2026-10-27T02:08:26.000Z",
+   "buckets": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2
+   ]
+  }
+ }
+}

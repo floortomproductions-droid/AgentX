@@ -1,9 +1,9 @@
 {
   "protocolVersion": "0.3.0",
   "name": "AgentX Micro-Services",
-  "description": "Twenty-four pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, site health & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
+  "description": "Twenty-six pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
-  "version": "0.7.8",
+  "version": "0.7.13",
   "provider": {
     "organization": "NEMO AI Solutions",
     "url": "https://nemoai.uk"
@@ -47,6 +47,23 @@
         "tls",
         "uptime",
         "monitoring"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "secscore",
+      "name": "Security Headers Check",
+      "description": "Score a URL's security headers and TLS (CSP, HSTS, framing, cookies) 0\u201310 with top fixes. GET https://agentx.sale/x402/secscore?url=<https-url> ($0.01)",
+      "tags": [
+        "security",
+        "headers",
+        "csp",
+        "tls"
       ],
       "inputModes": [
         "text/plain"
@@ -142,6 +159,23 @@
       "tags": [
         "webmcp",
         "agent-readiness"
+      ],
+      "inputModes": [
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json"
+      ]
+    },
+    {
+      "id": "kevcheck",
+      "name": "KEV Check",
+      "description": "CISA Known Exploited Vulnerabilities plus NVD CVE check for a software name and version. GET https://agentx.sale/x402/kevcheck?software=<name>&version=<x.y.z> ($0.10)",
+      "tags": [
+        "security",
+        "cve",
+        "kev",
+        "cisa"
       ],
       "inputModes": [
         "text/plain"

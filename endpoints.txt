@@ -1,6 +1,6 @@
 # agentx.sale — endpoints.txt
 # pipe-delimited: method | route | price_usd | url
-# generated: 2026-10-26T17:19:49.617Z
+# generated: 2026-10-27T11:17:46.260Z
 # free surfaces: /x402/catalogue, /x402/health, /x402/doctor (spec check)
 GET | https://agentx.sale/x402/weather?city=<city> | 0.01 | https://agentx.sale/x402/weather?city=<city>
 GET | https://agentx.sale/x402/site-health?host=<domain> | 0.01 | https://agentx.sale/x402/site-health?host=<domain>

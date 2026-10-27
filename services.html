@@ -62,6 +62,23 @@
     .hero {
       background: #e7f4fb;
     }
+    .hero-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero-copy { min-width: 0; }
+    .prompt-card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.02em;
+    }
+    .prompt-card {
+      text-align: left;
+    }
     .listings {
       background: #eef8ef;
       padding: 1.75rem 0;
@@ -100,17 +117,6 @@
       margin-top: 0.15rem;
       color: #666;
       font-size: 0.75rem;
-    }
-    .prompt-band {
-      background: #e7f4fb;
-      padding: 1.5rem 0;
-      text-align: center;
-    }
-    .prompt-band h2 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 0.85rem;
-      letter-spacing: -0.02em;
     }
     .prompt-box {
       display: inline-block;
@@ -164,76 +170,196 @@
       font-size: 0.85rem;
       font-weight: 400;
     }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+    .stats-strip {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
     }
-    .service-card {
+    .stat-pill {
       background: #fff;
       border: 1px solid #e5e5e0;
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: all 0.2s;
-    }
-    .service-card:hover {
-      border-color: #00c853;
-      box-shadow: 0 4px 12px rgba(0,200,83,0.1);
-      transform: translateY(-2px);
-    }
-    .service-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.75rem;
-      gap: 0.75rem;
-    }
-    .service-name { font-size: 1.1rem; font-weight: 600; }
-    .service-price {
-      background: #f0f7f0;
-      color: #00c853;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
+      border-radius: 999px;
+      padding: 0.35rem 0.95rem;
       font-size: 0.8rem;
-      font-weight: 600;
+      color: #555;
       white-space: nowrap;
     }
-    .service-desc {
-      color: #555;
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
+    .stat-pill strong {
+      color: #1a1a1a;
+      font-weight: 600;
     }
-    .service-route {
+    .stat-pill.stat-mine {
+      border-color: #cfe8d4;
+      background: #f4faf5;
+    }
+    .stats-note {
       color: #999;
-      font-size: 0.75rem;
-      margin-bottom: 1rem;
-      word-break: break-all;
+      font-size: 0.72rem;
+      margin-bottom: 1.25rem;
     }
-    .service-meta {
+    .service-section {
+      margin-bottom: 1.6rem;
+    }
+    .service-section h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.02em;
+    }
+    .strip-row {
       display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .tag {
+      align-items: baseline;
+      gap: 0.9rem;
       background: #fff;
-      color: #2563eb;
-      border: 1px solid #2563eb;
-      padding: 0.12rem 0.5rem;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 500;
+      border: 1px solid #e5e5e0;
+      border-radius: 8px;
+      border-top-width: 0;
+      padding: 0.55rem 1rem;
+      text-decoration: none;
+      color: #1a1a1a;
     }
-    .tag-v2 {
-      background: #2563eb;
-      color: #fff;
-      border-color: #2563eb;
+    .strip-row:first-child {
+      border-top-width: 1px;
+      border-radius: 8px 8px 0 0;
     }
-    .tag-free {
-      background: #fff;
+    .strip-row:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+    .strip-row:hover { border-color: #00c853; border-top-width: 1px; margin-top: -1px; }
+    .strip-method {
+      color: #999;
+      font-size: 0.72rem;
+      font-weight: 600;
+      min-width: 3.2rem;
+      letter-spacing: 0.02em;
+    }
+    .strip-name {
+      font-size: 0.92rem;
+      font-weight: 600;
+      min-width: 11rem;
+    }
+    .strip-outcome {
+      color: #666;
+      font-size: 0.85rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .strip-free {
       color: #00c853;
-      border-color: #00c853;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid #00c853;
+      border-radius: 999px;
+      padding: 0 0.45rem;
     }
+    .strip-price {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #00c853;
+      white-space: nowrap;
+    }
+    .strip-icon {
+      min-width: 1.6rem;
+      color: #2664eb;
+      align-self: center;
+      display: flex;
+    }
+    .strip-icon svg { width: 18px; height: 18px; }
+    .strip-main { flex: 1; min-width: 0; }
+    .strip-main strong {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .strip-main span {
+      display: block;
+      color: #666;
+      font-size: 0.8rem;
+      line-height: 1.35;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 30rem;
+    }
+    .strip-main small {
+      display: inline-block;
+      background: #e7f4fb;
+      color: #006CFF;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      margin-top: 0.25rem;
+    }
+    .strip-main small.post {
+      background: #eef8ef;
+      color: #00a344;
+    }
+    .identity-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #006CFF;
+      border-radius: 999px;
+      padding: 0.45rem 1.05rem 0.45rem 0.7rem;
+      font-size: 0.82rem;
+      color: #fff;
+      margin-bottom: 0.9rem;
+      text-decoration: none;
+    }
+    .identity-line svg { width: 17px; height: 17px; color: #fff; }
+    .identity-line strong { font-weight: 600; color: #fff; }
+    .identity-line:hover {
+      background: #0059d6;
+    }
+    .metric-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+      max-width: 720px;
+    }
+    .metric-card {
+      background: #fff;
+      border: 1px solid #e5e5e0;
+      border-radius: 10px;
+      padding: 0.55rem 0.7rem 0.45rem;
+    }
+    .metric-card .metric-value {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric-card .metric-label {
+      color: #999;
+      font-size: 0.72rem;
+      margin: 0.1rem 0 0.4rem;
+    }
+    .metric-card svg { display: block; width: 100%; height: 30px; }
+    @media (max-width: 900px) {
+      .metric-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    .eco-chart svg { display: block; width: 100%; height: 46px; }
+    .eco-chart .stats-note { display: block; margin: 0.2rem 0 0; }
+
+    .strip-btn {
+      background: #fff;
+      border: 1px solid #dcdcd6;
+      border-radius: 8px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-decoration: none;
+      white-space: nowrap;
+      align-self: center;
+    }
+    .strip-btn:hover { border-color: #00c853; }
     .loading { text-align: center; padding: 4rem; color: #999; }
     .error { text-align: center; padding: 4rem; color: #d32f2f; }
     .footer {
@@ -262,11 +388,11 @@
       h1 { font-size: 1.75rem; }
       .subtitle { font-size: 1rem; }
       .listings { padding: 1.35rem 0; }
-      .prompt-band { padding: 1.35rem 0; }
-    }
+      }
   </style>
 </head>
 <body>
+  <span id="strip-icon" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
   <div class="header">
     <a class="logo" href="/">
       <img src="assets/agentx-wordmark.png" alt="AgentX">
@@ -278,15 +404,28 @@
   </div>
 
   <div class="hero">
-    <div class="container">
-      <h1>Where Agents get results &amp; work done</h1>
-      <p class="subtitle">Micro-services, some are FREE.</p>
+    <div class="container hero-row">
+      <div class="hero-copy">
+        <h1>Where Agents get results &amp; work done</h1>
+        <p class="subtitle">Micro-services, some are FREE.</p>
+      </div>
+      <div class="prompt-card">
+        <h2>Send your agent to get services</h2>
+        <div class="prompt-box">
+          <p><span class="n">1.</span> <a target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a></p>
+          <p><span class="n">2.</span> <button type="button" id="copy-prompt">Copy prompt</button> <span class="hint">Paste it into your agent chat.</span></p>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="listings">
     <div class="container" style="padding-top:0;padding-bottom:0;">
-      <h2>Where agents find us</h2>
+            <a class="identity-line" target="_blank" rel="noopener" href="https://8004scan.io/agents/base/1135219">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+        <span>On-chain identity: <strong>ERC-8004 agent #1135219</strong> on Base &mdash; verified listing</span>
+      </a>
+      <h2 style="margin-top:0.35rem;">Where agents find us</h2>
       <div class="listing-grid">
         <a class="listing-card" target="_blank" rel="noopener" href="https://agentic.market/services/agentx-sale">
           <strong>Bazaar</strong>
@@ -316,18 +455,16 @@
     </div>
   </div>
 
-  <div class="prompt-band">
-    <div class="container" style="padding-top:0;padding-bottom:0;">
-      <h2>Send your agent to get services</h2>
-      <div class="prompt-box">
-        <p><span class="n">1.</span> <a target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a></p>
-        <p><span class="n">2.</span> <button type="button" id="copy-prompt">Copy prompt</button> <span class="hint">Paste it into your agent chat.</span></p>
-      </div>
-    </div>
-  </div>
 
-  <div class="container" style="padding-top:2rem;">
-    <div id="services" class="services-grid">
+  <div class="container">
+    <div class="metric-cards">
+      <div class="metric-card" data-metric="txns"><div class="metric-value">3.13M</div><div class="metric-label">x402 transactions</div><svg data-series="txns" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="vol"><div class="metric-value">$1.63M</div><div class="metric-label">paid volume</div><svg data-series="vol" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="buyers"><div class="metric-value">34,817</div><div class="metric-label">buyers</div><svg data-series="buyers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="sellers"><div class="metric-value">13,852</div><div class="metric-label">sellers</div><svg data-series="sellers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+    </div>
+    <span class="stats-note">Daily activity, network-wide, last 30 days &mdash; x402scan, 27 Oct 2026</span>
+    <div id="services">
       <div class="loading">Loading services...</div>
     </div>
   </div>
@@ -352,6 +489,11 @@
       'site-health': {
         name: 'Site Health',
         outcome: 'DNS, TLS, HTTP status and latency for a domain',
+        chips: ['Utility']
+      },
+      'secscore': {
+        name: 'Security Headers Check',
+        outcome: 'CSP, HSTS, framing, cookies and TLS scored 0–10 with top fixes',
         chips: ['Utility']
       },
       'x402-check': {
@@ -385,6 +527,11 @@
         outcome: 'Tells you if a site is WEBMCP READY, with inventory and findings',
         chips: ['Utility']
       },
+      'kevcheck': {
+        name: 'KEV Check',
+        outcome: 'CISA known-exploited plus NVD CVEs for a software name and version',
+        chips: ['Utility']
+      },
       'webmcp-upgrade': {
         name: 'WebMCP Upgrade',
         outcome: 'A generated webmcp.js file and the steps to publish it',
@@ -404,6 +551,66 @@
         name: 'Landing Page Roast',
         outcome: 'Five persona takes on a landing page, plus a shareable SVG card',
         chips: ['Opinion']
+      },
+      'email-check': {
+        name: 'Email Check',
+        outcome: 'Can a domain receive your outreach? MX, SPF/DKIM and deliverability verdict',
+        chips: ['Utility']
+      },
+      'crypto-ticker': {
+        name: 'Crypto Ticker',
+        outcome: 'Live price and 24h move for up to 10 tokens in one call',
+        chips: ['Crypto']
+      },
+      'fear-greed': {
+        name: 'Fear & Greed',
+        outcome: 'Today’s crypto fear & greed index with the last 7 days of history',
+        chips: ['Crypto']
+      },
+      'gas-check': {
+        name: 'Gas Check',
+        outcome: 'Live gas in gwei and USD cost of a transfer across 6 chains',
+        chips: ['Crypto']
+      },
+      'btc-fees': {
+        name: 'BTC Fees',
+        outcome: 'Recommended sat/vB fee for next block, 30 min and economy sends',
+        chips: ['Crypto']
+      },
+      'fx-rates': {
+        name: 'FX Rates',
+        outcome: 'ECB reference rates for any fiat pair',
+        chips: ['Utility']
+      },
+      'polymarket-trending': {
+        name: 'Polymarket Trending',
+        outcome: 'What’s trending on Polymarket right now',
+        chips: ['Market']
+      },
+      'polymarket-book': {
+        name: 'Polymarket Book',
+        outcome: 'Order book and liquidity for any Polymarket market',
+        chips: ['Market']
+      },
+      'polymarket-odds': {
+        name: 'Polymarket Odds',
+        outcome: 'Live odds for a chosen Polymarket market',
+        chips: ['Market']
+      },
+      'polymarket-resolution': {
+        name: 'Polymarket Resolution',
+        outcome: 'Whether a market has resolved, and how',
+        chips: ['Market']
+      },
+      'polymarket-history': {
+        name: 'Polymarket History',
+        outcome: 'Price history for a Polymarket market over time',
+        chips: ['Market']
+      },
+      'polymarket-arb': {
+        name: 'Polymarket Arb',
+        outcome: 'Cross-market pricing gaps on Polymarket',
+        chips: ['Market']
       }
     };
 
@@ -411,15 +618,29 @@
       'x402-check',
       'weather',
       'site-health',
+      'secscore',
       'agent-card',
       'protocol-lint',
       'crawler-policy',
       'gtm-roast',
       'seo-audit',
       'webmcp-check',
+      'kevcheck',
       'keywords',
       'classify',
-      'webmcp-upgrade'
+      'webmcp-upgrade',
+      'crypto-ticker',
+      'fear-greed',
+      'gas-check',
+      'btc-fees',
+      'fx-rates',
+      'email-check',
+      'polymarket-trending',
+      'polymarket-book',
+      'polymarket-odds',
+      'polymarket-resolution',
+      'polymarket-history',
+      'polymarket-arb'
     ];
 
     function slugOf(route) {
@@ -485,27 +706,51 @@
       return list;
     }
 
-    function renderCard(s) {
+    const SECTIONS = [
+      { title: 'Site & agent diagnostics', ids: ['x402-check', 'site-health', 'secscore', 'agent-card', 'protocol-lint', 'crawler-policy', 'seo-audit', 'webmcp-check', 'kevcheck', 'email-check'] },
+      { title: 'Work for your site', ids: ['webmcp-upgrade', 'gtm-roast', 'classify', 'keywords'] },
+      { title: 'Live data', ids: ['weather', 'fx-rates'] },
+      { title: 'Crypto & markets', ids: ['crypto-ticker', 'fear-greed', 'gas-check', 'btc-fees', 'polymarket-trending', 'polymarket-book', 'polymarket-odds', 'polymarket-resolution', 'polymarket-history', 'polymarket-arb'] }
+    ];
+
+    const ICON = document.getElementById('strip-icon').firstElementChild.outerHTML;
+
+    // Ecosystem trend (x402scan, 27 Oct 2026): daily network transactions, last 30 days.
+    const ECO = {"txns": [93729, 124340, 36408, 80337, 48238, 120697, 139724, 53720, 115068, 63225, 128441, 110612, 44445, 115707, 77476, 161558, 145026, 82314, 150213, 65746, 138299, 123510, 60016, 141848, 65590, 153004, 169288, 104734, 132401, 9922], "vol": [71156, 68516, 42991, 43153, 31108, 11625, 30405, 11729, 51928, 10225, 52946, 157466, 10814, 14511, 15935, 37529, 22193, 7998, 108004, 8694, 124961, 207894, 8717, 213521, 8292, 102753, 13483, 10114, 96055, 664], "buyers": [4540, 2962, 2010, 5529, 2137, 2189, 3046, 2730, 3587, 4183, 3549, 3412, 2501, 2412, 3024, 3143, 3503, 2718, 2877, 2509, 2712, 2749, 2570, 2902, 2138, 3013, 3196, 2457, 3404, 1385], "sellers": [1648, 1092, 814, 1425, 979, 989, 1068, 1059, 1828, 1135, 2624, 1073, 891, 1217, 963, 1426, 1354, 1274, 1762, 869, 1307, 1520, 897, 1366, 1738, 1847, 1199, 1015, 1106, 612]};
+
+    function renderEco() {
+      const cards = document.querySelectorAll('.metric-card svg[data-series]');
+      cards.forEach(function (svg) {
+        const key = svg.getAttribute('data-series');
+        const series = ECO[key] || [];
+        if (!series.length) return;
+        const w = 100, hgt = 30, pad = 1;
+        const max = Math.max.apply(null, series) || 1;
+        const bw = w / series.length;
+        const bars = series.map(function (v, i) {
+          const bh = Math.max(0.5, (v / max) * (hgt - 2 * pad));
+          return '<rect x="' + (i * bw + bw * 0.12).toFixed(2) + '" y="' + (hgt - pad - bh).toFixed(2) + '" width="' + (bw * 0.76).toFixed(2) + '" height="' + bh.toFixed(2) + '" fill="#2664eb" rx="0.6"/>';
+        }).join('');
+        svg.innerHTML = bars;
+      });
+    }
+
+    function renderRow(s) {
       const meta = COPY[s.slug] || {};
       const name = meta.name || s.slug;
       const outcome = meta.outcome || s.desc || '';
       const methods = (s.methods || ['GET']).join('/');
-      const chips = meta.chips || [];
-      const tags = chips.map(function (c) {
-        return '<span class="tag">' + escapeHtml(c) + '</span>';
-      });
-      tags.push('<span class="tag tag-v2">v2</span>');
-      if (meta.free) tags.push('<span class="tag tag-free">FREE</span>');
       return (
-        '<div class="service-card">' +
-          '<div class="service-header">' +
-            '<div class="service-name">' + escapeHtml(name) + '</div>' +
-            '<div class="service-price">' + escapeHtml(formatPrice(s.price_usd)) + '</div>' +
-          '</div>' +
-          '<div class="service-desc">' + escapeHtml(outcome) + '</div>' +
-          '<div class="service-route">' + escapeHtml(routeLabel(s.route, methods)) + '</div>' +
-          '<div class="service-meta">' + tags.join('') + '</div>' +
-        '</div>'
+        '<a class="strip-row" href="' + escapeHtml(s.route) + '" title="' + escapeHtml(s.route) + '">' +
+          '<span class="strip-icon">' + ICON + '</span>' +
+          '<span class="strip-main">' +
+            '<strong>' + escapeHtml(name) + (meta.free ? ' <span class="strip-free">FREE</span>' : '') + '</strong>' +
+            '<span>' + escapeHtml(outcome) + '</span>' +
+            '<small class="' + (String(methods).indexOf('POST') > -1 ? 'post' : '') + '">' + escapeHtml(methods) + '</small>' +
+          '</span>' +
+          '<span class="strip-price">' + escapeHtml(formatPrice(s.price_usd)) + '</span>' +
+          '<span class="strip-btn">Try it \u2197</span>' +
+        '</a>'
       );
     }
 
@@ -519,9 +764,7 @@
           const data = await res.json();
           if (!data || !Array.isArray(data.services)) throw new Error('Bad catalogue');
           return data;
-        } catch (err) {
-          lastError = err;
-        }
+        } catch (err) { lastError = err; }
       }
       throw lastError || new Error('Catalogue unavailable');
     }
@@ -531,11 +774,29 @@
       try {
         const data = await loadCatalogue();
         const services = mergeServices(data.services);
+        services.forEach(function (s) { s.slug = s.slug.replace(/\\?$/, ''); });
+        const bySlug = {};
+        services.forEach(function (s) { bySlug[s.slug] = s; });
         if (!services.length) {
           container.innerHTML = '<div class="error">No services available</div>';
           return;
         }
-        container.innerHTML = services.map(renderCard).join('');
+        let html = '';
+        const seen = {};
+        SECTIONS.forEach(function (sec) {
+          const rows = sec.ids.filter(function (id) { return bySlug[id] && !seen[id]; });
+          if (!rows.length) return;
+          html += '<div class="service-section"><h2>' + escapeHtml(sec.title) + '</h2>';
+          html += rows.map(function (id) { seen[id] = true; return renderRow(bySlug[id]); }).join('');
+          html += '</div>';
+        });
+        const extras = services.filter(function (s) { return !seen[s.slug]; });
+        if (extras.length) {
+          html += '<div class="service-section"><h2>Coming up</h2>' +
+            extras.map(renderRow).join('') + '</div>';
+        }
+        container.innerHTML = html;
+        renderEco();
       } catch (err) {
         container.innerHTML = '<div class="error">Could not load the catalogue</div>';
       }
