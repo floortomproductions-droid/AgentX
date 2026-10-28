@@ -1,7 +1,7 @@
-# agentx.sale — full catalog
-# 25 paid endpoints, one payment per call (x402 USDC on Base + Solana; IETF MPP; Stripe cards on $1+ routes)
-# generated: 2026-10-27T11:17:46.271Z
-# protocol: GET/POST -> 402 challenge (PAYMENT-REQUIRED for x402 + WWW-Authenticate: Payment for MPP) -> settle (x402 X-PAYMENT / MPP Authorization: Payment / Stripe SPT on $1+) -> retry -> result + Payment-Receipt
+# agentx.sale — full catalog (generated from live /x402/catalogue)
+# 27 routes / 26 services, one payment per call (x402 USDC on Base + Solana; IETF MPP; Stripe cards on $1+ routes)
+# generated: 2026-10-28T09:31:46.690Z
+# protocol: GET/POST -> 402 challenge -> settle (X-PAYMENT / MPP Authorization) -> retry -> result + Payment-Receipt
 
 ## GET endpoints
 
@@ -9,9 +9,11 @@ GET https://agentx.sale/x402/weather?city=<city> — Live current weather for an
 
 GET https://agentx.sale/x402/site-health?host=<domain> — DNS, TLS certificate, HTTP status + latency snapshot ($0.01)
 
+GET https://agentx.sale/x402/secscore?url=<https-url> — Security Headers Check: CSP, HSTS, framing, cookies, TLS — score 0–10 plus top fixes ($0.01)
+
 GET https://agentx.sale/x402/x402-check?url=<https-url> — x402 Doctor: is a URL a valid agent-payable paid resource? (v1+v2 spec check, grade, verdict) ($0.01)
 
-GET https://agentx.sale/x402/seo-audit?host=<domain> — Rules-based SEO + agent-readiness audit with score and findings ($0.1)
+GET https://agentx.sale/x402/seo-audit?host=<domain> — Rules-based SEO + agent-readiness audit with score and findings ($0.10)
 
 GET https://agentx.sale/x402/agent-card?host=<domain> — Site Agent-Readiness Verdict Card: discovery files, TLS, headers, AI-crawler policy, shareable card ($0.01)
 
@@ -19,7 +21,9 @@ GET https://agentx.sale/x402/protocol-lint?url=<domain> — A2A / MCP protocol c
 
 GET https://agentx.sale/x402/crawler-policy?host=<domain> — TLS + security headers + AI-crawler policy matrix card ($0.01)
 
-GET https://agentx.sale/x402/webmcp-check?host=<domain> — WebMCP agent-compatibility check with pass/fail verdict, inventory and findings ($0.1)
+GET https://agentx.sale/x402/webmcp-check?host=<domain> — WebMCP agent-compatibility check with pass/fail verdict, inventory and findings ($0.10)
+
+GET https://agentx.sale/x402/kevcheck?software=<name>&version=<x.y.z> — CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Output includes kev.versionConfidence (high|uncertain) and may downgrade ACTIVELY EXPLOITED to POSSIBLE MATCH — verify affected versions ($0.10)
 
 GET https://agentx.sale/x402/crypto-ticker?assets=<symbols> — Live USD price + 24h move for up to 10 tokens (e.g. btc,eth) ($0.01)
 
@@ -45,22 +49,15 @@ GET https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc> — ECB referenc
 
 GET https://agentx.sale/x402/btc-fees — Bitcoin fee forecast: sat/vB for next block, 30 min, 1 hour, economy ($0.01)
 
-## POST endpoints
+GET https://agentx.sale/x402/gtm-roast?url=<https-url> — Legends Roast: any 1-2 of five cartoon legends roast the page's biggest flaw, plus score and verdict ($0.01)
 
-POST https://agentx.sale/x402/webmcp-upgrade — WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-validated) delivered inline or via free job poller ($4)
+## POST endpoints (JSON body)
+
+POST https://agentx.sale/x402/webmcp-upgrade — WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-validated) delivered inline or via free job poller ($4.00)
 
 POST https://agentx.sale/x402/classify — AI topic classification of supplied text: free-form or caller label set, confidence + rationale ($1.75)
 
-POST https://agentx.sale/x402/keywords — AI keyword extraction: top salient keywords/phrases with scores, language detected ($0.9)
-
-## GET endpoints
-
-GET https://agentx.sale/x402/gtm-roast?url=<https-url> — Legends Roast: any 1-2 of five cartoon legends roast the page's biggest flaw, plus score and verdict ($0.01)
-
-## POST endpoints
+POST https://agentx.sale/x402/keywords — AI keyword extraction: top salient keywords/phrases with scores, language detected ($0.90)
 
 POST https://agentx.sale/x402/gtm-roast — Same Legends Roast via POST JSON {url} ($0.01)
 
-# Agent card: https://agentx.sale/.well-known/agent.json
-# ERC-8004 identity on Base: agentId 1135219 (IdentityRegistry 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432)
-# Registration card: https://agentx.sale/.well-known/erc8004-registration.json

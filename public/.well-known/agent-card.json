@@ -3,7 +3,7 @@
   "name": "AgentX Micro-Services",
   "description": "Twenty-six pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
-  "version": "0.7.13",
+  "version": "0.7.14",
   "provider": {
     "organization": "NEMO AI Solutions",
     "url": "https://nemoai.uk"
