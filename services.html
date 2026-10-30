@@ -209,7 +209,7 @@
     }
     .strip-row {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 0.9rem;
       background: #fff;
       border: 1px solid #e5e5e0;
@@ -346,6 +346,21 @@
     }
     .eco-chart svg { display: block; width: 100%; height: 46px; }
     .eco-chart .stats-note { display: block; margin: 0.2rem 0 0; }
+    .rails-band {
+      background: #eef8ef;
+      border: 1px solid #d8ecd9;
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      max-width: 720px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      margin-bottom: 1.6rem;
+    }
+    .rails-band strong { color: #1a1a1a; }
+    .strip-copy { margin-left: 0.4rem; border-color: #cfe0f7; color: #006CFF; }
+    .strip-copy:hover { border-color: #006CFF; }
+    .strip-copy.copied { color: #00a344; border-color: #00a344; }
+    .copy-hint { color: #777; font-size: 0.82rem; max-width: 720px; margin: -0.6rem 0 1.2rem; }
 
     .strip-btn {
       background: #fff;
@@ -388,6 +403,12 @@
       h1 { font-size: 1.75rem; }
       .subtitle { font-size: 1rem; }
       .listings { padding: 1.35rem 0; }
+      .strip-row { flex-wrap: wrap; row-gap: 0.5rem; align-items: center; }
+      .strip-main { flex: 1 1 auto; min-width: 55%; }
+      .strip-btn { font-size: 0.75rem; padding: 0.3rem 0.55rem; }
+      .strip-price { order: 2; margin-left: auto; }
+      .strip-btn { order: 3; }
+      .strip-copy { order: 4; margin-left: 0.4rem; }
       }
   </style>
 </head>
@@ -458,12 +479,16 @@
 
   <div class="container">
     <div class="metric-cards">
-      <div class="metric-card" data-metric="txns"><div class="metric-value">3.13M</div><div class="metric-label">x402 transactions</div><svg data-series="txns" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
-      <div class="metric-card" data-metric="vol"><div class="metric-value">$1.63M</div><div class="metric-label">paid volume</div><svg data-series="vol" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
-      <div class="metric-card" data-metric="buyers"><div class="metric-value">34,817</div><div class="metric-label">buyers</div><svg data-series="buyers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
-      <div class="metric-card" data-metric="sellers"><div class="metric-value">13,852</div><div class="metric-label">sellers</div><svg data-series="sellers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="txns"><div class="metric-value">3.33M</div><div class="metric-label">x402 transactions</div><svg data-series="txns" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="vol"><div class="metric-value">$1.50M</div><div class="metric-label">paid volume</div><svg data-series="vol" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="buyers"><div class="metric-value">33,184</div><div class="metric-label">buyers</div><svg data-series="buyers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
+      <div class="metric-card" data-metric="sellers"><div class="metric-value">13,144</div><div class="metric-label">sellers</div><svg data-series="sellers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
     </div>
-    <span class="stats-note">Daily activity, network-wide, last 30 days &mdash; x402scan, 27 Oct 2026</span>
+    <span class="stats-note">Daily activity, network-wide, last 30 days &mdash; x402scan, 30 Oct 2026</span>
+        <div class="rails-band">
+      <strong>How you pay:</strong> USDC on Base or Solana, or by card on Stripe for the bigger jobs. Every call settles on-chain, and the response that settles carries the result.
+    </div>
+      <div class="copy-hint">Every service has a <em>Copy prompt</em> button: it puts one instruction on your clipboard, you paste it into your AI agent chat, and swap the &lt;ANGLE&nbsp;BRACKET&gt; parts for your values.</div>
     <div id="services">
       <div class="loading">Loading services...</div>
     </div>
@@ -498,7 +523,7 @@
       },
       'x402-check': {
         name: 'x402 Doctor',
-        outcome: 'A grade for whether a URL is a valid agent-payable resource',
+        outcome: 'Grades a URL as an agent-payable resource, with a verdict',
         chips: ['Utility'],
         free: true
       },
@@ -554,7 +579,7 @@
       },
       'email-check': {
         name: 'Email Check',
-        outcome: 'Can a domain receive your outreach? MX, SPF/DKIM and deliverability verdict',
+        outcome: 'Can a domain receive outreach? MX, SPF and DMARC, with a deliverability verdict',
         chips: ['Utility']
       },
       'crypto-ticker': {
@@ -613,6 +638,7 @@
         chips: ['Market']
       }
     };
+    const PROMPTS = {"weather": "Use AgentX to get this: fetch https://agentx.sale/x402/weather?city=<CITY> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call. <CITY> is the city I name below; if I don't name one, ask me first.","site-health": "Use AgentX to get this: fetch https://agentx.sale/x402/site-health?host=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","secscore": "Use AgentX to get this: fetch https://agentx.sale/x402/secscore?url=<URL> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","x402-check": "Use AgentX to get this: fetch https://agentx.sale/x402/x402-check?url=<URL> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","seo-audit": "Use AgentX to get this: fetch https://agentx.sale/x402/seo-audit?host=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","agent-card": "Use AgentX to get this: fetch https://agentx.sale/x402/agent-card?host=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","protocol-lint": "Use AgentX to get this: fetch https://agentx.sale/x402/protocol-lint?url=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","crawler-policy": "Use AgentX to get this: fetch https://agentx.sale/x402/crawler-policy?host=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","webmcp-check": "Use AgentX to get this: fetch https://agentx.sale/x402/webmcp-check?host=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","kevcheck": "Use AgentX to get this: fetch https://agentx.sale/x402/kevcheck?software=<NAME>&version=<X.Y.Z> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","webmcp-upgrade": "Order the AgentX WebMCP upgrade for https://<DOMAIN>: POST https://agentx.sale/x402/webmcp-upgrade with JSON body {\"url\":\"https://<DOMAIN>\"}. It takes a couple of minutes and gives a free /x402/jobs/<id> link to poll for the finished file.","classify": "Use AgentX to classify the text I paste next: POST it to https://agentx.sale/x402/classify as JSON {\"text\": \"...\"} and report the labels + confidence. When it replies, approve the x402 payment; the answer comes back in the same call.","keywords": "Use AgentX to pull keywords from the text I paste next: POST it to https://agentx.sale/x402/keywords as JSON {\"text\": \"...\"} and report the top keywords with scores. When it replies, approve the x402 payment; the answer comes back in the same call.","gtm-roast": "Use AgentX to get this: fetch https://agentx.sale/x402/gtm-roast?url=<URL> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call. The roast is the deliverable: report the verdict, score and the legends' lines.","email-check": "Use AgentX to get this: fetch https://agentx.sale/x402/email-check?q=<DOMAIN> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","crypto-ticker": "Use AgentX to get this: fetch https://agentx.sale/x402/crypto-ticker?assets=<SYMBOLS e.g. btc,eth> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","fear-greed": "Use AgentX to get this: fetch https://agentx.sale/x402/fear-greed and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","gas-check": "Use AgentX to get this: fetch https://agentx.sale/x402/gas-check?chain=<base|ethereum|...> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","btc-fees": "Use AgentX to get this: fetch https://agentx.sale/x402/btc-fees and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","fx-rates": "Use AgentX to get this: fetch https://agentx.sale/x402/fx-rates?base=<GBP>&symbols=<USD,EUR> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","polymarket-trending": "Use AgentX to get this: fetch https://agentx.sale/x402/polymarket-trending?limit=5 and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","polymarket-odds": "Use AgentX to get this: fetch https://agentx.sale/x402/polymarket-odds?q=<TOPIC> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","polymarket-book": "Use AgentX to get this: fetch https://agentx.sale/x402/polymarket-book?q=<TOPIC> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","polymarket-history": "Use AgentX to get this: fetch https://agentx.sale/x402/polymarket-history?q=<TOPIC>&days=<30> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","polymarket-resolution": "Use AgentX to get this: fetch https://agentx.sale/x402/polymarket-resolution?q=<TOPIC> and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call.","polymarket-arb": "Use AgentX to get this: fetch https://agentx.sale/x402/polymarket-arb?limit=10 and report what it returns. When it replies, approve the x402 payment; the answer comes back in the same call."};
 
     const ORDER = [
       'x402-check',
@@ -715,8 +741,8 @@
 
     const ICON = document.getElementById('strip-icon').firstElementChild.outerHTML;
 
-    // Ecosystem trend (x402scan, 27 Oct 2026): daily network transactions, last 30 days.
-    const ECO = {"txns": [93729, 124340, 36408, 80337, 48238, 120697, 139724, 53720, 115068, 63225, 128441, 110612, 44445, 115707, 77476, 161558, 145026, 82314, 150213, 65746, 138299, 123510, 60016, 141848, 65590, 153004, 169288, 104734, 132401, 9922], "vol": [71156, 68516, 42991, 43153, 31108, 11625, 30405, 11729, 51928, 10225, 52946, 157466, 10814, 14511, 15935, 37529, 22193, 7998, 108004, 8694, 124961, 207894, 8717, 213521, 8292, 102753, 13483, 10114, 96055, 664], "buyers": [4540, 2962, 2010, 5529, 2137, 2189, 3046, 2730, 3587, 4183, 3549, 3412, 2501, 2412, 3024, 3143, 3503, 2718, 2877, 2509, 2712, 2749, 2570, 2902, 2138, 3013, 3196, 2457, 3404, 1385], "sellers": [1648, 1092, 814, 1425, 979, 989, 1068, 1059, 1828, 1135, 2624, 1073, 891, 1217, 963, 1426, 1354, 1274, 1762, 869, 1307, 1520, 897, 1366, 1738, 1847, 1199, 1015, 1106, 612]};
+    // Ecosystem trend (x402scan, 30 Oct 2026): daily network transactions, last 30 days.
+    const ECO = {"txns": [77476,79201,82357,80851,64175,82314,92234,57979,65746,71223,67076,72114,51396,60016,72384,69464,65590,79472,73532,68052,101236,104734,68110,64291,91408,94167,95142,103705,90846,42587],"vol": [15935,24054,13475,15588,6605,7998,100577,7427,8694,8111,116850,7680,200214,8717,114964,98557,8292,94250,8503,4903,8580,10114,84890,11165,7701,6682,31344,21555,15632,3308],"buyers": [3024,3143,2733,3503,2754,2718,2877,2725,2509,2712,2504,2749,2526,2570,2902,2441,2138,3013,2628,2537,3196,2457,3404,2510,3681,2972,2277,2621,2377,1987],"sellers": [963,945,1426,1049,1354,1274,832,1762,869,1304,1307,1520,1080,897,1333,1366,1738,1482,1847,952,1199,1015,1082,1106,1388,1373,931,1082,1475,671]};
 
     function renderEco() {
       const cards = document.querySelectorAll('.metric-card svg[data-series]');
@@ -741,17 +767,43 @@
       const outcome = meta.outcome || s.desc || '';
       const methods = (s.methods || ['GET']).join('/');
       return (
-        '<a class="strip-row" href="' + escapeHtml(s.route) + '" title="' + escapeHtml(s.route) + '">' +
+        '<div class="strip-row">' +
           '<span class="strip-icon">' + ICON + '</span>' +
           '<span class="strip-main">' +
             '<strong>' + escapeHtml(name) + (meta.free ? ' <span class="strip-free">FREE</span>' : '') + '</strong>' +
             '<span>' + escapeHtml(outcome) + '</span>' +
             '<small class="' + (String(methods).indexOf('POST') > -1 ? 'post' : '') + '">' + escapeHtml(methods) + '</small>' +
           '</span>' +
-          '<span class="strip-price">' + escapeHtml(formatPrice(s.price_usd)) + '</span>' +
-          '<span class="strip-btn">Try it \u2197</span>' +
-        '</a>'
+          '<span class="strip-price">' + escapeHtml(meta.free ? 'FREE' : formatPrice(s.price_usd)) + '</span>' +
+          '<span class="strip-btn strip-copy" data-copy="' + escapeHtml(s.slug) + '">Copy prompt</span>' +
+        '</div>'
       );
+    }
+
+    function wireCopyButtons() {
+      document.addEventListener('click', function (ev) {
+        const btn = ev.target.closest('.strip-copy');
+        if (!btn) return;
+        ev.preventDefault();
+        const slug = btn.getAttribute('data-copy');
+        const text = PROMPTS[slug];
+        if (!text) return;
+        const done = function () {
+          const prev = btn.textContent;
+          btn.textContent = 'Prompt copied \u2713';
+          btn.classList.add('copied');
+          setTimeout(function () { btn.textContent = prev; btn.classList.remove('copied'); }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+        } else { fallbackCopy(text, done); }
+      });
+    }
+    function fallbackCopy(text, done) {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta); done();
     }
 
     async function loadCatalogue() {
@@ -796,6 +848,7 @@
             extras.map(renderRow).join('') + '</div>';
         }
         container.innerHTML = html;
+      wireCopyButtons();
         renderEco();
       } catch (err) {
         container.innerHTML = '<div class="error">Could not load the catalogue</div>';
