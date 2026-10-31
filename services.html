@@ -387,6 +387,9 @@
       z-index: 80;
     }
     .tip-host:hover::after, .tip-host:focus::after { opacity: 1; }
+    @media (max-width: 480px) {
+      .tip-host::after { left: 0; transform: none; white-space: normal; max-width: 72vw; }
+    }
     .connect-url {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: 0.85rem;
