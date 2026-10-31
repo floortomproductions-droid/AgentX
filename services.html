@@ -361,13 +361,13 @@
       background: #f3f7ee;
       border: 1px solid #dce8d3;
       border-radius: 10px;
-      padding: 1rem 1.1rem;
+      padding: 1.25rem 1.3rem;
       max-width: 720px;
       margin: 0 0 1.6rem;
     }
-    .connect-band h2 { margin: 0 0 0.4rem; font-size: 1.15rem; }
+    .connect-band h2 { margin: 0 0 0.7rem; font-size: 1.2rem; }
     .connect-band p { margin: 0 0 0.7rem; font-size: 0.9rem; line-height: 1.45; color: #333; }
-    .connect-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.7rem; }
+    .connect-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
     .connect-url {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: 0.85rem;
@@ -378,7 +378,6 @@
       color: #1a1a1a;
       user-select: all;
     }
-    .connect-hint { margin-bottom: 0 !important; color: #555 !important; font-size: 0.85rem !important; }
     .strip-copy { margin-left: 0.4rem; border-color: #cfe0f7; color: #006CFF; }
     .strip-copy:hover { border-color: #006CFF; }
     .strip-copy.copied { color: #00a344; border-color: #00a344; }
@@ -514,16 +513,14 @@
         <div class="rails-band">
       <strong>How you pay:</strong> USDC on Base or Solana, or by card on Stripe for the bigger jobs. Every call settles on-chain, and the response that settles carries the result.
     </div>
-      <div class="copy-hint">Every service has a <em>Copy prompt</em> button: it puts one instruction on your clipboard, you paste it into your AI agent chat, and swap the &lt;ANGLE&nbsp;BRACKET&gt; parts for your values.</div>
+      <div class="copy-hint">Tap <em>Copy prompt</em> and paste it into your agent chat.</div>
     <div class="connect-band" id="connect-band">
       <div class="connect-copy">
         <h2>Connect your AI assistant</h2>
-        <p>Add AgentX to Claude, Gemini, Cursor or any MCP client &mdash; paste this address where your client asks for an MCP server:</p>
         <div class="connect-row">
-          <code class="connect-url" id="connect-url">https://agentx.sale/connect/mcp</code>
-          <button type="button" class="strip-btn" id="copy-connect">Copy address</button>
+          <code class="connect-url" id="connect-url" title="Add AgentX to Claude, Gemini, Cursor or any MCP client &mdash; paste this address where it asks for an MCP server. An x402 wallet settles per call and the result comes back in the same flow. All 26 services, $0.01&ndash;$4.00. Free start: agentx.sale/x402/mcp">https://agentx.sale/connect/mcp</code>
+          <button type="button" class="strip-btn" id="copy-connect" title="Puts the address on your clipboard">Copy address</button>
         </div>
-        <p class="connect-hint">An x402 wallet settles per call and the result comes back in the same flow &mdash; all 26 services, $0.01&ndash;$4.00. Start with the free catalogue and x402 Doctor at <a href="https://agentx.sale/x402/mcp" style="color:inherit;">agentx.sale/x402/mcp</a>.</p>
       </div>
     </div>
     <div id="services">
