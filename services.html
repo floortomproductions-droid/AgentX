@@ -357,6 +357,28 @@
       margin-bottom: 1.6rem;
     }
     .rails-band strong { color: #1a1a1a; }
+    .connect-band {
+      background: #f3f7ee;
+      border: 1px solid #dce8d3;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      max-width: 720px;
+      margin: 0 0 1.6rem;
+    }
+    .connect-band h2 { margin: 0 0 0.4rem; font-size: 1.15rem; }
+    .connect-band p { margin: 0 0 0.7rem; font-size: 0.9rem; line-height: 1.45; color: #333; }
+    .connect-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.7rem; }
+    .connect-url {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+      background: #fff;
+      border: 1px solid #dce8d3;
+      border-radius: 8px;
+      padding: 0.45rem 0.7rem;
+      color: #1a1a1a;
+      user-select: all;
+    }
+    .connect-hint { margin-bottom: 0 !important; color: #555 !important; font-size: 0.85rem !important; }
     .strip-copy { margin-left: 0.4rem; border-color: #cfe0f7; color: #006CFF; }
     .strip-copy:hover { border-color: #006CFF; }
     .strip-copy.copied { color: #00a344; border-color: #00a344; }
@@ -472,6 +494,10 @@
           <strong>MCP</strong>
           <span>Free Doctor</span>
         </a>
+        <a class="listing-card" target="_blank" rel="noopener" href="https://agentx.sale/connect/mcp">
+          <strong>Paid MCP</strong>
+          <span>All 26 services</span>
+        </a>
       </div>
     </div>
   </div>
@@ -489,6 +515,17 @@
       <strong>How you pay:</strong> USDC on Base or Solana, or by card on Stripe for the bigger jobs. Every call settles on-chain, and the response that settles carries the result.
     </div>
       <div class="copy-hint">Every service has a <em>Copy prompt</em> button: it puts one instruction on your clipboard, you paste it into your AI agent chat, and swap the &lt;ANGLE&nbsp;BRACKET&gt; parts for your values.</div>
+    <div class="connect-band" id="connect-band">
+      <div class="connect-copy">
+        <h2>Connect your AI assistant</h2>
+        <p>Add AgentX to Claude, Gemini, Cursor or any MCP client &mdash; paste this address where your client asks for an MCP server:</p>
+        <div class="connect-row">
+          <code class="connect-url" id="connect-url">https://agentx.sale/connect/mcp</code>
+          <button type="button" class="strip-btn" id="copy-connect">Copy address</button>
+        </div>
+        <p class="connect-hint">An x402 wallet settles per call and the result comes back in the same flow &mdash; all 26 services, $0.01&ndash;$4.00. Start with the free catalogue and x402 Doctor at <a href="https://agentx.sale/x402/mcp" style="color:inherit;">agentx.sale/x402/mcp</a>.</p>
+      </div>
+    </div>
     <div id="services">
       <div class="loading">Loading services...</div>
     </div>
@@ -870,6 +907,21 @@
           navigator.clipboard.writeText(text).then(done).catch(function () {});
         }
       });
+
+      const cbtn = document.getElementById('copy-connect');
+      if (cbtn) {
+        cbtn.addEventListener('click', function () {
+          const done = function () {
+            cbtn.textContent = 'Copied';
+            cbtn.classList.add('copied');
+            setTimeout(function () { cbtn.textContent = 'Copy address'; cbtn.classList.remove('copied'); }, 1600);
+          };
+          const ctext = document.getElementById('connect-url').textContent.trim();
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(ctext).then(done, function () { fallbackCopy(ctext, done); });
+          } else { fallbackCopy(ctext, done); }
+        });
+      }
     })();
   </script>
 </body>
