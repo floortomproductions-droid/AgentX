@@ -455,7 +455,7 @@
         <h2>Send your agent to get services</h2>
         <div class="prompt-box">
           <p><span class="n">1.</span> <a target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a></p>
-          <p><span class="n">2.</span> <button type="button" id="copy-prompt">Copy prompt</button> <span class="hint">Paste it into your agent chat.</span></p>
+          <p><span class="n">2.</span> <button type="button" id="copy-prompt" title="Click &amp; paste into agent chat">Copy prompt</button> <span class="hint">Paste it into your agent chat.</span></p>
         </div>
       </div>
     </div>
@@ -509,12 +509,8 @@
       <div class="metric-card" data-metric="buyers"><div class="metric-value">33,184</div><div class="metric-label">buyers</div><svg data-series="buyers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
       <div class="metric-card" data-metric="sellers"><div class="metric-value">13,144</div><div class="metric-label">sellers</div><svg data-series="sellers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
     </div>
-    <span class="stats-note">Daily activity, network-wide, last 30 days &mdash; x402scan, 30 Oct 2026</span>
-        <div class="rails-band">
-      <strong>How you pay:</strong> USDC on Base or Solana, or by card on Stripe for the bigger jobs. Every call settles on-chain, and the response that settles carries the result.
-    </div>
-      <div class="copy-hint">Tap <em>Copy prompt</em> and paste it into your agent chat.</div>
-    <div class="connect-band" id="connect-band">
+    <span class="stats-note" style="display:none;">Daily activity, network-wide, last 30 days &mdash; x402scan, 30 Oct 2026</span>
+        <div class="connect-band" id="connect-band">
       <div class="connect-copy">
         <h2>Connect your AI assistant</h2>
         <div class="connect-row">
@@ -809,7 +805,7 @@
             '<small class="' + (String(methods).indexOf('POST') > -1 ? 'post' : '') + '">' + escapeHtml(methods) + '</small>' +
           '</span>' +
           '<span class="strip-price">' + escapeHtml(meta.free ? 'FREE' : formatPrice(s.price_usd)) + '</span>' +
-          '<span class="strip-btn strip-copy" data-copy="' + escapeHtml(s.slug) + '">Copy prompt</span>' +
+          '<span class="strip-btn strip-copy" data-copy="' + escapeHtml(s.slug) + '" title="Click &amp; paste into agent chat">Copy prompt</span>' +
         '</div>'
       );
     }
