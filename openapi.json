@@ -1,1133 +1,2272 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "NEMO x402 Agent Micro-Services",
-    "version": "0.7.13",
-    "description": "Pay-per-call agent services via x402 (USDC on Base + Solana), also accepting the IETF Machine Payments Protocol (MPP) and Stripe cards on $1+ routes. Unauthenticated calls return HTTP 402 carrying PAYMENT-REQUIRED (x402) and a WWW-Authenticate: Payment MPP challenge; settled calls return a Payment-Receipt. Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp.",
-    "contact": {
-      "email": "steve@nemoai.uk",
-      "name": "NEMO AI Solutions",
-      "url": "https://nemoai.uk"
-    },
-    "x-guidance": "Call GET /catalogue first (free) for routes and prices. Paid routes return HTTP 402 with a PAYMENT-REQUIRED header; settle USDC on Base (first) or Solana, or pay with MPP (Authorization: Payment) or Stripe cards on $1+ routes, then retry the same request. Slow jobs (roast, upgrade, classify, keywords) may answer 202 with a free /jobs/:id poller. MCP at /mcp exposes the catalogue and a free x402 Doctor."
+ "openapi": "3.1.0",
+ "info": {
+  "title": "NEMO x402 Agent Micro-Services",
+  "version": "0.7.14",
+  "description": "Pay-per-call agent services via x402 (USDC on Base + Solana), also accepting the IETF Machine Payments Protocol (MPP) and Stripe cards on $1+ routes. Unauthenticated calls return HTTP 402 carrying PAYMENT-REQUIRED (x402) and a WWW-Authenticate: Payment MPP challenge; settled calls return a Payment-Receipt. Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp.",
+  "contact": {
+   "email": "steve@nemoai.uk",
+   "name": "NEMO AI Solutions",
+   "url": "https://nemoai.uk"
   },
-  "servers": [
-    {
-      "url": "https://agentx.sale/x402"
-    }
-  ],
-  "x-discovery": {
-    "ownershipProofs": [
-      "0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83"
-    ]
-  },
-  "paths": {
-    "/weather": {
-      "get": {
-        "operationId": "weather",
-        "summary": "Live current weather for any city ($0.01)",
-        "parameters": [
-          {
-            "name": "city",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "maxLength": 120
-            },
-            "description": "City name (Open-Meteo geocoding)"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Current weather JSON"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/site-health": {
-      "get": {
-        "operationId": "siteHealth",
-        "summary": "DNS/TLS/HTTP health snapshot for a domain ($0.01)",
-        "parameters": [
-          {
-            "name": "host",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Bare domain, no path"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "DNS, TLS and reachability report"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/secscore": {
-      "get": {
-        "operationId": "secscore",
-        "summary": "Security Headers Check: CSP/HSTS/frame/cookies/TLS score 0\u201310 ($0.01)",
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "https URL of the site to score"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "score, grade, checks, topFixes"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/x402-check": {
-      "get": {
-        "operationId": "x402Check",
-        "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? ($0.01, v1+v2 aware)",
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "https URL of the endpoint to spec-check"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Verdict, grade, networks, USD prices, errors"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/seo-audit": {
-      "get": {
-        "operationId": "seoAudit",
-        "summary": "Rules-based SEO + agent-readiness audit ($0.10)",
-        "parameters": [
-          {
-            "name": "host",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Bare domain, no path"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.10"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Score, findings, agent readiness"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/agent-card": {
-      "get": {
-        "operationId": "agentCard",
-        "summary": "Site agent-readiness verdict card ($0.01)",
-        "parameters": [
-          {
-            "name": "host",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Bare domain, no path"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Grade, verdict, files, policies, findings"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/protocol-lint": {
-      "get": {
-        "operationId": "protocolLint",
-        "summary": "A2A/MCP protocol card lint with patched JSON fixes ($0.01)",
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Card URL or bare domain"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Per-file results, errors, warnings, patched cards"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/crawler-policy": {
-      "get": {
-        "operationId": "crawlerPolicy",
-        "summary": "TLS + security headers + AI-crawler policy matrix card ($0.01)",
-        "parameters": [
-          {
-            "name": "host",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Bare domain, no path"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "TLS state, security headers, AI-crawler policy"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/webmcp-check": {
-      "get": {
-        "operationId": "webmcpCheck",
-        "summary": "WebMCP agent-compatibility check ($0.10)",
-        "parameters": [
-          {
-            "name": "host",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Bare domain"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.10"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "WEBMCP READY / NOT WEBMCP READY, inventory, findings"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/kevcheck": {
-      "get": {
-        "operationId": "kevcheck",
-        "summary": "CISA KEV + NVD CVE check for software+version ($0.10)",
-        "parameters": [
-          {
-            "name": "software",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Vendor or product name"
-          },
-          {
-            "name": "version",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Software version x.y.z"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.10"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "KEV matches, known CVEs, verdict, kev.versionConfidence (high|uncertain)",
-            "content": {
-              "application/json": {
-                "example": {
-                  "software": "nginx",
-                  "version": "1.24.0",
-                  "kev": {
-                    "onList": false,
-                    "versionConfidence": null,
-                    "matches": []
-                  },
-                  "knownCves": [],
-                  "fixedVersion": null,
-                  "verdict": "NO KNOWN CVES",
-                  "advice": [
-                    "No KEV hits and no NVD keyword matches for this name."
-                  ]
-                }
-              }
-            }
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/webmcp-upgrade": {
-      "post": {
-        "operationId": "webmcpUpgrade",
-        "summary": "WebMCP upgrade order: generated webmcp.js ($4.00)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "url"
-                ],
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "description": "https URL of the site to upgrade"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "4.00"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Generated webmcp.js plus publish instructions"
-          },
-          "202": {
-            "description": "Payment captured; poll /jobs/:id"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/classify": {
-      "post": {
-        "operationId": "classify",
-        "summary": "AI topic classification of supplied text ($1.75)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "text"
-                ],
-                "properties": {
-                  "text": {
-                    "type": "string",
-                    "description": "Text to classify"
-                  },
-                  "labels": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "multiLabel": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "1.75"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Classification, confidence, rationale"
-          },
-          "202": {
-            "description": "Payment captured; poll /jobs/:id"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/keywords": {
-      "post": {
-        "operationId": "keywords",
-        "summary": "AI keyword extraction from supplied text ($0.90)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "text"
-                ],
-                "properties": {
-                  "text": {
-                    "type": "string",
-                    "description": "Text to extract keywords from"
-                  },
-                  "maxKeywords": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.90"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Keywords and scores"
-          },
-          "202": {
-            "description": "Payment captured; poll /jobs/:id"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/gtm-roast": {
-      "get": {
-        "operationId": "gtmRoastGet",
-        "summary": "New Landing Page Roast ($0.01)",
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "https URL of the landing page"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Score, verdict, 1-2 of the five legend roasts, shareable SVG card"
-          },
-          "202": {
-            "description": "Payment captured; poll /jobs/:id"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      },
-      "post": {
-        "operationId": "gtmRoastPost",
-        "summary": "New Landing Page Roast ($0.01)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "url"
-                ],
-                "properties": {
-                  "url": {
-                    "type": "string",
-                    "description": "https URL of the landing page"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Score, verdict, 1-2 of the five legend roasts, shareable SVG card"
-          },
-          "202": {
-            "description": "Payment captured; poll /jobs/:id"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/catalogue": {
-      "get": {
-        "operationId": "catalogue",
-        "summary": "Free service catalogue with routes, prices and settlement details",
-        "security": [],
-        "responses": {
-          "200": {
-            "description": "Catalogue JSON"
-          }
-        }
-      }
-    },
-    "/health": {
-      "get": {
-        "operationId": "health",
-        "summary": "Free gateway health check",
-        "security": [],
-        "responses": {
-          "200": {
-            "description": "ok:true"
-          }
-        }
-      }
-    },
-    "/crypto-ticker": {
-      "get": {
-        "operationId": "cryptoTicker",
-        "summary": "Live USD price + 24h move for up to 10 tokens ($0.01)",
-        "parameters": [
-          {
-            "name": "assets",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Comma-separated symbols or coingecko ids, e.g. btc,eth"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/fear-greed": {
-      "get": {
-        "operationId": "fearGreed",
-        "summary": "Crypto Fear & Greed Index with 7d history ($0.01)",
-        "parameters": [],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/gas-check": {
-      "get": {
-        "operationId": "gasCheck",
-        "summary": "Live gas price on six chains with USD transfer cost ($0.01)",
-        "parameters": [
-          {
-            "name": "chain",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "base|ethereum|polygon|avalanche|arbitrum|optimism; default base"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/polymarket-trending": {
-      "get": {
-        "operationId": "polymarketTrending",
-        "summary": "Top open Polymarket markets by 24h volume with YES prices ($0.01)",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "Number of events, 1-20, default 10"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/polymarket-odds": {
-      "get": {
-        "operationId": "polymarketOdds",
-        "summary": "Live YES/NO odds for a named Polymarket market ($0.01)",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Market topic or slug, e.g. fed decision"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/polymarket-book": {
-      "get": {
-        "operationId": "polymarketBook",
-        "summary": "Polymarket order book: bid/ask, spread, USD depth for both outcomes ($0.01)",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Market topic or slug"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/polymarket-history": {
-      "get": {
-        "operationId": "polymarketHistory",
-        "summary": "Polymarket YES-price series 1-90 days with change and high/low ($0.01)",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Market topic or slug"
-          },
-          {
-            "name": "days",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "1-90, default 7"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/polymarket-resolution": {
-      "get": {
-        "operationId": "polymarketResolution",
-        "summary": "Did a market resolve, which outcome won, resolution source ($0.01)",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Market topic or slug; omit for newest resolved"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/polymarket-arb": {
-      "get": {
-        "operationId": "polymarketArb",
-        "summary": "Arb scan: YES+NO ask pairs under $1.00 across top-volume markets ($0.01)",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "1-25 events, default 10"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/email-check": {
-      "get": {
-        "operationId": "emailCheck",
-        "summary": "Email deliverability: MX, SPF, DMARC with outreach verdict ($0.01)",
-        "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Domain or email address"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/fx-rates": {
-      "get": {
-        "operationId": "fxRates",
-        "summary": "ECB reference FX rates for any fiat pair ($0.01)",
-        "parameters": [
-          {
-            "name": "base",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Base currency code, e.g. USD"
-          },
-          {
-            "name": "symbols",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Target codes, e.g. GBP,EUR"
-          }
-        ],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    },
-    "/btc-fees": {
-      "get": {
-        "operationId": "btcFees",
-        "summary": "Bitcoin fee forecast: sat/vB recommendations ($0.01)",
-        "parameters": [],
-        "x-payment-info": {
-          "protocols": [
-            {
-              "x402": {}
-            }
-          ],
-          "price": {
-            "mode": "fixed",
-            "currency": "USD",
-            "amount": "0.01"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "JSON result"
-          },
-          "402": {
-            "description": "Payment Required"
-          }
-        }
-      }
-    }
+  "x-guidance": "Call GET /x402/catalogue first (free) for routes and prices. Paid routes return HTTP 402 with a PAYMENT-REQUIRED header; settle USDC on Base (first) or Solana, or pay with MPP (Authorization: ***) or Stripe cards on $1+ routes, then retry the same request. Slow jobs (roast, upgrade, classify, keywords) may answer 202 with a free /x402/jobs/:id poller. MCP streamable-HTTP at /x402/mcp exposes the catalogue and a free x402 Doctor (also reachable at /connect/mcp)."
+ },
+ "servers": [
+  {
+   "url": "https://agentx.sale"
   }
+ ],
+ "x-discovery": {
+  "ownershipProofs": [
+   "0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83"
+  ]
+ },
+ "paths": {
+  "/x402/weather": {
+   "get": {
+    "operationId": "weather",
+    "summary": "Live current weather for any city ($0.01)",
+    "parameters": [
+     {
+      "name": "city",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "maxLength": 120
+      },
+      "description": "City name (Open-Meteo geocoding)"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Current weather JSON",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "city": {
+           "type": "string"
+          },
+          "conditions": {
+           "type": "string"
+          },
+          "temperature_c": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "city",
+          "conditions",
+          "temperature_c"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/site-health": {
+   "get": {
+    "operationId": "siteHealth",
+    "summary": "DNS/TLS/HTTP health snapshot for a domain ($0.01)",
+    "parameters": [
+     {
+      "name": "host",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Bare domain, no path"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "DNS, TLS and reachability report",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "dns_ok": {
+           "type": "boolean"
+          },
+          "host": {
+           "type": "string"
+          },
+          "http_status": {
+           "type": "number"
+          },
+          "latency_ms": {
+           "type": "number"
+          },
+          "tls_valid": {
+           "type": "boolean"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "dns_ok",
+          "host",
+          "http_status",
+          "latency_ms",
+          "tls_valid"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/secscore": {
+   "get": {
+    "operationId": "secscore",
+    "summary": "Security Headers Check: CSP/HSTS/frame/cookies/TLS score 0\u201310 ($0.01)",
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "https URL of the site to score"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "score, grade, checks, topFixes",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "checks": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "detail": {
+              "type": "string"
+             },
+             "name": {
+              "type": "string"
+             },
+             "status": {
+              "type": "string"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "detail",
+             "name",
+             "status"
+            ]
+           }
+          },
+          "grade": {
+           "type": "string"
+          },
+          "score": {
+           "type": "number"
+          },
+          "topFixes": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "url": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "checks",
+          "grade",
+          "score",
+          "topFixes",
+          "url"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/seo-audit": {
+   "get": {
+    "operationId": "seoAudit",
+    "summary": "Rules-based SEO + agent-readiness audit ($0.10)",
+    "parameters": [
+     {
+      "name": "host",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Bare domain, no path"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.10"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Score, findings, agent readiness",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "findings": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "host": {
+           "type": "string"
+          },
+          "score": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "findings",
+          "host",
+          "score"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/agent-card": {
+   "get": {
+    "operationId": "agentCard",
+    "summary": "Site agent-readiness verdict card ($0.01)",
+    "parameters": [
+     {
+      "name": "host",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Bare domain, no path"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Grade, verdict, files, policies, findings",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "crawler_policy": {
+           "type": "boolean"
+          },
+          "grade": {
+           "type": "string"
+          },
+          "host": {
+           "type": "string"
+          },
+          "llms_txt": {
+           "type": "boolean"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "crawler_policy",
+          "grade",
+          "host",
+          "llms_txt"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/protocol-lint": {
+   "get": {
+    "operationId": "protocolLint",
+    "summary": "A2A/MCP protocol card lint with patched JSON fixes ($0.01)",
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Card URL or bare domain"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Per-file results, errors, warnings, patched cards",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "fixes": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "valid": {
+           "type": "boolean"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "fixes",
+          "valid"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/crawler-policy": {
+   "get": {
+    "operationId": "crawlerPolicy",
+    "summary": "TLS + security headers + AI-crawler policy matrix card ($0.01)",
+    "parameters": [
+     {
+      "name": "host",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Bare domain, no path"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "TLS state, security headers, AI-crawler policy",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "claudebot": {
+           "type": "string"
+          },
+          "gptbot": {
+           "type": "string"
+          },
+          "host": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "claudebot",
+          "gptbot",
+          "host"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/webmcp-check": {
+   "get": {
+    "operationId": "webmcpCheck",
+    "summary": "WebMCP agent-compatibility check ($0.10)",
+    "parameters": [
+     {
+      "name": "host",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Bare domain"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.10"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "WEBMCP READY / NOT WEBMCP READY, inventory, findings",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "host": {
+           "type": "string"
+          },
+          "tools": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "webmcp_ready": {
+           "type": "boolean"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "host",
+          "tools",
+          "webmcp_ready"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/kevcheck": {
+   "get": {
+    "operationId": "kevcheck",
+    "summary": "CISA KEV + NVD CVE check for software+version ($0.10)",
+    "parameters": [
+     {
+      "name": "software",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Vendor or product name"
+     },
+     {
+      "name": "version",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Software version x.y.z"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.10"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "KEV matches, known CVEs, verdict, kev.versionConfidence (high|uncertain)",
+      "content": {
+       "application/json": {
+        "example": {
+         "software": "nginx",
+         "version": "1.24.0",
+         "kev": {
+          "onList": false,
+          "versionConfidence": null,
+          "matches": []
+         },
+         "knownCves": [],
+         "fixedVersion": null,
+         "verdict": "NO KNOWN CVES",
+         "advice": [
+          "No KEV hits and no NVD keyword matches for this name."
+         ]
+        },
+        "schema": {
+         "type": "object",
+         "properties": {
+          "advice": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "fixedVersion": {
+           "type": "string",
+           "nullable": true
+          },
+          "kev": {
+           "type": "object",
+           "properties": {
+            "matches": {
+             "type": "array",
+             "items": {
+              "type": "string"
+             }
+            },
+            "onList": {
+             "type": "boolean"
+            },
+            "versionConfidence": {
+             "type": "string",
+             "nullable": true
+            }
+           },
+           "additionalProperties": true,
+           "required": [
+            "matches",
+            "onList"
+           ]
+          },
+          "knownCves": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "software": {
+           "type": "string"
+          },
+          "verdict": {
+           "type": "string"
+          },
+          "version": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "advice",
+          "kev",
+          "knownCves",
+          "software",
+          "verdict",
+          "version"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/webmcp-upgrade": {
+   "post": {
+    "operationId": "webmcpUpgrade",
+    "summary": "WebMCP upgrade order: generated webmcp.js ($4.00)",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "url"
+        ],
+        "properties": {
+         "url": {
+          "type": "string",
+          "description": "https URL of the site to upgrade"
+         }
+        }
+       }
+      }
+     }
+    },
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "4.00"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Generated webmcp.js plus publish instructions",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "artifactFilename": {
+           "type": "string"
+          },
+          "needs_human_craft": {
+           "type": "boolean"
+          },
+          "syntaxValidated": {
+           "type": "boolean"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "artifactFilename",
+          "needs_human_craft",
+          "syntaxValidated"
+         ]
+        }
+       }
+      }
+     },
+     "202": {
+      "description": "Payment captured; poll /jobs/:id"
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/classify": {
+   "post": {
+    "operationId": "classify",
+    "summary": "AI topic classification of supplied text ($1.75)",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "text"
+        ],
+        "properties": {
+         "text": {
+          "type": "string",
+          "description": "Text to classify"
+         },
+         "labels": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "multiLabel": {
+          "type": "boolean"
+         }
+        }
+       }
+      }
+     }
+    },
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "1.75"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Classification, confidence, rationale",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "confidence": {
+           "type": "number"
+          },
+          "labels": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "confidence",
+          "labels"
+         ]
+        }
+       }
+      }
+     },
+     "202": {
+      "description": "Payment captured; poll /jobs/:id"
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/keywords": {
+   "post": {
+    "operationId": "keywords",
+    "summary": "AI keyword extraction from supplied text ($0.90)",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "text"
+        ],
+        "properties": {
+         "text": {
+          "type": "string",
+          "description": "Text to extract keywords from"
+         },
+         "maxKeywords": {
+          "type": "integer"
+         }
+        }
+       }
+      }
+     }
+    },
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.90"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Keywords and scores",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "keywords": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "keywords"
+         ]
+        }
+       }
+      }
+     },
+     "202": {
+      "description": "Payment captured; poll /jobs/:id"
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/gtm-roast": {
+   "get": {
+    "operationId": "gtmRoastGet",
+    "summary": "New Landing Page Roast ($0.01)",
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "https URL of the landing page"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Score, verdict, 1-2 of the five legend roasts, shareable SVG card",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "cardSvg": {
+           "type": "string"
+          },
+          "personas": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "avatar": {
+              "type": "string"
+             },
+             "expression": {
+              "type": "string"
+             },
+             "id": {
+              "type": "string"
+             },
+             "label": {
+              "type": "string"
+             },
+             "roast": {
+              "type": "string"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "avatar",
+             "expression",
+             "id",
+             "label",
+             "roast"
+            ]
+           }
+          },
+          "score": {
+           "type": "number"
+          },
+          "url": {
+           "type": "string"
+          },
+          "verdict": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "cardSvg",
+          "personas",
+          "score",
+          "url",
+          "verdict"
+         ]
+        }
+       }
+      }
+     },
+     "202": {
+      "description": "Payment captured; poll /jobs/:id"
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   },
+   "post": {
+    "operationId": "gtmRoastPost",
+    "summary": "New Landing Page Roast ($0.01)",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "url"
+        ],
+        "properties": {
+         "url": {
+          "type": "string",
+          "description": "https URL of the landing page"
+         }
+        }
+       }
+      }
+     }
+    },
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Score, verdict, 1-2 of the five legend roasts, shareable SVG card",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "cardSvg": {
+           "type": "string"
+          },
+          "personas": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "avatar": {
+              "type": "string"
+             },
+             "expression": {
+              "type": "string"
+             },
+             "id": {
+              "type": "string"
+             },
+             "label": {
+              "type": "string"
+             },
+             "roast": {
+              "type": "string"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "avatar",
+             "expression",
+             "id",
+             "label",
+             "roast"
+            ]
+           }
+          },
+          "score": {
+           "type": "number"
+          },
+          "url": {
+           "type": "string"
+          },
+          "verdict": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "cardSvg",
+          "personas",
+          "score",
+          "url",
+          "verdict"
+         ]
+        }
+       }
+      }
+     },
+     "202": {
+      "description": "Payment captured; poll /jobs/:id"
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/catalogue": {
+   "get": {
+    "operationId": "catalogue",
+    "summary": "Free service catalogue with routes, prices and settlement details",
+    "security": [],
+    "responses": {
+     "200": {
+      "description": "Catalogue JSON",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/x402/health": {
+   "get": {
+    "operationId": "health",
+    "summary": "Free gateway health check",
+    "security": [],
+    "responses": {
+     "200": {
+      "description": "ok:true",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/x402/crypto-ticker": {
+   "get": {
+    "operationId": "cryptoTicker",
+    "summary": "Live USD price + 24h move for up to 10 tokens ($0.01)",
+    "parameters": [
+     {
+      "name": "assets",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Comma-separated symbols or coingecko ids, e.g. btc,eth"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "assets": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "asset": {
+              "type": "string"
+             },
+             "change24hPct": {
+              "type": "number"
+             },
+             "priceUsd": {
+              "type": "number"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "asset",
+             "change24hPct",
+             "priceUsd"
+            ]
+           }
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "assets"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/fear-greed": {
+   "get": {
+    "operationId": "fearGreed",
+    "summary": "Crypto Fear & Greed Index with 7d history ($0.01)",
+    "parameters": [],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "history7d": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "label": {
+           "type": "string"
+          },
+          "value": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "history7d",
+          "label",
+          "value"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/gas-check": {
+   "get": {
+    "operationId": "gasCheck",
+    "summary": "Live gas price on six chains with USD transfer cost ($0.01)",
+    "parameters": [
+     {
+      "name": "chain",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "base|ethereum|polygon|avalanche|arbitrum|optimism; default base"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "chain": {
+           "type": "string"
+          },
+          "gasPriceGwei": {
+           "type": "number"
+          },
+          "transferCostUsd": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "chain",
+          "gasPriceGwei",
+          "transferCostUsd"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/polymarket-trending": {
+   "get": {
+    "operationId": "polymarketTrending",
+    "summary": "Top open Polymarket markets by 24h volume with YES prices ($0.01)",
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer"
+      },
+      "description": "Number of events, 1-20, default 10"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "markets": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "event": {
+              "type": "string"
+             },
+             "yesPct": {
+              "type": "number"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "event",
+             "yesPct"
+            ]
+           }
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "markets"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/polymarket-odds": {
+   "get": {
+    "operationId": "polymarketOdds",
+    "summary": "Live YES/NO odds for a named Polymarket market ($0.01)",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Market topic or slug, e.g. fed decision"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "count": {
+           "type": "number"
+          },
+          "markets": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "question": {
+              "type": "string"
+             },
+             "yesPricePct": {
+              "type": "number"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "question",
+             "yesPricePct"
+            ]
+           }
+          },
+          "query": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "count",
+          "markets",
+          "query"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/polymarket-book": {
+   "get": {
+    "operationId": "polymarketBook",
+    "summary": "Polymarket order book: bid/ask, spread, USD depth for both outcomes ($0.01)",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Market topic or slug"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "book": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "bestAsk": {
+              "type": "number"
+             },
+             "bestBid": {
+              "type": "number"
+             },
+             "outcome": {
+              "type": "string"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "bestAsk",
+             "bestBid",
+             "outcome"
+            ]
+           }
+          },
+          "question": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "book",
+          "question"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/polymarket-history": {
+   "get": {
+    "operationId": "polymarketHistory",
+    "summary": "Polymarket YES-price series 1-90 days with change and high/low ($0.01)",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Market topic or slug"
+     },
+     {
+      "name": "days",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer"
+      },
+      "description": "1-90, default 7"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "changePct": {
+           "type": "number"
+          },
+          "question": {
+           "type": "string"
+          },
+          "series": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "price": {
+              "type": "number"
+             },
+             "t": {
+              "type": "number"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "price",
+             "t"
+            ]
+           }
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "changePct",
+          "question",
+          "series"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/polymarket-resolution": {
+   "get": {
+    "operationId": "polymarketResolution",
+    "summary": "Did a market resolve, which outcome won, resolution source ($0.01)",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Market topic or slug; omit for newest resolved"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "markets": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "outcome": {
+              "type": "string"
+             },
+             "question": {
+              "type": "string"
+             },
+             "resolved": {
+              "type": "boolean"
+             }
+            },
+            "additionalProperties": true,
+            "required": [
+             "outcome",
+             "question",
+             "resolved"
+            ]
+           }
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "markets"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/polymarket-arb": {
+   "get": {
+    "operationId": "polymarketArb",
+    "summary": "Arb scan: YES+NO ask pairs under $1.00 across top-volume markets ($0.01)",
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer"
+      },
+      "description": "1-25 events, default 10"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "markets": {
+           "type": "array",
+           "items": {
+            "type": "string"
+           }
+          },
+          "scanned": {
+           "type": "number"
+          },
+          "summary": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "markets",
+          "scanned",
+          "summary"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/email-check": {
+   "get": {
+    "operationId": "emailCheck",
+    "summary": "Email deliverability: MX, SPF, DMARC with outreach verdict ($0.01)",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Domain or email address"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "domain": {
+           "type": "string"
+          },
+          "mail": {
+           "type": "object",
+           "properties": {
+            "canReceive": {
+             "type": "boolean"
+            }
+           },
+           "additionalProperties": true,
+           "required": [
+            "canReceive"
+           ]
+          },
+          "outbound": {
+           "type": "object",
+           "properties": {
+            "dmarcPresent": {
+             "type": "boolean"
+            },
+            "spfPresent": {
+             "type": "boolean"
+            }
+           },
+           "additionalProperties": true,
+           "required": [
+            "dmarcPresent",
+            "spfPresent"
+           ]
+          },
+          "verdict": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "domain",
+          "mail",
+          "outbound",
+          "verdict"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/fx-rates": {
+   "get": {
+    "operationId": "fxRates",
+    "summary": "ECB reference FX rates for any fiat pair ($0.01)",
+    "parameters": [
+     {
+      "name": "base",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Base currency code, e.g. USD"
+     },
+     {
+      "name": "symbols",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Target codes, e.g. GBP,EUR"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "base": {
+           "type": "string"
+          },
+          "date": {
+           "type": "string"
+          },
+          "rates": {
+           "type": "object",
+           "properties": {
+            "EUR": {
+             "type": "number"
+            },
+            "GBP": {
+             "type": "number"
+            }
+           },
+           "additionalProperties": true,
+           "required": [
+            "EUR",
+            "GBP"
+           ]
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "base",
+          "date",
+          "rates"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/btc-fees": {
+   "get": {
+    "operationId": "btcFees",
+    "summary": "Bitcoin fee forecast: sat/vB recommendations ($0.01)",
+    "parameters": [],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "JSON result",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "satVb": {
+           "type": "object",
+           "properties": {
+            "economy": {
+             "type": "number"
+            },
+            "halfHour": {
+             "type": "number"
+            },
+            "nextBlock": {
+             "type": "number"
+            }
+           },
+           "additionalProperties": true,
+           "required": [
+            "economy",
+            "halfHour",
+            "nextBlock"
+           ]
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "satVb"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  },
+  "/x402/x402-check": {
+   "get": {
+    "operationId": "x402Check",
+    "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? ($0.01, v1+v2 aware)",
+    "parameters": [
+     {
+      "name": "url",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string"
+      },
+      "description": "https URL of the endpoint to spec-check"
+     }
+    ],
+    "x-payment-info": {
+     "protocols": [
+      {
+       "x402": {}
+      },
+      {
+       "mpp": {
+        "method": "evm",
+        "intent": "charge",
+        "currency": "USDC"
+       }
+      }
+     ],
+     "price": {
+      "mode": "fixed",
+      "currency": "USD",
+      "amount": "0.01"
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Verdict, grade, networks, USD prices, errors",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "grade": {
+           "type": "string"
+          },
+          "url": {
+           "type": "string"
+          },
+          "verdict": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": true,
+         "required": [
+          "grade",
+          "url",
+          "verdict"
+         ]
+        }
+       }
+      }
+     },
+     "402": {
+      "description": "Payment Required"
+     }
+    }
+   }
+  }
+ }
 }
