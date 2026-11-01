@@ -357,15 +357,38 @@
       margin-bottom: 1.6rem;
     }
     .rails-band strong { color: #1a1a1a; }
-    .promo-video {
-      width: 100%;
-      height: auto;
-      display: block;
+    .promo-video-wrap {
+      position: relative;
+      margin-bottom: 0.9rem;
       border-radius: 10px;
       border: 1px solid #dcdcd6;
       background: #000;
-      margin-bottom: 0.9rem;
+      overflow: hidden;
     }
+    .promo-video {
+      width: 100%;
+      max-height: 330px;
+      aspect-ratio: 1080 / 1080;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+    .promo-sound {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      border: none;
+      border-radius: 14px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.78rem;
+      font-family: inherit;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      cursor: pointer;
+      line-height: 1.2;
+    }
+    .promo-sound:hover { background: rgba(0, 0, 0, 0.85); }
     .connect-band {
       background: #f3f7ee;
       border: 1px solid #dce8d3;
@@ -483,10 +506,13 @@
         <p class="subtitle">Micro-services, some are FREE.</p>
       </div>
       <div class="prompt-card">
-        <video class="promo-video" autoplay muted loop playsinline preload="metadata"
-               width="1080" height="1080" aria-label="AgentX promo: agents pay per call">
-          <source src="assets/agentx_promo_v2_music.mp4" type="video/mp4">
-        </video>
+        <div class="promo-video-wrap">
+          <video class="promo-video" autoplay muted loop playsinline preload="metadata"
+                 width="1080" height="1080" aria-label="AgentX promo: agents pay per call">
+            <source src="assets/agentx_promo_v2_music.mp4" type="video/mp4">
+          </video>
+          <button type="button" class="promo-sound" id="promo-sound" aria-label="Turn video sound on">&#128263; Tap for sound</button>
+        </div>
         <h2>Send your agent to get services</h2>
         <div class="prompt-box">
           <p><span class="n">1.</span> <a target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a></p>
@@ -936,6 +962,16 @@
         }
       });
 
+    const promo = document.querySelector('video.promo-video');
+    const sound = document.getElementById('promo-sound');
+    if (promo && sound) {
+      sound.addEventListener('click', () => {
+        promo.muted = !promo.muted;
+        promo.play().catch(() => {});
+        sound.innerHTML = promo.muted ? '&#128263; Tap for sound' : '&#128266; Sound on';
+        sound.setAttribute('aria-label', promo.muted ? 'Turn video sound on' : 'Mute video');
+      });
+    }
       const cbtn = document.getElementById('copy-connect');
       if (cbtn) {
         cbtn.addEventListener('click', function () {
