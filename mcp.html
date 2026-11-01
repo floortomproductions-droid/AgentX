@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentX MCP — connect your AI assistant</title>
+  <meta name="description" content="One MCP address gives your AI assistant every AgentX service: 26 pay-per-call tools settled automatically in USDC, with a receipt for every call.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #fafaf8;
+      color: #1a1a1a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e0;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .header a { text-decoration: none; color: #1a1a1a; font-weight: 600; font-size: 1.2rem; }
+    .logo { display: flex; align-items: center; }
+    .logo img { display: block; height: 36px; width: auto; }
+    .nav { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .nav a { text-decoration: none; color: #666; font-size: 0.9rem; }
+    .nav a:hover { color: #000; }
+    .badge {
+      background: #00c853;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+    h1 {
+      font-size: clamp(1.85rem, 4vw, 2.6rem);
+      margin-bottom: 0.75rem;
+      max-width: 24ch;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .subtitle { color: #666; font-size: 1.1rem; max-width: 44ch; }
+    .connector-box {
+      background: #f3f7ee;
+      border: 1px solid #dce8d3;
+      border-radius: 10px;
+      padding: 1.25rem 1.3rem;
+      margin: 1.8rem 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+    }
+    .connect-url {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.9rem;
+      background: #fff;
+      border: 1px solid #dce8d3;
+      border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      color: #1a1a1a;
+      user-select: all;
+      flex: 1 1 auto;
+      min-width: 220px;
+      word-break: break-all;
+    }
+    .strip-btn {
+      background: #fff;
+      border: 1px solid #dcdcd6;
+      border-radius: 8px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .strip-btn:hover { border-color: #00c853; }
+    .strip-btn.copied { color: #00a344; border-color: #00a344; }
+    .tip-host { position: relative; }
+    .tip-host::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.78rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 7px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 80;
+    }
+    .tip-host:hover::after, .tip-host:focus::after { opacity: 1; }
+    @media (max-width: 480px) {
+      .tip-host::after { left: 0; transform: none; white-space: normal; max-width: 72vw; }
+    }
+    .steps { margin: 0 0 2rem; padding: 0; list-style: none; }
+    .steps li {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      padding: 0.85rem 0;
+      border-top: 1px solid #ece9e2;
+    }
+    .steps li:last-child { border-bottom: 1px solid #ece9e2; }
+    .step-num {
+      flex: 0 0 auto;
+      width: 1.7rem; height: 1.7rem;
+      border-radius: 50%;
+      background: #e7f4fb;
+      color: #1a1a1a;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 0.1rem;
+    }
+    .steps h3 { font-size: 0.98rem; font-weight: 600; letter-spacing: -0.01em; }
+    .steps p { font-size: 0.9rem; color: #555; }
+    .steps code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82rem;
+      background: #fff;
+      border: 1px solid #e5e5e0;
+      border-radius: 6px;
+      padding: 0.05rem 0.35rem;
+    }
+    .band {
+      background: #eef8ef;
+      border: 1px solid #d8ecd9;
+      border-radius: 10px;
+      padding: 1.25rem 1.3rem;
+      margin: 0 0 2rem;
+    }
+    .band h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.7rem; letter-spacing: -0.02em; }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.6rem;
+    }
+    .tool-card {
+      background: #fff;
+      border: 1px solid #d7eadb;
+      border-radius: 9px;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.85rem;
+    }
+    .tool-card strong { display: block; font-size: 0.86rem; font-weight: 600; }
+    .tool-card span { display: block; margin-top: 0.1rem; color: #666; font-size: 0.75rem; }
+    .pay-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.9rem; }
+    .pay-chip {
+      background: #fff;
+      border: 1px solid #d8ecd9;
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.8rem;
+      color: #333;
+    }
+    .trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 0 0 2.2rem;
+    }
+    .trust span {
+      background: #fff;
+      border: 1px solid #e5e5e0;
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    .footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #999;
+      font-size: 0.85rem;
+      border-top: 1px solid #e5e5e0;
+    }
+    .footer a { color: #666; text-decoration: none; }
+    .footer a:hover { color: #000; }
+    .footer-links { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    @media (max-width: 640px) {
+      .header { padding: 1rem; }
+      .logo img { height: 28px; }
+      .container { padding: 1.8rem 1rem; }
+      h1 { font-size: 1.75rem; }
+      .connector-box { margin: 1.4rem 0 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a class="logo" href="/">
+      <img src="assets/agentx-wordmark.png" alt="AgentX">
+    </a>
+    <div class="nav">
+      <a href="/">Home</a>
+      <span class="badge">LIVE</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>One address. Every AgentX service for your assistant.</h1>
+    <p class="subtitle">Add our MCP connector to Claude, Cursor, Codex or any MCP-capable agent, and 26 pay-per-call services arrive ready to use &mdash; each call settled on-chain with a receipt.</p>
+
+    <div class="connector-box">
+      <code class="connect-url tip-host" id="connect-url" data-tip="Paste this address into your agent's MCP settings.">https://agentx.sale/connect/mcp</code>
+      <button type="button" class="strip-btn tip-host" id="copy-connect" data-tip="Click &amp; paste into your agent's MCP settings.">Copy address</button>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <div>
+          <h3>Give your assistant the address</h3>
+          <p>Paste <code>https://agentx.sale/connect/mcp</code> into your agent's MCP settings, or simply ask it: &ldquo;set up the AgentX MCP connector at this address.&rdquo;</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div>
+          <h3>Your agent funds itself</h3>
+          <p>The agent holds a USDC balance (Base or Solana). When a call starts, it settles the price on-chain and the answer comes back in the same request.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div>
+          <h3>Every call returns a receipt</h3>
+          <p>A live Payment-Receipt travels back with each settled result &mdash; the same flow whether the call is a $0.01 weather check or a full SEO audit.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="band">
+      <h2>What your assistant can call</h2>
+      <div class="tool-grid">
+        <div class="tool-card"><strong>Weather &amp; FX rates</strong><span>current data on tap, $0.01</span></div>
+        <div class="tool-card"><strong>Site Health</strong><span>DNS, TLS, latency snapshot, $0.01</span></div>
+        <div class="tool-card"><strong>Security Headers Check</strong><span>scored 0&ndash;10 with fixes, $0.01</span></div>
+        <div class="tool-card"><strong>x402 Doctor</strong><span>grades any agent-payable resource, free</span></div>
+        <div class="tool-card"><strong>CISA KEV / NVD Check</strong><span>exploited-CVE verdict, $0.10</span></div>
+        <div class="tool-card"><strong>SEO Audit</strong><span>score, findings, agent-readiness, $0.10</span></div>
+        <div class="tool-card"><strong>WebMCP Check</strong><span>machine-surface grading, $0.10</span></div>
+        <div class="tool-card"><strong>Landing Page Roast</strong><span>a verdict with teeth, $0.02</span></div>
+        <div class="tool-card"><strong>Polymarket data</strong><span>markets, odds, arbitrage, $0.01</span></div>
+        <div class="tool-card"><strong>Email DNS Check</strong><span>MX, SPF, DMARC validity, $0.01</span></div>
+      </div>
+      <p style="margin:0.7rem 0 0;font-size:0.82rem;color:#666;">Plus AI classify, keywords, WebMCP upgrade and the full crypto toolkit &mdash; 26 services in total, all listed on the main <a href="/" style="color:inherit;">AgentX page</a>.</p>
+    </div>
+
+    <div class="trust">
+      <span>Settled in USDC on Base &amp; Solana</span>
+      <span>MPP accepted</span>
+      <span>Stripe cards on $1 calls</span>
+      <span>Listed in the official MCP Registry</span>
+      <span>Ownership-verified connector</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2026 NemoAI Ltd.</p>
+    <div class="footer-links">
+      <a href="/">Services</a>
+      <a href="https://agentx.sale/x402/mcp">Full catalogue (API)</a>
+      <a href="https://agentx.sale/skill.md">skill.md</a>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('copy-connect');
+    const url = document.getElementById('connect-url');
+    btn.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(url.textContent.trim()); }
+      catch { document.execCommand('copy'); }
+      btn.classList.add('copied');
+      btn.textContent = 'Copied';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = 'Copy address'; }, 1600);
+    });
+  </script>
+</body>
+</html>
