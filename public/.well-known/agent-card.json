@@ -1,7 +1,7 @@
 {
   "protocolVersion": "0.3.0",
   "name": "AgentX Micro-Services",
-  "description": "Thirty-two pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
+  "description": "Twenty-six pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
   "version": "0.7.15",
   "provider": {
@@ -441,6 +441,36 @@
       "outputModes": [
         "application/json"
       ]
+    },
+    {
+      "id": "youtube-search",
+      "name": "YouTube Search",
+      "description": "Keyless YouTube search with video or channel filter, $0.01"
+    },
+    {
+      "id": "youtube-video",
+      "name": "YouTube Video Metadata",
+      "description": "Title, channel, views, length, description for any video URL or id, $0.01"
+    },
+    {
+      "id": "youtube-channel",
+      "name": "YouTube Channel",
+      "description": "15 latest videos of a channel with views and likes, $0.01"
+    },
+    {
+      "id": "youtube-transcript",
+      "name": "YouTube Transcript",
+      "description": "Full transcript segments and plainText for any video, $0.02"
+    },
+    {
+      "id": "ats-jobs",
+      "name": "ATS Job Listings",
+      "description": "Open jobs from a Greenhouse or Lever board with filters, $0.01"
+    },
+    {
+      "id": "ats-job",
+      "name": "ATS Job Detail",
+      "description": "Full job description by id or hosted URL, $0.01"
     }
   ],
   "payments": {
