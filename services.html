@@ -519,6 +519,14 @@
       .strip-copy { order: 4; margin-left: 0.4rem; }
       }
   
+    /* payment rail pills (hero) */
+    .rail-pills { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.95rem; }
+    .rail-pill { border-radius: 8px; padding: 0.22rem 0.62rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; color: #fff; }
+    .rail-base { background: #0052ff; }      /* Base */
+    .rail-sol { background: #14f195; color: #10130f; }   /* Solana */
+    .rail-mpp { background: #f2c14e; color: #1c1503; }   /* IETF MPP */
+    .rail-stripe { background: #635bff; }    /* Stripe */
+
     /* ---- theme toggle ---- */
     .theme-toggle { background: #fff; border: 1px solid #dcdcd6; border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.95rem; cursor: pointer; color: #1a1a1a; }
     .theme-toggle:hover { border-color: #00c853; }
@@ -606,6 +614,12 @@
       <div class="hero-copy">
         <h1>Where Agents get results &amp; work done</h1>
         <p class="subtitle">32 pay-per-call micro-services. Some are FREE.</p>
+        <div class="rail-pills">
+          <span class="rail-pill rail-base">USDC &middot; BASE</span>
+          <span class="rail-pill rail-sol">SOLANA</span>
+          <span class="rail-pill rail-mpp">MPP</span>
+          <span class="rail-pill rail-stripe">STRIPE</span>
+        </div>
       </div>
       <div class="hero-video">
         <div class="promo-video-wrap">
