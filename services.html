@@ -519,9 +519,45 @@
       .strip-copy { order: 4; margin-left: 0.4rem; }
       }
   
-    /* zebra rows (Steve pick v2): neutral cool-grey/white alternation */
-    .strip-row:nth-of-type(odd) { background: #f4f6f8; }
-    .strip-row:nth-of-type(even) { background: #ffffff; }
+    /* ---- theme toggle ---- */
+    .theme-toggle { background: #fff; border: 1px solid #dcdcd6; border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.95rem; cursor: pointer; color: #1a1a1a; }
+    .theme-toggle:hover { border-color: #00c853; }
+
+    /* ---- dark theme (toggle adds html.dark) ---- */
+    html.dark body { background: #101317; color: #d8dbdf; }
+    html.dark .header { background: #15181d; border-bottom-color: #23272e; }
+    html.dark .header a { color: #d8dbdf; }
+    html.dark .theme-toggle { background: #20252d; border-color: #333a44; color: #d8dbdf; }
+    html.dark .hero { background: #131a20; }
+    html.dark h1 { color: #eceeef; }
+    html.dark .subtitle { color: #9aa1a9; }
+    html.dark .listings { background: #0f1512; }
+    html.dark .service-section h2 { color: #c9cdd2; }
+    html.dark .strip-row { border-color: #262b33; }
+    html.dark .strip-row:nth-of-type(odd) { background: #191d24; }
+    html.dark .strip-row:nth-of-type(even) { background: #14181f; }
+    html.dark .strip-main strong { color: #e8eaec; }
+    html.dark .strip-main span { color: #9aa1a9; }
+    html.dark .strip-price { color: #2fd36a; }
+    html.dark .strip-btn { background: #20252d; border-color: #333a44; color: #d8dbdf; }
+    html.dark .strip-btn.copied { color: #2fd36a; border-color: #2fd36a; }
+    html.dark .copy-hint { color: #8b9098; }
+    html.dark .strip-row.premier { background: #17291b; border-color: #2e5d3d; }
+    html.dark .strip-row.premier strong { color: #7ee2a0; }
+    html.dark .metric-card { background: #171b22; border-color: #262b33; }
+    html.dark .metric-card .metric-value { color: #e8eaec; }
+    html.dark .metric-card .metric-label, html.dark .stats-note { color: #8b9098; }
+    html.dark .connect-band { background: #0f1a14; border-color: #243327; }
+    html.dark .getstarted { background: #0f1512; border-top-color: #243327; }
+    html.dark .getstarted h2 { color: #c9cdd2; }
+    html.dark .gs-links { color: #8b9098; }
+    html.dark .gs-links a { color: #3ecf71; }
+    html.dark .rails-band { background: #0f1610; border-color: #243327; color: #d8dbdf; }
+    html.dark .rails-band strong { color: #e8eaec; }
+    html.dark .footer { color: #8b9098; border-top-color: #262b33; }
+    html.dark .footer a { color: #9aa1a9; }
+    html.dark .error { color: #ff6b6b; }
+    html.dark .logo img { filter: brightness(0) invert(1); }
 
     @keyframes premier-pulse { 0%,100% { box-shadow: 0 0 0 rgba(6,120,45,0); border-color: #7fdca0; }
       50% { box-shadow: 0 0 16px 5px rgba(9,156,57,0.65), 0 0 30px 6px rgba(9,156,57,0.25); border-color: #0a8f3c; } }
@@ -549,6 +585,7 @@
     .gs-links .sep { color: #b9d8bf; margin: 0 0.45rem; }
 
   </style>
+  <script>(function(){try{var s=localStorage.getItem('agentx-theme');var d=s?s==='dark':(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})();</script>
 </head>
 <body>
   <span id="strip-icon" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
@@ -557,6 +594,7 @@
       <img src="assets/agentx-wordmark.png" alt="AgentX">
     </a>
     <div class="nav">
+      <button type="button" id="theme-toggle" class="theme-toggle tip-host" data-tip="Light / dark" aria-label="Toggle light and dark theme">&#9789;</button>
       <a href="/">Home</a>
       <span class="badge">LIVE</span>
     </div>
@@ -1020,6 +1058,23 @@
     }
 
     loadServices();
+
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const saved = localStorage.getItem('agentx-theme');
+      function apply(dark) {
+        root.classList.toggle('dark', dark);
+        btn.textContent = dark ? '\u2600' : '\u263D';
+        if (btn.classList.contains('tip-host')) btn.setAttribute('data-tip', dark ? 'Switch to light' : 'Switch to dark');
+      }
+      apply(saved ? saved === 'dark' : !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches));
+      btn.addEventListener('click', function () {
+        const dark = !root.classList.contains('dark');
+        localStorage.setItem('agentx-theme', dark ? 'dark' : 'light');
+        apply(dark);
+      });
+    })();
 
     (function () {
       const btn = document.getElementById('copy-prompt');
