@@ -518,6 +518,21 @@
       .strip-btn { order: 3; }
       .strip-copy { order: 4; margin-left: 0.4rem; }
       }
+  
+    @keyframes premier-pulse { 0%,100% { box-shadow: inset 3px 0 0 #00c853, 0 0 0 rgba(0,200,83,0); }
+      50% { box-shadow: inset 3px 0 0 #00c853, 0 0 9px 2px rgba(0,200,83,0.32); } }
+    .strip-row.premier { border-color: #a7e2b6; animation: premier-pulse 2.4s ease-in-out infinite; position: relative; z-index: 1; margin-top: 2px; }
+    .popular-chip { color: #00a344; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; border: 1px solid #7fdc9c; border-radius: 999px; padding: 0.08rem 0.5rem; margin-left: 0.5rem; background: #eefbf0; vertical-align: middle; }
+    .promo-video { max-height: 190px; }
+    .hero { padding: 1.1rem 0; }
+    .getstarted { background: #eef8ef; border-top: 1px solid #d8ecd9; padding: 1.4rem 0; }
+    .getstarted .gs-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.4rem; }
+    .getstarted h2 { font-size: 1rem; margin: 0 0 0.6rem; }
+    .gs-links { color: #555; font-size: 0.85rem; }
+    .gs-links a { color: #2b8a3e; text-decoration: none; }
+    .gs-links a:hover { text-decoration: underline; }
+    .gs-links .sep { color: #b9d8bf; margin: 0 0.45rem; }
+
   </style>
 </head>
 <body>
@@ -550,56 +565,7 @@
     </div>
   </div>
 
-  <div class="listings">
-    <div class="container" style="padding-top:0;padding-bottom:0;">
-      <div class="trust-row">
-      <div class="prompt-card">
-        <h2>Send your agent to get services</h2>
-        <div class="prompt-box">
-          <p><span class="n">1.</span> <a target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a></p>
-          <p><span class="n">2.</span> <button type="button" id="copy-prompt" class="tip-host" data-tip="Click &amp; paste into agent chat">Copy prompt</button> <span class="hint">Paste it into your agent chat.</span></p>
-        </div>
-      </div>
-            <a class="identity-line" target="_blank" rel="noopener" href="https://8004scan.io/agents/base/1135219">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
-        <span>On-chain identity: <strong>ERC-8004 agent #1135219</strong> on Base &mdash; verified listing</span>
-      </a>
-      </div>
-
-      <h2 style="margin-top:0.35rem;">Where agents find us</h2>
-      <div class="listing-grid">
-        <a class="listing-card" target="_blank" rel="noopener" href="https://agentic.market/services/agentx-sale">
-          <strong>Bazaar</strong>
-          <span>Agentic.Market</span>
-        </a>
-        <a class="listing-card" target="_blank" rel="noopener" href="https://registry.modelcontextprotocol.io/?q=agentx-x402-gateway">
-          <strong>MCP Registry</strong>
-          <span>Official directory</span>
-        </a>
-        <a class="listing-card" target="_blank" rel="noopener" href="https://glama.ai/mcp/connectors/io.github.floortomproductions-droid/agentx-x402-gateway">
-          <strong>Glama</strong>
-          <span>MCP connector</span>
-        </a>
-        <a class="listing-card" target="_blank" rel="noopener" href="https://www.x402scan.com/server/94335b1f-2002-48bd-805e-07de542baecb">
-          <strong>x402scan</strong>
-          <span>Paid endpoints</span>
-        </a>
-        <a class="listing-card" target="_blank" rel="noopener" href="https://agentx.sale/x402/catalogue">
-          <strong>Catalogue</strong>
-          <span>Machine list</span>
-        </a>
-        <a class="listing-card" target="_blank" rel="noopener" href="https://agentx.sale/mcp.html">
-          <strong>MCP</strong>
-          <span>Free Doctor</span>
-        </a>
-        <a class="listing-card" target="_blank" rel="noopener" href="https://agentx.sale/mcp.html">
-          <strong>Paid MCP</strong>
-          <span>All 32 services</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
+  
 
   <div class="container">
     <div class="metric-cards">
@@ -609,17 +575,24 @@
       <div class="metric-card" data-metric="sellers"><div class="metric-value">13,144</div><div class="metric-label">sellers</div><svg data-series="sellers" viewBox="0 0 100 30" preserveAspectRatio="none"></svg></div>
     </div>
     <span class="stats-note" style="display:none;">Daily activity, network-wide, last 30 days &mdash; x402scan, 30 Oct 2026</span>
-        <div class="connect-band" id="connect-band">
-      <div class="connect-copy">
-        <h2>Connect your AI assistant</h2>
-        <div class="connect-row">
-          <code class="connect-url tip-host" id="connect-url" data-tip="Ask your agent to set up our MCP connector.">https://agentx.sale/connect/mcp</code>
-          <button type="button" class="strip-btn tip-host" id="copy-connect" data-tip="Ask your agent to set up our MCP connector.">Copy address</button>
-        </div>
-      </div>
-    </div>
-    <div id="services">
+<div id="services">
       <div class="loading">Loading services...</div>
+    </div>
+  </div>
+
+  
+  <div class="getstarted">
+    <div class="container">
+      <h2>Send your agent to get services</h2>
+      <div class="gs-row">
+        <button type="button" id="copy-prompt" class="strip-btn tip-host" data-tip="Click &amp; paste into agent chat">Copy getting-started prompt</button>
+        <a class="gs-links" target="_blank" rel="noopener" href="https://docs.cdp.coinbase.com/agentic-wallet/welcome">Get a Coinbase Agentic Wallet</a>
+        <span class="gs-links">Your agent pays per call &mdash; receipts land on-chain.</span>
+        <a class="gs-links tip-host" data-tip="ERC-8004 agent #1135219 on Base, verified" target="_blank" rel="noopener" href="https://8004scan.io/agents/base/1135219">Verified on-chain &#9989;</a>
+      </div>
+      <div class="gs-row gs-links" style="margin-top:0.5rem;">
+        <span>Listed in: <a href="https://agentic.market/services/agentx-sale" target="_blank" rel="noopener">Bazaar</a><span class="sep">·</span><a href="https://registry.modelcontextprotocol.io/?q=agentx-x402-gateway" target="_blank" rel="noopener">MCP Registry</a><span class="sep">·</span><a href="https://glama.ai/mcp/connectors/io.github.floortomproductions-droid/agentx-x402-gateway" target="_blank" rel="noopener">Glama</a><span class="sep">·</span><a href="https://www.x402scan.com/server/94335b1f-2002-48bd-805e-07de542baecb" target="_blank" rel="noopener">x402scan</a><span class="sep">·</span><a href="https://agentx.sale/x402/catalogue" target="_blank" rel="noopener">Catalogue</a><span class="sep">·</span><a href="https://agentx.sale/mcp.html" target="_blank" rel="noopener">MCP</a></span>
+      </div>
     </div>
   </div>
 
@@ -754,7 +727,8 @@
       'youtube-transcript': {
         name: 'YouTube Transcript',
         outcome: 'The full transcript of any video, timestamped, with ready plainText',
-        chips: ['Video']
+        chips: ['Video'],
+        popular: true
       },
       'ats-jobs': {
         name: 'Job Listings',
@@ -933,10 +907,10 @@
       const outcome = meta.outcome || s.desc || '';
       const methods = (s.methods || ['GET']).join('/');
       return (
-        '<div class="strip-row">' +
+        '<div class="strip-row' + (meta.popular ? ' premier' : '') + '">' +
           '<span class="strip-icon">' + ICON + '</span>' +
           '<span class="strip-main">' +
-            '<strong>' + escapeHtml(name) + (meta.free ? ' <span class="strip-free">FREE</span>' : '') + '</strong>' +
+            '<strong>' + escapeHtml(name) + (meta.free ? ' <span class="strip-free">FREE</span>' : '') + (meta.popular ? ' <span class="popular-chip">Most Popular</span>' : '') + '</strong>' +
             '<span>' + escapeHtml(outcome) + '</span>' +
             '<small class="' + (String(methods).indexOf('POST') > -1 ? 'post' : '') + '">' + escapeHtml(methods) + '</small>' +
           '</span>' +
