@@ -32,8 +32,13 @@
       line-height: 1.6;
     }
     .header {
-      background: #fff;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid #e5e5e0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -533,7 +538,7 @@
 
     /* ---- dark theme (toggle adds html.dark) ---- */
     html.dark body { background: #101317; color: #d8dbdf; }
-    html.dark .header { background: #15181d; border-bottom-color: #23272e; }
+    html.dark .header { background: rgba(17,20,25,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: #23272e; }
     html.dark .header a { color: #d8dbdf; }
     html.dark .theme-toggle { background: #20252d; border-color: #333a44; color: #d8dbdf; }
     html.dark .hero { background: #131a20; }
