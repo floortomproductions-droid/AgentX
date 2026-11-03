@@ -519,12 +519,9 @@
       .strip-copy { order: 4; margin-left: 0.4rem; }
       }
   
-    /* per-strip colour cycle (Steve pick): pastels rotate down the list */
-    .strip-row:nth-of-type(5n+1) { background: #eaf3fc; }  /* pale blue */
-    .strip-row:nth-of-type(5n+2) { background: #f0f8ef; }  /* mint */
-    .strip-row:nth-of-type(5n+3) { background: #fdf3ec; }  /* peach */
-    .strip-row:nth-of-type(5n+4) { background: #f3effb; }  /* lavender */
-    .strip-row:nth-of-type(5n+5) { background: #f5f5f8; }  /* pale grey */
+    /* zebra rows (Steve pick v2): neutral cool-grey/white alternation */
+    .strip-row:nth-of-type(odd) { background: #f4f6f8; }
+    .strip-row:nth-of-type(even) { background: #ffffff; }
 
     @keyframes premier-pulse { 0%,100% { box-shadow: 0 0 0 rgba(0,200,83,0); }
       50% { box-shadow: 0 0 10px 2px rgba(0,200,83,0.35); } }
