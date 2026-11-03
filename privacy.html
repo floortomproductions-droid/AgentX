@@ -82,14 +82,46 @@
       .container { padding: 2rem 1rem; }
       h1 { font-size: 1.75rem; }
     }
+
+    /* ---- theme toggle ---- */
+    .theme-toggle { background: #fff; border: 1px solid #dcdcd6; border-radius: 999px; padding: 0.15rem 0.55rem; font-size: 0.95rem; cursor: pointer; color: #1a1a1a; }
+    .theme-toggle:hover { border-color: #00c853; }
+
+    /* ---- sticky glass header ---- */
+    .header { background: rgba(255,255,255,0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); position: sticky; top: 0; z-index: 1000; }
+
+    /* ---- dark theme (html.dark) ---- */
+    html.dark body { background: #101317; color: #d8dbdf; }
+    html.dark .header { background: rgba(17,20,25,0.45); border-bottom-color: #23272e; }
+    html.dark .header a { color: #d8dbdf; }
+    html.dark .nav a { color: #9aa1a9; }
+    html.dark .nav a:hover { color: #eceeef; }
+    html.dark .theme-toggle { background: #20252d; border-color: #333a44; color: #d8dbdf; }
+    html.dark h1, html.dark h2, html.dark h3 { color: #eceeef; }
+    html.dark p { color: #d8dbdf; }
+    html.dark .subtitle { color: #9aa1a9; }
+    html.dark .footer { color: #8b9098; border-top-color: #262b33; }
+    html.dark .footer a { color: #9aa1a9; }
+    html.dark .footer a:hover { color: #eceeef; }
+
+    html.dark .hero { background: #131a20; }
+    html.dark .hero p, html.dark .hero-meta { color: #9aa1a9; }
+    html.dark .prose { color: #c9cdd2; }
+    html.dark .prose a { color: #3ecf71; }
+    html.dark .prose strong, html.dark .prose li { color: #d8dbdf; }
+    html.dark .prose h2, html.dark .prose h3 { color: #eceeef; }
+    html.dark .prose blockquote { color: #9aa1a9; }
+
   </style>
+<script>(function(){try{var s=localStorage.getItem('agentx-theme');var d=s?s!=='light':true;if(d)document.documentElement.classList.add('dark');}catch(e){}})();</script>
 </head>
 <body>
   <div class="header">
     <a class="logo" href="/">
-      <img src="assets/agentx-wordmark.png" alt="AgentX">
+      <img id="logo-img" src="assets/agentx-wordmark-dark.png" alt="AgentX">
     </a>
     <div class="nav">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark theme">&#9789;</button>
       <a href="/">Home</a>
       <span class="badge">LIVE</span>
     </div>
@@ -168,5 +200,25 @@
       <a href="/privacy.html">Privacy Policy</a>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const logo = document.getElementById('logo-img');
+      const saved = localStorage.getItem('agentx-theme');
+      function apply(dark) {
+        root.classList.toggle('dark', dark);
+        btn.textContent = dark ? '\u2600' : '\u263D';
+        if (logo) logo.src = dark ? 'assets/agentx-wordmark-dark.png' : 'assets/agentx-wordmark.png';
+      }
+      apply(saved ? saved !== 'light' : true);
+      btn.addEventListener('click', function () {
+        const dark = !root.classList.contains('dark');
+        localStorage.setItem('agentx-theme', dark ? 'dark' : 'light');
+        apply(dark);
+      });
+    })();
+  </script>
 </body>
 </html>
