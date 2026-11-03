@@ -519,10 +519,14 @@
       .strip-copy { order: 4; margin-left: 0.4rem; }
       }
   
-    @keyframes premier-pulse { 0%,100% { box-shadow: inset 3px 0 0 #00c853, 0 0 0 rgba(0,200,83,0); }
-      50% { box-shadow: inset 3px 0 0 #00c853, 0 0 9px 2px rgba(0,200,83,0.32); } }
-    .strip-row.premier { border-color: #a7e2b6; animation: premier-pulse 2.4s ease-in-out infinite; position: relative; z-index: 1; margin-top: 2px; }
-    .popular-chip { color: #00a344; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; border: 1px solid #7fdc9c; border-radius: 999px; padding: 0.08rem 0.5rem; margin-left: 0.5rem; background: #eefbf0; vertical-align: middle; }
+    @keyframes premier-pulse { 0%,100% { box-shadow: 0 0 0 rgba(0,200,83,0); }
+      50% { box-shadow: 0 0 10px 2px rgba(0,200,83,0.35); } }
+    .strip-row.premier { background: #d8f1dd; border-color: #8fd9a5; animation: premier-pulse 2.4s ease-in-out infinite; position: relative; z-index: 1; margin-top: 2px; border-top-width: 1px; border-radius: 8px; }
+    .strip-row.premier:first-child { margin-top: -1px; }
+    .strip-row.premier .strip-name { color: #0a5c22; }
+    @keyframes chip-pulse { 0%,100% { box-shadow: 0 0 0 rgba(227,169,46,0.25); transform: scale(1); }
+      50% { box-shadow: 0 0 9px 2px rgba(227,169,46,0.5); transform: scale(1.05); } }
+    .popular-chip { color: #111; background: #f2c14e; border: 1px solid #e0a92e; border-radius: 999px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.35; padding: 0.02rem 0.5rem; margin-left: 0.5rem; white-space: nowrap; display: inline-block; animation: chip-pulse 2.4s ease-in-out infinite; transform-origin: left center; }
     .promo-video { max-height: 190px; }
     .hero { padding: 1.1rem 0; }
     .getstarted { background: #eef8ef; border-top: 1px solid #d8ecd9; padding: 1.4rem 0; }
