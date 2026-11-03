@@ -530,6 +530,10 @@
     .hero-video { width: min(440px, 46%); max-width: 440px; }
     .promo-video-wrap { width: 100%; }
     .promo-video { max-height: 440px; }
+    @media (max-width: 720px) {
+      .hero-video { width: 100%; max-width: 380px; margin: 0 auto; }
+      .promo-video { max-height: 380px; }
+    }
     .hero { padding: 1.1rem 0; }
     .hero-row { align-items: center; }
     .getstarted { background: #eef8ef; border-top: 1px solid #d8ecd9; padding: 1.4rem 0; }
@@ -563,7 +567,7 @@
       <div class="hero-video">
         <div class="promo-video-wrap">
           <video class="promo-video" autoplay muted loop playsinline preload="metadata"
-                 width="1080" height="1080" aria-label="AgentX promo: agents pay per call">
+                 width="1080" aria-label="AgentX promo: agents pay per call">
             <source src="assets/agentx_promo_v2_music.mp4" type="video/mp4">
           </video>
           <button type="button" class="promo-sound" id="promo-sound" aria-label="Turn video sound on">&#128263; Tap for sound</button>
