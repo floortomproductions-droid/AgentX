@@ -3,7 +3,7 @@
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
     "version": "0.7.15",
-    "description": "Pay-per-call agent services at https://agentx.sale — x402 (USDC Base+Solana), IETF MPP, Stripe on $1+ routes. 33 catalogue entries (32 distinct services)."
+    "description": "Pay-per-call agent services at https://agentx.sale — x402 (USDC Base+Solana), IETF MPP, Stripe on $1+ routes. 35 catalogue entries (32 distinct services)."
   },
   "servers": [
     {
@@ -779,6 +779,92 @@
               "type": "string"
             },
             "example": "<n>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Service result"
+          },
+          "400": {
+            "description": "Bad input"
+          },
+          "402": {
+            "description": "Payment required (x402 challenge)"
+          }
+        }
+      }
+    },
+    "/x402/podcast-lookup": {
+      "get": {
+        "summary": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio u…",
+        "description": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio urls, hasTranscript flags) from any RSS feed or Apple Podcasts id — $0 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "parameters": [
+          {
+            "name": "feed",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "<rss-url-or-apple-id>"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "<n>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Service result"
+          },
+          "400": {
+            "description": "Bad input"
+          },
+          "402": {
+            "description": "Payment required (x402 challenge)"
+          }
+        }
+      }
+    },
+    "/x402/podcast-transcript": {
+      "get": {
+        "summary": "Full transcript of a podcast episode with published transcript tags (deterministic, key…",
+        "description": "Full transcript of a podcast episode with published transcript tags (deterministic, keyless; check hasTranscript on podcast-lookup) — $0.02 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "parameters": [
+          {
+            "name": "feed",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "<rss-url-or-apple-id>"
+          },
+          {
+            "name": "index",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "<n>"
+          },
+          {
+            "name": "episode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "<guid-or-title>"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "<text|vtt|json>"
           }
         ],
         "responses": {

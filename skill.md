@@ -1,11 +1,11 @@
 ---
 name: agentx-microservices
-description: Use when an agent needs web/site/crypto/Polymarket/email/FX data as a one-off paid call — agentx.sale sells 32 pay-per-call x402 micro-services (USDC on Base). Load for any "get me <data> now" task without API keys.
+description: Use when an agent needs web/site/crypto/Polymarket/email/FX data as a one-off paid call — agentx.sale sells 35 pay-per-call x402 micro-services (USDC on Base). Load for any "get me <data> now" task without API keys.
 ---
 
 # agentx.sale micro-services (x402 pay-per-call)
 
-Every call: HTTP GET or POST to the route -> 402 challenge -> sign a USDC transferWithAuthorization -> retry with X-PAYMENT -> JSON result in the same request. No signup, no API key. Prices $0.01 - $4.
+Every call: HTTP GET or POST to the route -> 402 challenge -> sign a USDC transferWithAuthorization -> retry with X-PAYMENT -> JSON result in the same request. No signup, no API key. Prices $0 - $4.
 
 ## Quick examples
 
@@ -43,6 +43,8 @@ curl https://agentx.sale/x402/catalogue       # free: every endpoint + price
 - GET https://agentx.sale/x402/youtube-channel?id=<channel-url-or-@handle-or-UCid>: Latest 15 videos for a YouTube channel with titles, dates, view and like counts (official feed, keyless) ($0.01)
 - GET https://agentx.sale/x402/youtube-transcript?url=<video-url>&lang=<code>: Full transcript of any YouTube video with timestamps and plainText: manual or auto captions, 21+ languages, en default ($0.02)
 - GET https://agentx.sale/x402/ats-jobs?platform=<greenhouse|lever>&company=<slug>&query=<text>&limit=<n>: Company job listings from Greenhouse or Lever: titles, locations, departments, salary ranges (lever), with query/location/department filters ($0.01)
+- GET https://agentx.sale/x402/podcast-lookup?feed=<rss-url-or-apple-id>&limit=<n>: FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio urls, hasTranscript flags) from any RSS feed or Apple Podcasts id ($0)
+- GET https://agentx.sale/x402/podcast-transcript?feed=<rss-url-or-apple-id>&index=<n>&episode=<guid-or-title>&format=<text|vtt|json>: Full transcript of a podcast episode with published transcript tags (deterministic, keyless; check hasTranscript on podcast-lookup) ($0.02)
 - GET https://agentx.sale/x402/ats-job?platform=<greenhouse|lever>&company=<slug>&id=<job-id>: Full job detail from Greenhouse or Lever by id or hosted job URL: title, location, employment and the complete description ($0.01)
 - POST https://agentx.sale/x402/webmcp-upgrade: WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-validated) delivered inline or via free job poller ($4)
 - POST https://agentx.sale/x402/classify: AI topic classification of supplied text: free-form or caller label set, confidence + rationale ($1.75)
