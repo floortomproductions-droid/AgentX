@@ -33,6 +33,8 @@
     "https://agentx.sale/x402/classify",
     "https://agentx.sale/x402/keywords",
     "https://agentx.sale/x402/gtm-roast?url=<https-url>",
-    "https://agentx.sale/x402/gtm-roast"
+    "https://agentx.sale/x402/gtm-roast",
+    "https://agentx.sale/x402/podcast-lookup?feed=<rss-or-apple-id>&limit=<n>",
+    "https://agentx.sale/x402/podcast-transcript?feed=<rss-or-apple-id>&index=<n>&format=<text|vtt|json>"
   ]
 }
