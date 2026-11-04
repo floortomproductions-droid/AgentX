@@ -34,6 +34,8 @@ All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): 
 - [YouTube Search](https://agentx.sale/x402/youtube-search?q=x402&limit=10): keyless YouTube search, video or channel filter ($0.01)
 - [YouTube Video](https://agentx.sale/x402/youtube-video?url=https://youtu.be/dQw4w9WgXcQ): title, channel, views, length and description for any video URL or id ($0.01)
 - [YouTube Channel](https://agentx.sale/x402/youtube-channel?id=@veritasium): 15 latest videos of a channel with views and likes ($0.01)
+- [Podcast Lookup](https://agentx.sale/x402/podcast-lookup?feed=https://feeds.transistor.fm/acquired): FREE show metadata + episode list (titles, dates, durations, hasTranscript flags) from any RSS feed or Apple Podcasts id
+- [Podcast Transcript](https://agentx.sale/x402/podcast-transcript?feed=https://feeds.transistor.fm/acquired&index=1): full transcript for episodes with published podcasting 2.0 transcript tags ($0.02)
 - [YouTube Transcript](https://agentx.sale/x402/youtube-transcript?url=https://youtu.be/dQw4w9WgXcQ): full transcript segments and plainText ($0.02)
 - [ATS Job Listings](https://agentx.sale/x402/ats-jobs?platform=greenhouse&company=coinbase): open jobs from Greenhouse or Lever boards with query/location/department filters ($0.01)
 - [ATS Job Detail](https://agentx.sale/x402/ats-job?platform=greenhouse&company=coinbase&id=8175363): full job description by id or hosted URL ($0.01)

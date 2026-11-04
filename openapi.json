@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
-    "version": "0.7.15",
+    "version": "0.7.16",
     "description": "Pay-per-call agent services at https://agentx.sale — x402 (USDC Base+Solana), IETF MPP, Stripe on $1+ routes. 35 catalogue entries (32 distinct services)."
   },
   "servers": [

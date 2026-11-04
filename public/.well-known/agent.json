@@ -3,7 +3,7 @@
   "name": "AgentX Micro-Services",
   "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, YouTube (search, video metadata, channels, full transcripts), ATS job listings and job details, podcast discovery (free) + podcast transcripts, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
-  "version": "0.7.15",
+  "version": "0.7.16",
   "provider": {
     "organization": "NEMO AI Solutions",
     "url": "https://nemoai.uk"
@@ -58,7 +58,7 @@
     {
       "id": "secscore",
       "name": "Security Headers Check",
-      "description": "Score a URL's security headers and TLS (CSP, HSTS, framing, cookies) 0\u201310 with top fixes. GET https://agentx.sale/x402/secscore?url=<https-url> ($0.01)",
+      "description": "Score a URL's security headers and TLS (CSP, HSTS, framing, cookies) 0–10 with top fixes. GET https://agentx.sale/x402/secscore?url=<https-url> ($0.01)",
       "tags": [
         "security",
         "headers",
@@ -234,7 +234,7 @@
     {
       "id": "gtm-roast",
       "name": "New Landing Page Roast",
-      "description": "Any 1-2 of five cartoon legends roast the page's biggest flaw \u2014 score, verdict, shareable SVG card. GET https://agentx.sale/x402/gtm-roast?url=<url> or POST {url} ($0.01)",
+      "description": "Any 1-2 of five cartoon legends roast the page's biggest flaw — score, verdict, shareable SVG card. GET https://agentx.sale/x402/gtm-roast?url=<url> or POST {url} ($0.01)",
       "tags": [
         "gtm",
         "roast",
@@ -317,7 +317,7 @@
     {
       "id": "polymarket-odds",
       "name": "Polymarket Odds",
-      "description": "Live YES/NO prices for any named Polymarket market \u2014 search by topic. GET https://agentx.sale/x402/polymarket-odds?q=<topic> ($0.01)",
+      "description": "Live YES/NO prices for any named Polymarket market — search by topic. GET https://agentx.sale/x402/polymarket-odds?q=<topic> ($0.01)",
       "tags": [
         "polymarket",
         "prediction-markets",
@@ -440,6 +440,27 @@
       ],
       "outputModes": [
         "application/json"
+      ]
+    },
+    {
+      "id": "podcast-lookup",
+      "name": "Podcast Lookup (free)",
+      "description": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio urls, hasTranscript flags) from any RSS feed or Apple Podcasts id. GET https://agentx.sale/x402/podcast-lookup?feed=<rss-or-apple-id>&limit=<n> (free)",
+      "tags": [
+        "podcast",
+        "rss",
+        "episodes",
+        "discovery"
+      ]
+    },
+    {
+      "id": "podcast-transcript",
+      "name": "Podcast Transcript",
+      "description": "Full transcript of a podcast episode with published transcript tags (Podcasting 2.0, deterministic, keyless). GET https://agentx.sale/x402/podcast-transcript?feed=<rss-or-apple-id>&index=<n>&episode=<guid-or-title> ($0.02)",
+      "tags": [
+        "podcast",
+        "transcript",
+        "podcasting2.0"
       ]
     }
   ],
