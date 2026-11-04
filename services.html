@@ -581,6 +581,14 @@
     @keyframes chip-pulse { 0%,100% { box-shadow: 0 0 0 rgba(227,169,46,0.25); transform: scale(1); }
       50% { box-shadow: 0 0 9px 2px rgba(227,169,46,0.5); transform: scale(1.05); } }
     .strip-row.premier .popular-chip { color: #111; background: #f2c14e; border: 1px solid #e0a92e; border-radius: 999px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.35; padding: 0.02rem 0.5rem; margin-left: 0.5rem; white-space: nowrap; display: inline-block; animation: chip-pulse 2.4s ease-in-out infinite; transform-origin: left center; position: relative; z-index: 1; }
+    @keyframes new-pulse { 0%,100% { box-shadow: 0 0 0 rgba(38,100,235,0); border-color: #8fb0f5; }
+      50% { box-shadow: 0 0 16px 5px rgba(38,100,235,0.6), 0 0 30px 6px rgba(38,100,235,0.22); border-color: #2664eb; } }
+    .strip-row.new { background: #e4ecfd; border-color: #9db9f2; animation: new-pulse 2.4s ease-in-out infinite; position: relative; z-index: 1; margin-top: 2px; border-top-width: 1px; border-radius: 8px; }
+    .strip-row.new:first-child { margin-top: -1px; }
+    .strip-row.new strong { color: #123b8f; }
+    html.dark .strip-row.new { background: #10182b; border-color: #2b4b8f; }
+    html.dark .strip-row.new strong { color: #9db9f2; }
+    .strip-row.new .new-chip { color: #1c1503; background: #f2c14e; border: 1px solid #e0a92e; border-radius: 999px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.05em; line-height: 1.35; padding: 0.02rem 0.5rem; margin-left: 0.5rem; white-space: nowrap; display: inline-block; animation: chip-pulse 2.4s ease-in-out infinite; transform-origin: left center; position: relative; z-index: 1; }
     .hero-video { width: min(440px, 46%); max-width: 440px; }
     .promo-video-wrap { width: 100%; }
     .promo-video { max-height: 440px; }
@@ -813,6 +821,18 @@
         outcome: 'The full text of one job listing, ready to read',
         chips: ['Jobs']
       },
+      'podcast-lookup': {
+        name: 'Podcast Lookup',
+        outcome: "Free discovery of any podcast: show details, episode list, hasTranscript flags",
+        chips: ['Podcast'],
+        new: true
+      },
+      'podcast-transcript': {
+        name: 'Podcast Transcript',
+        outcome: 'The full transcript of episodes with published transcript tags, deterministic',
+        chips: ['Podcast'],
+        new: true
+      },
       'polymarket-trending': {
         name: 'Polymarket Trending',
         outcome: 'What’s trending on Polymarket right now',
@@ -981,10 +1001,10 @@
       const outcome = meta.outcome || s.desc || '';
       const methods = (s.methods || ['GET']).join('/');
       return (
-        '<div class="strip-row' + (meta.popular ? ' premier' : '') + '">' +
+        '<div class="strip-row' + (meta.popular ? ' premier' : '') + (meta.new ? ' new' : '') + '">' +
           '<span class="strip-icon">' + ICON + '</span>' +
           '<span class="strip-main">' +
-            '<strong>' + escapeHtml(name) + (meta.free ? ' <span class="strip-free">FREE</span>' : '') + (meta.popular ? ' <span class="popular-chip">Most Popular</span>' : '') + '</strong>' +
+            '<strong>' + escapeHtml(name) + (meta.free ? ' <span class="strip-free">FREE</span>' : '') + (meta.popular ? ' <span class="popular-chip">Most Popular</span>' : '') + (meta.new ? ' <span class="new-chip">New</span>' : '') + '</strong>' +
             '<span>' + escapeHtml(outcome) + '</span>' +
             '<small class="' + (String(methods).indexOf('POST') > -1 ? 'post' : '') + '">' + escapeHtml(methods) + '</small>' +
           '</span>' +
