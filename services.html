@@ -523,6 +523,18 @@
       .strip-btn { order: 3; }
       .strip-copy { order: 4; margin-left: 0.4rem; }
       }
+    @media (max-width: 480px) {
+      /* compact iPhone service strips (Steve, 5 Nov): line1 title+badge, line2 description, bottom line GET+price+copy */
+      .strip-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; column-gap: .45rem; row-gap: .22rem; padding: .4rem .6rem; }
+      .strip-icon { display: none; }
+      .strip-main { display: contents; }
+      .strip-main strong { grid-column: 1 / -1; grid-row: 1; font-size: .8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .strip-main > span { grid-column: 1 / -1; grid-row: 2; font-size: .7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .strip-main small { grid-column: 1; grid-row: 3; font-size: .62rem; }
+      .strip-price { grid-column: 2; grid-row: 3; justify-self: end; font-size: .74rem; }
+      .strip-copy { grid-column: 3; grid-row: 3; justify-self: end; font-size: .68rem; padding: .22rem .42rem; }
+      html.dark .strip-main strong { color: #e8eaec; }
+    }
   
     /* payment rail pills (hero) */
     .rail-pills { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.95rem; }
