@@ -522,7 +522,20 @@
       .strip-price { order: 2; margin-left: auto; }
       .strip-btn { order: 3; }
       .strip-copy { order: 4; margin-left: 0.4rem; }
-      }
+    }
+    @media (max-width: 480px) {
+      /* compact two-line service strips (Steve, 5 Nov: cards too tall on iPhone) */
+      .strip-row { padding: 0.42rem 0.6rem; gap: 0.4rem; }
+      .strip-icon { display: none; }
+      .strip-main { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.4rem; min-width: 0; flex: 1 1 auto; }
+      .strip-main strong { order: 1; font-size: 0.82rem; }
+      .strip-main strong .strip-free, .strip-main strong .popular-chip, .strip-main strong .new-chip { font-size: 0.6rem; padding: 0 0.35rem; }
+      .strip-main small { order: 2; font-size: 0.62rem; }
+      .strip-price { order: 3; margin-left: auto; font-size: 0.78rem; }
+      .strip-main > span { order: 5; flex: 1 1 100%; display: block; font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #777; }
+      html.dark .strip-main > span { color: #9aa0a8; }
+      .strip-copy { order: 4; margin-left: 0.4rem; font-size: 0.72rem; padding: 0.26rem 0.5rem; }
+    }
   
     /* payment rail pills (hero) */
     .rail-pills { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.95rem; }
