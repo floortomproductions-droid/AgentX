@@ -3,18 +3,29 @@
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
     "version": "0.7.16",
-    "description": "Pay-per-call agent services at https://agentx.sale — x402 (USDC Base+Solana), IETF MPP, Stripe on $1+ routes. 35 catalogue entries (32 distinct services)."
+    "description": "Pay-per-call agent services at agentx.sale \u2014 x402 (USDC Base+Solana), IETF MPP, Stripe on $1+ routes. 35 catalogue entries (32 distinct services).",
+    "x-guidance": "Pay-per-call agent services: one HTTP 402 challenge per call, settle with x402 USDC (Base first, Solana accepted) or MPP for $1+ routes. Free discovery: https://agentx.sale/x402/catalogue (JSON price list). Free MCP: https://agentx.sale/x402/mcp (catalogue + x402 Doctor). Paid routes accept GET with query params or POST with JSON \u2014 the exact field names are in each operation's parameters below. After paying, the same request returns the result plus a Payment-Receipt.",
+    "contact": {
+      "email": "steve@nemoai.uk",
+      "name": "NEMO AI Solutions",
+      "url": "https://nemoai.uk"
+    }
   },
   "servers": [
     {
       "url": "https://agentx.sale"
     }
   ],
+  "x-discovery": {
+    "ownershipProofs": [
+      "eip155:8453:0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83"
+    ]
+  },
   "paths": {
     "/x402/weather": {
       "get": {
         "summary": "Live current weather for any city",
-        "description": "Live current weather for any city — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Live current weather for any city \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "city",
@@ -25,6 +36,25 @@
             "example": "<city>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -41,7 +71,7 @@
     "/x402/site-health": {
       "get": {
         "summary": "DNS, TLS certificate, HTTP status + latency snapshot",
-        "description": "DNS, TLS certificate, HTTP status + latency snapshot — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "DNS, TLS certificate, HTTP status + latency snapshot \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "host",
@@ -52,6 +82,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -67,8 +116,8 @@
     },
     "/x402/secscore": {
       "get": {
-        "summary": "Security Headers Check: CSP, HSTS, framing, cookies, TLS — score 0–10 plus top fixes",
-        "description": "Security Headers Check: CSP, HSTS, framing, cookies, TLS — score 0–10 plus top fixes — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Security Headers Check: CSP, HSTS, framing, cookies, TLS \u2014 score 0\u201310 plus top fixes",
+        "description": "Security Headers Check: CSP, HSTS, framing, cookies, TLS \u2014 score 0\u201310 plus top fixes \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "url",
@@ -79,6 +128,25 @@
             "example": "<https-url>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -94,8 +162,8 @@
     },
     "/x402/x402-check": {
       "get": {
-        "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? (v1+v2 spec check, grade, ve…",
-        "description": "x402 Doctor: is a URL a valid agent-payable paid resource? (v1+v2 spec check, grade, verdict) — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "x402 Doctor: is a URL a valid agent-payable paid resource? (v1+v2 spec check, grade, ve\u2026",
+        "description": "x402 Doctor: is a URL a valid agent-payable paid resource? (v1+v2 spec check, grade, verdict) \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "url",
@@ -106,6 +174,25 @@
             "example": "<https-url>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -122,7 +209,7 @@
     "/x402/seo-audit": {
       "get": {
         "summary": "Rules-based SEO + agent-readiness audit with score and findings",
-        "description": "Rules-based SEO + agent-readiness audit with score and findings — $0.1 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Rules-based SEO + agent-readiness audit with score and findings \u2014 $0.1 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "host",
@@ -133,6 +220,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.100000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -148,8 +254,8 @@
     },
     "/x402/agent-card": {
       "get": {
-        "summary": "Site Agent-Readiness Verdict Card: discovery files, TLS, headers, AI-crawler policy, sh…",
-        "description": "Site Agent-Readiness Verdict Card: discovery files, TLS, headers, AI-crawler policy, shareable card — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Site Agent-Readiness Verdict Card: discovery files, TLS, headers, AI-crawler policy, sh\u2026",
+        "description": "Site Agent-Readiness Verdict Card: discovery files, TLS, headers, AI-crawler policy, shareable card \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "host",
@@ -160,6 +266,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -176,7 +301,7 @@
     "/x402/protocol-lint": {
       "get": {
         "summary": "A2A / MCP protocol card lint with drop-in patched JSON fixes",
-        "description": "A2A / MCP protocol card lint with drop-in patched JSON fixes — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "A2A / MCP protocol card lint with drop-in patched JSON fixes \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "url",
@@ -187,6 +312,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -203,7 +347,7 @@
     "/x402/crawler-policy": {
       "get": {
         "summary": "TLS + security headers + AI-crawler policy matrix card",
-        "description": "TLS + security headers + AI-crawler policy matrix card — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "TLS + security headers + AI-crawler policy matrix card \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "host",
@@ -214,6 +358,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -230,7 +393,7 @@
     "/x402/webmcp-check": {
       "get": {
         "summary": "WebMCP agent-compatibility check with pass/fail verdict, inventory and findings",
-        "description": "WebMCP agent-compatibility check with pass/fail verdict, inventory and findings — $0.1 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "WebMCP agent-compatibility check with pass/fail verdict, inventory and findings \u2014 $0.1 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "host",
@@ -241,6 +404,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.100000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -256,8 +438,8 @@
     },
     "/x402/kevcheck": {
       "get": {
-        "summary": "CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Outpu…",
-        "description": "CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Output includes kev.versionConfidence (high|uncertain) and may downgrade ACTIVELY EXPLOITED to POSSIBLE MATCH — verify affected versions — $0.1 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Outpu\u2026",
+        "description": "CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Output includes kev.versionConfidence (high|uncertain) and may downgrade ACTIVELY EXPLOITED to POSSIBLE MATCH \u2014 verify affected versions \u2014 $0.1 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "software",
@@ -276,6 +458,25 @@
             "example": "<x.y.z>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.100000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -292,7 +493,7 @@
     "/x402/crypto-ticker": {
       "get": {
         "summary": "Live USD price + 24h move for up to 10 tokens (e.g. btc,eth)",
-        "description": "Live USD price + 24h move for up to 10 tokens (e.g. btc,eth) — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Live USD price + 24h move for up to 10 tokens (e.g. btc,eth) \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "assets",
@@ -303,6 +504,25 @@
             "example": "<symbols>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -319,8 +539,27 @@
     "/x402/fear-greed": {
       "get": {
         "summary": "Crypto Fear & Greed Index with the last 7 days of history",
-        "description": "Crypto Fear & Greed Index with the last 7 days of history — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Crypto Fear & Greed Index with the last 7 days of history \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -337,7 +576,7 @@
     "/x402/gas-check": {
       "get": {
         "summary": "Live gas price on six chains with USD cost of a token transfer",
-        "description": "Live gas price on six chains with USD cost of a token transfer — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Live gas price on six chains with USD cost of a token transfer \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "chain",
@@ -348,6 +587,25 @@
             "example": "<base|ethereum|...>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -364,7 +622,7 @@
     "/x402/polymarket-trending": {
       "get": {
         "summary": "Top open Polymarket prediction markets by 24h volume with live YES prices",
-        "description": "Top open Polymarket prediction markets by 24h volume with live YES prices — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Top open Polymarket prediction markets by 24h volume with live YES prices \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "limit",
@@ -375,6 +633,25 @@
             "example": "<n>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -391,7 +668,7 @@
     "/x402/polymarket-odds": {
       "get": {
         "summary": "Live YES/NO odds for any named Polymarket market",
-        "description": "Live YES/NO odds for any named Polymarket market — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Live YES/NO odds for any named Polymarket market \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "q",
@@ -402,6 +679,25 @@
             "example": "<topic>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -418,7 +714,7 @@
     "/x402/polymarket-book": {
       "get": {
         "summary": "Polymarket order book: bid/ask, spread and USD depth for both outcomes",
-        "description": "Polymarket order book: bid/ask, spread and USD depth for both outcomes — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Polymarket order book: bid/ask, spread and USD depth for both outcomes \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "q",
@@ -429,6 +725,25 @@
             "example": "<topic>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -445,7 +760,7 @@
     "/x402/polymarket-history": {
       "get": {
         "summary": "Polymarket YES-price series (1-90 days) with change and high/low",
-        "description": "Polymarket YES-price series (1-90 days) with change and high/low — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Polymarket YES-price series (1-90 days) with change and high/low \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "q",
@@ -464,6 +779,25 @@
             "example": "<n>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -480,7 +814,7 @@
     "/x402/polymarket-resolution": {
       "get": {
         "summary": "Did a Polymarket market resolve, which outcome won, resolution source",
-        "description": "Did a Polymarket market resolve, which outcome won, resolution source — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Did a Polymarket market resolve, which outcome won, resolution source \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "q",
@@ -491,6 +825,25 @@
             "example": "<topic>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -507,7 +860,7 @@
     "/x402/polymarket-arb": {
       "get": {
         "summary": "Arb scan: flags markets where YES+NO asks sum under $1.00",
-        "description": "Arb scan: flags markets where YES+NO asks sum under $1.00 — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Arb scan: flags markets where YES+NO asks sum under $1.00 \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "limit",
@@ -518,6 +871,25 @@
             "example": "<n>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -534,7 +906,7 @@
     "/x402/email-check": {
       "get": {
         "summary": "Email deliverability: MX, SPF, DMARC for a domain, with outreach verdict",
-        "description": "Email deliverability: MX, SPF, DMARC for a domain, with outreach verdict — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Email deliverability: MX, SPF, DMARC for a domain, with outreach verdict \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "q",
@@ -545,6 +917,25 @@
             "example": "<domain>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -561,7 +952,7 @@
     "/x402/fx-rates": {
       "get": {
         "summary": "ECB reference FX rates for any fiat pair",
-        "description": "ECB reference FX rates for any fiat pair — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "ECB reference FX rates for any fiat pair \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "base",
@@ -580,6 +971,25 @@
             "example": "<cc,cc>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -596,8 +1006,27 @@
     "/x402/btc-fees": {
       "get": {
         "summary": "Bitcoin fee forecast: sat/vB for next block, 30 min, 1 hour, economy",
-        "description": "Bitcoin fee forecast: sat/vB for next block, 30 min, 1 hour, economy — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Bitcoin fee forecast: sat/vB for next block, 30 min, 1 hour, economy \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -613,8 +1042,8 @@
     },
     "/x402/youtube-search": {
       "get": {
-        "summary": "YouTube search: up to 20 results with title, channel, views, publish age and thumbnails…",
-        "description": "YouTube search: up to 20 results with title, channel, views, publish age and thumbnails. filter=channel returns channels with subscriber counts — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "YouTube search: up to 20 results with title, channel, views, publish age and thumbnails\u2026",
+        "description": "YouTube search: up to 20 results with title, channel, views, publish age and thumbnails. filter=channel returns channels with subscriber counts \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "q",
@@ -641,6 +1070,25 @@
             "example": "<video|channel>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -656,8 +1104,8 @@
     },
     "/x402/youtube-video": {
       "get": {
-        "summary": "YouTube video metadata: title, channel, view count, length, description and thumbnail f…",
-        "description": "YouTube video metadata: title, channel, view count, length, description and thumbnail for any video — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "YouTube video metadata: title, channel, view count, length, description and thumbnail f\u2026",
+        "description": "YouTube video metadata: title, channel, view count, length, description and thumbnail for any video \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "url",
@@ -668,6 +1116,25 @@
             "example": "<video-url-or-id>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -683,8 +1150,8 @@
     },
     "/x402/youtube-channel": {
       "get": {
-        "summary": "Latest 15 videos for a YouTube channel with titles, dates, view and like counts (offici…",
-        "description": "Latest 15 videos for a YouTube channel with titles, dates, view and like counts (official feed, keyless) — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Latest 15 videos for a YouTube channel with titles, dates, view and like counts (offici\u2026",
+        "description": "Latest 15 videos for a YouTube channel with titles, dates, view and like counts (official feed, keyless) \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "id",
@@ -695,6 +1162,25 @@
             "example": "<channel-url-or-@handle-or-UCid>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -710,8 +1196,8 @@
     },
     "/x402/youtube-transcript": {
       "get": {
-        "summary": "Full transcript of any YouTube video with timestamps and plainText: manual or auto capt…",
-        "description": "Full transcript of any YouTube video with timestamps and plainText: manual or auto captions, 21+ languages, en default — $0.02 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Full transcript of any YouTube video with timestamps and plainText: manual or auto capt\u2026",
+        "description": "Full transcript of any YouTube video with timestamps and plainText: manual or auto captions, 21+ languages, en default \u2014 $0.02 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "url",
@@ -730,6 +1216,25 @@
             "example": "<code>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.020000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -745,8 +1250,8 @@
     },
     "/x402/ats-jobs": {
       "get": {
-        "summary": "Company job listings from Greenhouse or Lever: titles, locations, departments, salary r…",
-        "description": "Company job listings from Greenhouse or Lever: titles, locations, departments, salary ranges (lever), with query/location/department filters — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Company job listings from Greenhouse or Lever: titles, locations, departments, salary r\u2026",
+        "description": "Company job listings from Greenhouse or Lever: titles, locations, departments, salary ranges (lever), with query/location/department filters \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "platform",
@@ -781,6 +1286,25 @@
             "example": "<n>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -796,8 +1320,8 @@
     },
     "/x402/podcast-lookup": {
       "get": {
-        "summary": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio u…",
-        "description": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio urls, hasTranscript flags) from any RSS feed or Apple Podcasts id — $0 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio u\u2026",
+        "description": "FREE podcast discovery: show metadata + episode list (titles, dates, durations, audio urls, hasTranscript flags) from any RSS feed or Apple Podcasts id \u2014 $0 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "feed",
@@ -816,6 +1340,25 @@
             "example": "<n>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.000000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -831,8 +1374,8 @@
     },
     "/x402/podcast-transcript": {
       "get": {
-        "summary": "Full transcript of a podcast episode with published transcript tags (deterministic, key…",
-        "description": "Full transcript of a podcast episode with published transcript tags (deterministic, keyless; check hasTranscript on podcast-lookup) — $0.02 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Full transcript of a podcast episode with published transcript tags (deterministic, key\u2026",
+        "description": "Full transcript of a podcast episode with published transcript tags (deterministic, keyless; check hasTranscript on podcast-lookup) \u2014 $0.02 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "feed",
@@ -867,6 +1410,25 @@
             "example": "<text|vtt|json>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.020000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -882,8 +1444,8 @@
     },
     "/x402/ats-job": {
       "get": {
-        "summary": "Full job detail from Greenhouse or Lever by id or hosted job URL: title, location, empl…",
-        "description": "Full job detail from Greenhouse or Lever by id or hosted job URL: title, location, employment and the complete description — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Full job detail from Greenhouse or Lever by id or hosted job URL: title, location, empl\u2026",
+        "description": "Full job detail from Greenhouse or Lever by id or hosted job URL: title, location, employment and the complete description \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "platform",
@@ -910,6 +1472,25 @@
             "example": "<job-id>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -925,9 +1506,28 @@
     },
     "/x402/webmcp-upgrade": {
       "post": {
-        "summary": "WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-…",
-        "description": "WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-validated) delivered inline or via free job poller — $4 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-\u2026",
+        "description": "WebMCP upgrade order: fetch + journey analysis + generated webmcp.js tool file (syntax-validated) delivered inline or via free job poller \u2014 $4 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "4.000000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -943,9 +1543,28 @@
     },
     "/x402/classify": {
       "post": {
-        "summary": "AI topic classification of supplied text: free-form or caller label set, confidence + r…",
-        "description": "AI topic classification of supplied text: free-form or caller label set, confidence + rationale — $1.75 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "AI topic classification of supplied text: free-form or caller label set, confidence + r\u2026",
+        "description": "AI topic classification of supplied text: free-form or caller label set, confidence + rationale \u2014 $1.75 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "1.750000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -962,8 +1581,27 @@
     "/x402/keywords": {
       "post": {
         "summary": "AI keyword extraction: top salient keywords/phrases with scores, language detected",
-        "description": "AI keyword extraction: top salient keywords/phrases with scores, language detected — $0.9 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "AI keyword extraction: top salient keywords/phrases with scores, language detected \u2014 $0.9 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.900000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -979,8 +1617,8 @@
     },
     "/x402/gtm-roast": {
       "get": {
-        "summary": "Legends Roast: any 1-2 of five cartoon legends roast the page's biggest flaw, plus scor…",
-        "description": "Legends Roast: any 1-2 of five cartoon legends roast the page's biggest flaw, plus score and verdict — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "summary": "Legends Roast: any 1-2 of five cartoon legends roast the page's biggest flaw, plus scor\u2026",
+        "description": "Legends Roast: any 1-2 of five cartoon legends roast the page's biggest flaw, plus score and verdict \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [
           {
             "name": "url",
@@ -991,6 +1629,25 @@
             "example": "<https-url>"
           }
         ],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
@@ -1005,8 +1662,27 @@
       },
       "post": {
         "summary": "Same Legends Roast via POST JSON {url}",
-        "description": "Same Legends Roast via POST JSON {url} — $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
+        "description": "Same Legends Roast via POST JSON {url} \u2014 $0.01 per call, x402 (USDC on Base + Solana). Free catalogue: https://agentx.sale/x402/catalogue",
         "parameters": [],
+        "x-payment-info": {
+          "price": {
+            "mode": "fixed",
+            "currency": "USD",
+            "amount": "0.010000"
+          },
+          "protocols": [
+            {
+              "x402": {}
+            },
+            {
+              "mpp": {
+                "method": "evm",
+                "intent": "charge",
+                "currency": "USDC"
+              }
+            }
+          ]
+        },
         "responses": {
           "200": {
             "description": "Service result"
