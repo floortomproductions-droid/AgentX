@@ -3,7 +3,7 @@ const { getOrCreateAssociatedTokenAccount, createTransferCheckedInstruction } = 
 
 const USDC_MINT = new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
 const SENDER = new PublicKey('3LpYUqWjHYtbyzi4d1nTk3QmqUCryqXCeaiwjm4SuJeR');
-const RECIPIENT = new PublicKey('CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9');
+const RECIPIENT = new PublicKey('GiEwhMpHsqCq3G8pJTzLDyWHHwaS8XDLCZQNxKyUtJUX');
 const AMOUNT = 100000; // $0.10 USDC
 
 async function createTransaction() {

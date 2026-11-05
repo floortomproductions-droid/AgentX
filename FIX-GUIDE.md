@@ -58,7 +58,7 @@ const providerId = service.provider.agentx_id || `agentx:${service.provider.name
 ## Wallet Addresses (DO NOT CHANGE)
 
 ```
-Solana USDC: CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9
+Solana USDC: GiEwhMpHsqCq3G8pJTzLDyWHHwaS8XDLCZQNxKyUtJUX
 BTC:         bc1qxtav4h7cl7p6uk4l0j3cfhugd730pktl4e6v7w
 ETH/Base:    0xAaA8ABD423254AeBFb51014F863E9da9F123aEbC
 BNB:         0x7129ad7e761967b64a7e54c486a22884a774bfe8
@@ -103,7 +103,7 @@ curl -s 'http://localhost:3000/api/payment/quote?service_id=floortom-audio-maste
 curl -s 'http://localhost:3000/api/payment/quote?service_id=floortom-audio-master&chain_id=eip155:8453' | python3 -m json.tool
 
 # Verify response contains:
-# "recipient_address": "CL4gJQMCuBNLoRPdbEgwdRkyH6RLC2Eak6yombja4vD9" (for Solana)
+# "recipient_address": "GiEwhMpHsqCq3G8pJTzLDyWHHwaS8XDLCZQNxKyUtJUX" (for Solana)
 ```
 
 ## GitHub Repo
