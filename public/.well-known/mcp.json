@@ -4,7 +4,7 @@
   "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP); Stripe cards on $1+ routes. Free MCP catalogue and x402 Doctor at https://agentx.sale/x402/mcp.",
   "contact_email": "steve@nemoai.uk",
   "url": "https://agentx.sale",
-  "mcp_endpoint": "https://agentx.sale/x402/mcp",
+  "mcp_endpoint": "https://agentx.sale/connect/mcp",
   "protocol_version": "0.1",
   "payment_protocols": [
     "x402",

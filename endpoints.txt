@@ -1,15 +1,17 @@
 # agentx.sale — endpoints.txt
 # pipe-delimited: method | route | price_usd | url
-# generated: 2026-10-27T11:17:46.260Z
+# generated: 2026-11-06T19:28:24.172Z
 # free surfaces: /x402/catalogue, /x402/health, /x402/doctor (spec check)
 GET | https://agentx.sale/x402/weather?city=<city> | 0.01 | https://agentx.sale/x402/weather?city=<city>
 GET | https://agentx.sale/x402/site-health?host=<domain> | 0.01 | https://agentx.sale/x402/site-health?host=<domain>
+GET | https://agentx.sale/x402/secscore?url=<https-url> | 0.01 | https://agentx.sale/x402/secscore?url=<https-url>
 GET | https://agentx.sale/x402/x402-check?url=<https-url> | 0.01 | https://agentx.sale/x402/x402-check?url=<https-url>
 GET | https://agentx.sale/x402/seo-audit?host=<domain> | 0.1 | https://agentx.sale/x402/seo-audit?host=<domain>
 GET | https://agentx.sale/x402/agent-card?host=<domain> | 0.01 | https://agentx.sale/x402/agent-card?host=<domain>
 GET | https://agentx.sale/x402/protocol-lint?url=<domain> | 0.01 | https://agentx.sale/x402/protocol-lint?url=<domain>
 GET | https://agentx.sale/x402/crawler-policy?host=<domain> | 0.01 | https://agentx.sale/x402/crawler-policy?host=<domain>
 GET | https://agentx.sale/x402/webmcp-check?host=<domain> | 0.1 | https://agentx.sale/x402/webmcp-check?host=<domain>
+GET | https://agentx.sale/x402/kevcheck?software=<name>&version=<x.y.z> | 0.1 | https://agentx.sale/x402/kevcheck?software=<name>&version=<x.y.z>
 GET | https://agentx.sale/x402/crypto-ticker?assets=<symbols> | 0.01 | https://agentx.sale/x402/crypto-ticker?assets=<symbols>
 GET | https://agentx.sale/x402/fear-greed | 0.01 | https://agentx.sale/x402/fear-greed
 GET | https://agentx.sale/x402/gas-check?chain=<base|ethereum|...> | 0.01 | https://agentx.sale/x402/gas-check?chain=<base|ethereum|...>
@@ -22,6 +24,14 @@ GET | https://agentx.sale/x402/polymarket-arb?limit=<n> | 0.01 | https://agentx.
 GET | https://agentx.sale/x402/email-check?q=<domain> | 0.01 | https://agentx.sale/x402/email-check?q=<domain>
 GET | https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc> | 0.01 | https://agentx.sale/x402/fx-rates?base=<cc>&symbols=<cc,cc>
 GET | https://agentx.sale/x402/btc-fees | 0.01 | https://agentx.sale/x402/btc-fees
+GET | https://agentx.sale/x402/youtube-search?q=<query>&limit=<n>&filter=<video|channel> | 0.01 | https://agentx.sale/x402/youtube-search?q=<query>&limit=<n>&filter=<video|channel>
+GET | https://agentx.sale/x402/youtube-video?url=<video-url-or-id> | 0.01 | https://agentx.sale/x402/youtube-video?url=<video-url-or-id>
+GET | https://agentx.sale/x402/youtube-channel?id=<channel-url-or-@handle-or-UCid> | 0.01 | https://agentx.sale/x402/youtube-channel?id=<channel-url-or-@handle-or-UCid>
+GET | https://agentx.sale/x402/youtube-transcript?url=<video-url>&lang=<code> | 0.02 | https://agentx.sale/x402/youtube-transcript?url=<video-url>&lang=<code>
+GET | https://agentx.sale/x402/ats-jobs?platform=<greenhouse|lever>&company=<slug>&query=<text>&limit=<n> | 0.01 | https://agentx.sale/x402/ats-jobs?platform=<greenhouse|lever>&company=<slug>&query=<text>&limit=<n>
+GET | https://agentx.sale/x402/podcast-lookup?feed=<rss-url-or-apple-id>&limit=<n> | 0 | https://agentx.sale/x402/podcast-lookup?feed=<rss-url-or-apple-id>&limit=<n>
+GET | https://agentx.sale/x402/podcast-transcript?feed=<rss-url-or-apple-id>&index=<n>&episode=<guid-or-title>&format=<text|vtt|json> | 0.02 | https://agentx.sale/x402/podcast-transcript?feed=<rss-url-or-apple-id>&index=<n>&episode=<guid-or-title>&format=<text|vtt|json>
+GET | https://agentx.sale/x402/ats-job?platform=<greenhouse|lever>&company=<slug>&id=<job-id> | 0.01 | https://agentx.sale/x402/ats-job?platform=<greenhouse|lever>&company=<slug>&id=<job-id>
 POST | https://agentx.sale/x402/webmcp-upgrade | 4 | https://agentx.sale/x402/webmcp-upgrade
 POST | https://agentx.sale/x402/classify | 1.75 | https://agentx.sale/x402/classify
 POST | https://agentx.sale/x402/keywords | 0.9 | https://agentx.sale/x402/keywords
