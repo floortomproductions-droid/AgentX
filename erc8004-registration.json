@@ -2,7 +2,7 @@
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "NEMO x402 Micro-Services",
   "description": "Thirty-four pay-per-call agent micro-services settled in x402 USDC on Base at agentx.sale: weather, website and agent-readiness checks (health, security headers, agent card, protocol lint), crypto ticker / gas / Fear&Greed, the full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, YouTube and podcast data, ATS job listings, WebMCP tools, and an x402 Doctor spec-check.",
-  "image": "https://agentx.sale/assets/og-home-v3.png",
+  "image": "https://agentx.sale/assets/og-home-v4.png",
   "services": [
     {
       "name": "x402",
