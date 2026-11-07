@@ -13,7 +13,7 @@
   ],
   "payment_details": {
     "x402": "v2, PAYMENT-REQUIRED header, USDC on Base (payTo 0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83) and Solana (payTo GiEwhMpHsqCq3G8pJTzLDyWHHwaS8XDLCZQNxKyUtJUX)",
-    "mpp": "IETF Machine Payments Protocol — WWW-Authenticate: Payment challenge (evm/charge via the Coinbase facilitator), Authorization: Payment credential, Payment-Receipt on every settled call",
+    "mpp": "IETF Machine Payments Protocol \u2014 WWW-Authenticate: Payment challenge (evm/charge via the Coinbase facilitator), Authorization: Payment credential, Payment-Receipt on every settled call",
     "stripe": "Shared Payment Token card flow on routes priced $1 and above (Stripe card minimum makes penny routes wallet-only)"
   },
   "authentication": {
@@ -28,5 +28,5 @@
     "registry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
     "explorer": "https://8004scan.io/agents/base/1135219"
   },
-  "version": "0.7.16"
+  "version": "0.7.17"
 }

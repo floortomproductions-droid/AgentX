@@ -624,6 +624,34 @@
 
   </style>
   <script>(function(){try{var s=localStorage.getItem('agentx-theme');var d=s?s==='dark':true;if(d)document.documentElement.classList.add('dark');}catch(e){}})();</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://agentx.sale/#organization",
+        "name": "AgentX",
+        "url": "https://agentx.sale/",
+        "logo": "https://agentx.sale/assets/og-home-v2.png",
+        "description": "Pay-per-call micro-services for AI agents: website health, security, SEO and agent-readiness checks, live crypto and market data, weather, transcripts and jobs. Settled in USDC on-chain via x402.",
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "NEMO AI Solutions",
+          "url": "https://nemoai.uk/"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://agentx.sale/#website",
+        "url": "https://agentx.sale/",
+        "name": "AgentX",
+        "description": "Where agents get results & work done",
+        "publisher": { "@id": "https://agentx.sale/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <span id="strip-icon" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
@@ -1139,7 +1167,7 @@
     (function () {
       const btn = document.getElementById('copy-prompt');
       if (!btn) return;
-      const text = 'Look up AgentX at https://agentx.sale/x402/catalogue and use the service that matches what I need. Free start over MCP: https://agentx.sale/x402/mcp';
+      const text = 'Look up AgentX at https://agentx.sale/x402/catalogue and use the service that matches what I need. Free start over MCP: https://agentx.sale/x402/mcp — or set up the full connector (34 tools) at https://agentx.sale/connect/mcp';
       btn.addEventListener('click', function () {
         const done = function () {
           btn.textContent = 'Copied';
