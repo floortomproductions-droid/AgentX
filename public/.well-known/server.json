@@ -3,7 +3,7 @@
   "name": "io.github.floortomproductions-droid/agentx-x402-gateway",
   "title": "NEMO x402 Micro-Services",
   "description": "34 paid tools: site/SEO, weather, crypto+markets, podcasts, YouTube, Polymarket. x402/MPP/Stripe.",
-  "version": "0.7.17",
+  "version": "0.7.18",
   "websiteUrl": "https://agentx.sale/x402/catalogue",
   "remotes": [
     {

@@ -3,7 +3,7 @@
   "name": "AgentX Micro-Services",
   "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, YouTube (search, video metadata, channels, full transcripts), ATS job listings and job details, podcast discovery (free) + podcast transcripts, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
-  "version": "0.7.16",
+  "version": "0.7.18",
   "provider": {
     "organization": "NEMO AI Solutions",
     "url": "https://nemoai.uk"
@@ -155,7 +155,7 @@
     {
       "id": "webmcp-check",
       "name": "WebMCP Check",
-      "description": "WebMCP agent-compatibility check with inventory and readiness verdict. GET https://agentx.sale/x402/webmcp-check?host=<domain> ($0.10)",
+      "description": "WebMCP compatibility check: what an agent sees on your site's tool surface, per-tool findings and the agent-ready verdict. GET https://agentx.sale/x402/webmcp-check?host=<domain> ($0.10)",
       "tags": [
         "webmcp",
         "agent-readiness"

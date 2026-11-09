@@ -1,6 +1,6 @@
 # agentx.sale — full catalog (generated from live /x402/catalogue)
 # 35 routes / 34 services, one payment per call (x402 USDC on Base + Solana; IETF MPP; Stripe cards on $1+ routes)
-# generated: 2026-11-04T12:48:31.835Z
+# generated: 2026-11-09T22:40:53.731Z
 # protocol: GET/POST -> 402 challenge -> settle (X-PAYMENT / MPP Authorization) -> retry -> result + Payment-Receipt
 
 ## GET endpoints
@@ -21,7 +21,7 @@ GET https://agentx.sale/x402/protocol-lint?url=<domain> — A2A / MCP protocol c
 
 GET https://agentx.sale/x402/crawler-policy?host=<domain> — TLS + security headers + AI-crawler policy matrix card ($0.01)
 
-GET https://agentx.sale/x402/webmcp-check?host=<domain> — WebMCP agent-compatibility check with pass/fail verdict, inventory and findings ($0.10)
+GET https://agentx.sale/x402/webmcp-check?host=<domain> — WebMCP compatibility check: what an agent sees on your site's tool surface, per-tool findings and the agent-ready verdict. Fix available via webmcp-upgrade ($0.10)
 
 GET https://agentx.sale/x402/kevcheck?software=<name>&version=<x.y.z> — CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Output includes kev.versionConfidence (high|uncertain) and may downgrade ACTIVELY EXPLOITED to POSSIBLE MATCH — verify affected versions ($0.10)
 

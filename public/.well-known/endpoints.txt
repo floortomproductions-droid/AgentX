@@ -1,5 +1,5 @@
 # agentx.sale — endpoint list (generated from live /x402/catalogue)
-# generated: 2026-11-04T12:48:31.837Z
+# generated: 2026-11-09T22:40:53.735Z
 
 GET https://agentx.sale/x402/weather?city=<city> ($0.01)
 GET https://agentx.sale/x402/site-health?host=<domain> ($0.01)

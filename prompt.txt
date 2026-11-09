@@ -15,7 +15,7 @@ Endpoints:
 - GET https://agentx.sale/x402/agent-card?host=<domain>: Site Agent-Readiness Verdict Card: discovery files, TLS, headers, AI-crawler policy, shareable card ($0.01)
 - GET https://agentx.sale/x402/protocol-lint?url=<domain>: A2A / MCP protocol card lint with drop-in patched JSON fixes ($0.01)
 - GET https://agentx.sale/x402/crawler-policy?host=<domain>: TLS + security headers + AI-crawler policy matrix card ($0.01)
-- GET https://agentx.sale/x402/webmcp-check?host=<domain>: WebMCP agent-compatibility check with pass/fail verdict, inventory and findings ($0.1)
+- GET https://agentx.sale/x402/webmcp-check?host=<domain>: WebMCP compatibility check: what an agent sees on your site's tool surface, per-tool findings and the agent-ready verdict. Fix available via webmcp-upgrade ($0.1)
 - GET https://agentx.sale/x402/kevcheck?software=<name>&version=<x.y.z>: CISA Known Exploited Vulnerabilities + NVD check for a software name and version. Output includes kev.versionConfidence (high|uncertain) and may downgrade ACTIVELY EXPLOITED to POSSIBLE MATCH — verify affected versions ($0.1)
 - GET https://agentx.sale/x402/crypto-ticker?assets=<symbols>: Live USD price + 24h move for up to 10 tokens (e.g. btc,eth) ($0.01)
 - GET https://agentx.sale/x402/fear-greed: Crypto Fear & Greed Index with the last 7 days of history ($0.01)

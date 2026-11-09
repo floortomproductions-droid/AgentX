@@ -155,7 +155,7 @@
     {
       "id": "webmcp-check",
       "name": "WebMCP Check",
-      "description": "WebMCP agent-compatibility check with inventory and readiness verdict. GET https://agentx.sale/x402/webmcp-check?host=<domain> ($0.10)",
+      "description": "WebMCP compatibility check: what an agent sees on your site's tool surface, per-tool findings and the agent-ready verdict. GET https://agentx.sale/x402/webmcp-check?host=<domain> ($0.10)",
       "tags": [
         "webmcp",
         "agent-readiness"
