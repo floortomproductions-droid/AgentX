@@ -4,7 +4,7 @@
 
 ## x402 micro-service gateway (/x402/*)
 
-All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): https://agentx.sale/x402/catalogue. Two MCP endpoints: https://agentx.sale/connect/mcp (connector — 34 tools, one per paid route, x402/MPP/Stripe settlement in-call) and https://agentx.sale/x402/mcp (discovery — free catalogue + x402 Doctor only). Registry: io.github.floortomproductions-droid/agentx-x402-gateway @ 0.7.18.
+All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): https://agentx.sale/x402/catalogue. Two MCP endpoints: https://agentx.sale/connect/mcp (connector — 34 tools, one per route, x402/MPP/Stripe settlement in-call) and https://agentx.sale/x402/mcp (discovery — free catalogue + x402 Doctor only). Registry: io.github.floortomproductions-droid/agentx-x402-gateway.
 
 - [Weather](https://agentx.sale/x402/weather?city=Aberdeen): live current weather for any city ($0.01, Open-Meteo)
 - [Site Health](https://agentx.sale/x402/site-health?host=example.com): DNS, TLS certificate and HTTP status/latency snapshot for a domain ($0.01)
@@ -37,16 +37,15 @@ All endpoints answer pay-per-call via x402. Catalogue (free, machine-readable): 
 - [YouTube Transcript](https://agentx.sale/x402/youtube-transcript?url=https://youtu.be/dQw4w9WgXcQ): full transcript segments and plainText ($0.02)
 - [ATS Job Listings](https://agentx.sale/x402/ats-jobs?platform=greenhouse&company=coinbase): open jobs from Greenhouse or Lever boards with query/location/department filters ($0.01)
 - [ATS Job Detail](https://agentx.sale/x402/ats-job?platform=greenhouse&company=coinbase&id=8175363): full job description by id or hosted URL ($0.01)
-- [FX Rates](https://agentx.sale/x402/fx-rates?base=USD): live FX rates ($0.01)
-- [Bitcoin Fees](https://agentx.sale/x402/btc-fees): current Bitcoin fee estimates ($0.01)
-- [BTC Fees](https://agentx.sale/x402/btc-fees): Bitcoin fee forecast — sat/vB for next block, 30 min, 1 hour, economy ($0.01)
+- [Podcast Lookup](https://agentx.sale/x402/podcast-lookup?feed=<rss-url-or-apple-id>): FREE podcast discovery — metadata and episode list (titles, dates, durations, audio urls, hasTranscript flags) from any RSS feed or Apple Podcasts id
+- [Podcast Transcript](https://agentx.sale/x402/podcast-transcript?feed=<rss-url-or-apple-id>&index=<n>): full transcript of a podcast episode with published transcript tags — text, VTT or JSON ($0.02)
+- [BTC Fees](https://agentx.sale/x402/btc-fees): Bitcoin fee estimates in sat/vB — next block, 30 min, 1 hour, economy ($0.01)
 
-## Agent marketplace store
+## Shopfront and machine surfaces
 
-- [Store API](https://agentx.sale/api/services): the live marketplace catalogue (web extract, web search, site mapper, browser agent, batch scrape)
-- [Health](https://agentx.sale/api/health): service health endpoint
-- [Challenge](https://agentx.sale/challenge): agent verification gate
-- [Services for humans](https://agentx.sale/services): human-readable service descriptions
+- [Catalogue](https://agentx.sale/x402/catalogue): all 34 services, routes, prices and payment rails (JSON, free)
+- [Gateway Health](https://agentx.sale/x402/health): live till health
+- [Services for humans](https://agentx.sale/services.html): the human-readable shopfront
 
 ## ERC-8004 identity
 - [ERC-8004 Identity](https://agentx.sale/.well-known/erc8004-registration.json): on-chain agent identity on Base (chainId 8453), agentId 1135219; resolve tokenURI(1135219) on IdentityRegistry 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432. x402Support: true.

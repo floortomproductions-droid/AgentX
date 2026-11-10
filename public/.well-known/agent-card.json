@@ -497,7 +497,7 @@
   "payments": {
     "x402": "v2, USDC (Base 8453 + Solana)",
     "mpp": "IETF Payment scheme (WWW-Authenticate: Payment), evm/charge via Coinbase facilitator",
-    "stripe": "cards via Shared Payment Tokens on routes >= $0.50",
+    "stripe": "cards via Shared Payment Tokens on routes >= $1.00",
     "receipt": "Payment-Receipt header on every settled call"
   }
 }
