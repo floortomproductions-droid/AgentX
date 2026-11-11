@@ -1,6 +1,6 @@
 ---
 name: agentx-microservices
-description: Use when an agent needs web/site/crypto/Polymarket/email/FX data as a one-off paid call — agentx.sale sells 34 pay-per-call x402 micro-services (USDC on Base). Load for any "get me <data> now" task without API keys.
+description: Use when an agent needs web/site/crypto/Polymarket/email/FX data as a one-off paid call — agentx.sale sells 34 pay-per-call x402 micro-services (USDC on Base + Polygon + Solana). Load for any "get me <data> now" task without API keys.
 ---
 
 # agentx.sale micro-services (x402 pay-per-call)

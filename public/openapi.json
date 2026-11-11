@@ -3,7 +3,7 @@
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
     "version": "0.7.0",
-    "description": "Pay-per-call agent services via x402 (USDC on Base + Solana). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp."
+    "description": "Pay-per-call agent services via x402 (USDC on Base + Polygon + Solana). Unauthenticated calls return HTTP 402 with PAYMENT-REQUIRED details (x402 v2). Free endpoints: /x402/catalogue, /x402/health. MCP streamable-HTTP endpoint: /x402/mcp."
   },
   "servers": [{ "url": "https://agentx.sale/x402" }],
   "paths": {
