@@ -3,7 +3,7 @@
   "info": {
     "title": "NEMO x402 Agent Micro-Services",
     "version": "0.7.19",
-    "description": "Pay-per-call agent services at agentx.sale — x402 (USDC Base+Solana), IETF MPP, Stripe on $1+ routes. 35 catalogue entries (34 distinct services).",
+    "description": "Pay-per-call agent services at agentx.sale — x402 (USDC on Base + Polygon + Solana), IETF MPP, Stripe on $1+ routes. 35 catalogue entries (34 distinct services).",
     "x-guidance": "Pay-per-call agent services: one HTTP 402 challenge per call, settle with x402 USDC (Base first, Polygon and Solana accepted) or MPP for $1+ routes. Free discovery: https://agentx.sale/x402/catalogue (JSON price list). Full MCP connector with all 34 tools: https://agentx.sale/connect/mcp. Free MCP: https://agentx.sale/x402/mcp (catalogue + x402 Doctor). Paid routes accept GET with query params or POST with JSON — the exact field names are in each operation's parameters below. After paying, the same request returns the result plus a Payment-Receipt.",
     "contact": {
       "email": "steve@nemoai.uk",
@@ -968,7 +968,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<cc,cc>"
+            "example": "USD,EUR"
           }
         ],
         "x-payment-info": {
@@ -1159,7 +1159,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<channel-url-or-@handle-or-UCid>"
+            "example": "https://www.youtube.com/@veritasium"
           }
         ],
         "x-payment-info": {
