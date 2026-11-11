@@ -33,7 +33,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<city>"
+            "example": "Aberdeen"
           }
         ],
         "x-payment-info": {
@@ -79,7 +79,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -125,7 +125,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<https-url>"
+            "example": "https://example.com"
           }
         ],
         "x-payment-info": {
@@ -171,7 +171,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<https-url>"
+            "example": "https://example.com"
           }
         ],
         "x-payment-info": {
@@ -217,7 +217,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -263,7 +263,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -309,7 +309,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -355,7 +355,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -401,7 +401,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -447,7 +447,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<name>"
+            "example": "nginx"
           },
           {
             "name": "version",
@@ -455,7 +455,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<x.y.z>"
+            "example": "1.2.3"
           }
         ],
         "x-payment-info": {
@@ -501,7 +501,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<symbols>"
+            "example": "btc,eth"
           }
         ],
         "x-payment-info": {
@@ -584,7 +584,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<base|ethereum|...>"
+            "example": "base"
           }
         ],
         "x-payment-info": {
@@ -630,7 +630,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           }
         ],
         "x-payment-info": {
@@ -676,7 +676,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<topic>"
+            "example": "fed rate cuts"
           }
         ],
         "x-payment-info": {
@@ -722,7 +722,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<topic>"
+            "example": "fed rate cuts"
           }
         ],
         "x-payment-info": {
@@ -768,7 +768,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<topic>"
+            "example": "fed rate cuts"
           },
           {
             "name": "days",
@@ -776,7 +776,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           }
         ],
         "x-payment-info": {
@@ -822,7 +822,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<topic>"
+            "example": "fed rate cuts"
           }
         ],
         "x-payment-info": {
@@ -868,7 +868,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           }
         ],
         "x-payment-info": {
@@ -914,7 +914,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<domain>"
+            "example": "example.com"
           }
         ],
         "x-payment-info": {
@@ -960,7 +960,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<cc>"
+            "example": "USD"
           },
           {
             "name": "symbols",
@@ -1051,7 +1051,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<query>"
+            "example": "ai agents"
           },
           {
             "name": "limit",
@@ -1059,7 +1059,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           },
           {
             "name": "filter",
@@ -1067,7 +1067,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<video|channel>"
+            "example": "video"
           }
         ],
         "x-payment-info": {
@@ -1113,7 +1113,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<video-url-or-id>"
+            "example": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           }
         ],
         "x-payment-info": {
@@ -1205,7 +1205,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<video-url>"
+            "example": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           },
           {
             "name": "lang",
@@ -1213,7 +1213,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<code>"
+            "example": "en"
           }
         ],
         "x-payment-info": {
@@ -1259,7 +1259,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<greenhouse|lever>"
+            "example": "greenhouse"
           },
           {
             "name": "company",
@@ -1267,7 +1267,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<slug>"
+            "example": "stripe"
           },
           {
             "name": "query",
@@ -1275,7 +1275,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<text>"
+            "example": "accountant"
           },
           {
             "name": "limit",
@@ -1283,7 +1283,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           }
         ],
         "x-payment-info": {
@@ -1329,7 +1329,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<rss-url-or-apple-id>"
+            "example": "https://example.com/podcast-feed.xml"
           },
           {
             "name": "limit",
@@ -1337,7 +1337,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           }
         ],
         "x-payment-info": {
@@ -1383,7 +1383,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<rss-url-or-apple-id>"
+            "example": "https://example.com/podcast-feed.xml"
           },
           {
             "name": "index",
@@ -1391,7 +1391,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<n>"
+            "example": "5"
           },
           {
             "name": "episode",
@@ -1399,7 +1399,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<guid-or-title>"
+            "example": "episode-1"
           },
           {
             "name": "format",
@@ -1407,7 +1407,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<text|vtt|json>"
+            "example": "json"
           }
         ],
         "x-payment-info": {
@@ -1453,7 +1453,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<greenhouse|lever>"
+            "example": "greenhouse"
           },
           {
             "name": "company",
@@ -1461,7 +1461,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<slug>"
+            "example": "stripe"
           },
           {
             "name": "id",
@@ -1469,7 +1469,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<job-id>"
+            "example": "1234567"
           }
         ],
         "x-payment-info": {
@@ -1626,7 +1626,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "<https-url>"
+            "example": "https://example.com"
           }
         ],
         "x-payment-info": {
