@@ -1,7 +1,7 @@
 {
   "protocolVersion": "0.3.0",
   "name": "AgentX Micro-Services",
-  "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, YouTube (search, video metadata, channels, full transcripts), ATS job listings and job details, podcast discovery (free) + podcast transcripts, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
+  "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, listed in the catalogue and settled on-chain via x402 (USDC on Base + Polygon + Solana) or the IETF Machine Payments Protocol (MPP): crypto ticker / gas / Fear&Greed, weather, YouTube (search, video metadata, channels, full transcripts), ATS job listings and job details, podcast discovery (free) + podcast transcripts, site health, security headers check, KEV/CVE check & SEO, full Polymarket toolkit, email deliverability, FX rates, Bitcoin fees, WebMCP tools, x402 Doctor, AI classify & keywords. Cards accepted via Stripe on premium routes. MCP: free catalogue + x402 Doctor.",
   "url": "https://agentx.sale",
   "version": "0.7.18",
   "provider": {
@@ -495,7 +495,7 @@
     }
   ],
   "payments": {
-    "x402": "v2, USDC (Base 8453 + Solana)",
+    "x402": "v2, USDC (Base 8453 + Polygon 137 + Solana)",
     "mpp": "IETF Payment scheme (WWW-Authenticate: Payment), evm/charge via Coinbase facilitator",
     "stripe": "cards via Shared Payment Tokens on routes >= $1.00",
     "receipt": "Payment-Receipt header on every settled call"

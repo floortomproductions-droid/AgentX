@@ -1,7 +1,7 @@
 {
   "schema_version": "2024-11-05",
   "name": "NEMO x402 Micro-Services",
-  "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, settled on-chain via x402 (USDC on Base + Solana) or the IETF Machine Payments Protocol (MPP); Stripe cards on $1+ routes. Free MCP catalogue and x402 Doctor at https://agentx.sale/x402/mcp.",
+  "description": "Thirty-four pay-per-call agent micro-services at agentx.sale, settled on-chain via x402 (USDC on Base + Polygon + Solana) or the IETF Machine Payments Protocol (MPP); Stripe cards on $1+ routes. Free MCP catalogue and x402 Doctor at https://agentx.sale/x402/mcp.",
   "contact_email": "steve@nemoai.uk",
   "url": "https://agentx.sale",
   "mcp_endpoint": "https://agentx.sale/connect/mcp",
@@ -12,7 +12,7 @@
     "stripe"
   ],
   "payment_details": {
-    "x402": "v2, PAYMENT-REQUIRED header, USDC on Base (payTo 0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83) and Solana (payTo GiEwhMpHsqCq3G8pJTzLDyWHHwaS8XDLCZQNxKyUtJUX)",
+    "x402": "v2, PAYMENT-REQUIRED header, USDC on Base and Polygon (payTo 0x9702dDF83ECB770f87FF6AF04156Be7241a3fe83) and Solana (payTo GiEwhMpHsqCq3G8pJTzLDyWHHwaS8XDLCZQNxKyUtJUX)",
     "mpp": "IETF Machine Payments Protocol \u2014 WWW-Authenticate: Payment challenge (evm/charge via the Coinbase facilitator), Authorization: Payment credential, Payment-Receipt on every settled call",
     "stripe": "Shared Payment Token card flow on routes priced $1 and above (Stripe card minimum makes penny routes wallet-only)"
   },

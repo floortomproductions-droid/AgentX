@@ -1,6 +1,6 @@
 # agentx.sale — full catalog (generated from live /x402/catalogue)
-# 35 routes / 34 services, one payment per call (x402 USDC on Base + Solana; IETF MPP; Stripe cards on $1+ routes)
-# generated: 2026-11-09T22:40:53.731Z
+# 35 routes / 34 services, one payment per call (x402 USDC on Base + Polygon + Solana; IETF MPP; Stripe cards on $1+ routes)
+# generated: 2026-11-11T11:54:34.258Z
 # protocol: GET/POST -> 402 challenge -> settle (X-PAYMENT / MPP Authorization) -> retry -> result + Payment-Receipt
 
 ## GET endpoints
