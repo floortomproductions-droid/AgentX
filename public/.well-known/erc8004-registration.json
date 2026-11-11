@@ -7,22 +7,22 @@
     {
       "name": "x402",
       "endpoint": "https://agentx.sale/x402/catalogue",
-      "version": "0.7.18"
+      "version": "0.7.19"
     },
     {
       "name": "mcp",
       "endpoint": "https://agentx.sale/x402/mcp",
-      "version": "0.7.18"
+      "version": "0.7.19"
     },
     {
       "name": "a2a",
       "endpoint": "https://agentx.sale/.well-known/agent-card.json",
-      "version": "0.7.18"
+      "version": "0.7.19"
     },
     {
       "name": "web",
       "endpoint": "https://agentx.sale/",
-      "version": "0.7.18"
+      "version": "0.7.19"
     }
   ],
   "x402Support": true,
