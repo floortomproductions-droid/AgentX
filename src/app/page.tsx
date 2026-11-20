@@ -36,9 +36,10 @@ async function getServices(searchParams: SearchParams): Promise<{ services: Serv
 export default async function Home({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
-  const { services, total } = await getServices(searchParams);
+  const sp = await searchParams;
+  const { services, total } = await getServices(sp);
 
   const categories = [
     { value: "all", label: "all" },
@@ -65,9 +66,9 @@ export default async function Home({
     { value: "ap-southeast", label: "ap-southeast" },
   ];
 
-  const currentCategory = searchParams.category || "all";
-  const currentProtocol = searchParams.protocol || "all";
-  const currentRegion = searchParams.region || "all";
+  const currentCategory = sp.category || "all";
+  const currentProtocol = sp.protocol || "all";
+  const currentRegion = sp.region || "all";
 
   return (
     <div className="min-h-screen" style={{ background: "#0a0a0a" }}>
